@@ -1,0 +1,17 @@
+{
+  "vars": {},
+  "css": [
+    "code.less",
+    "buttons.less",
+    "button-groups.less",
+    "badges.less",
+    "alerts.less",
+    "progress-bars.less",
+    "media.less",
+    "list-group.less",
+    "panels.less",
+    "wells.less",
+    "close.less"
+  ],
+  "js": []
+}

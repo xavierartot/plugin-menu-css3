@@ -1,0 +1,7 @@
+{
+    "name":    "Menu Css3",
+    "author":  "xavierartot <artotal@gmail.com>",
+    "license": "MIT",
+    "esi":     true,
+    "emotion": true
+}
