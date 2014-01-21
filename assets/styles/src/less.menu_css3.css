@@ -7622,58 +7622,74 @@ body,
 .container {
   width: auto;
 }
+form.form-l fieldset .form-group,
 form.form-bgc fieldset .form-group {
   height: 30px;
   margin-left: 1%;
 }
+form.form-l fieldset .form-group .row,
 form.form-bgc fieldset .form-group .row {
   float: left;
 }
+form.form-l fieldset .form-group .row .label-block,
 form.form-bgc fieldset .form-group .row .label-block {
   float: left;
   width: 187px;
 }
+form.form-l fieldset .form-group .row .bloc-size-normal,
 form.form-bgc fieldset .form-group .row .bloc-size-normal {
   width: 160px;
 }
+form.form-l fieldset .form-group .row .col-xs-1,
 form.form-bgc fieldset .form-group .row .col-xs-1 {
   width: 62px!important;
   height: 33px;
   float: left;
   margin-right: 20px;
 }
+form.form-l fieldset .form-group .row .col-xs-1 input,
 form.form-bgc fieldset .form-group .row .col-xs-1 input {
   width: 62px!important;
   height: 33px;
   float: left;
 }
+form.form-l fieldset .form-group .row .col-xs-1 select,
 form.form-bgc fieldset .form-group .row .col-xs-1 select {
   width: 62px!important;
 }
+form.form-l fieldset .form-group .row div.color,
 form.form-bgc fieldset .form-group .row div.color {
   width: 197px!important;
 }
+form.form-l fieldset .form-group .row div.color input,
 form.form-bgc fieldset .form-group .row div.color input {
   padding-left: 24%;
 }
+form.form-l fieldset .form-group .row div.help-color,
 form.form-bgc fieldset .form-group .row div.help-color {
   width: 100px!important;
 }
+form.form-l fieldset .form-group .row div input [type="radio"],
 form.form-bgc fieldset .form-group .row div input [type="radio"] {
   outline: none;
 }
+form.form-l fieldset .form-group .row div input,
 form.form-bgc fieldset .form-group .row div input {
   outline: none;
 }
+form.form-l fieldset .form-group .row div input:hover,
 form.form-bgc fieldset .form-group .row div input:hover,
+form.form-l fieldset .form-group .row div input:focus,
 form.form-bgc fieldset .form-group .row div input:focus {
   background-color: #fcfcfc;
   border: 1px solid #cccdce;
 }
+form.form-l fieldset .form-group .row div label,
 form.form-bgc fieldset .form-group .row div label {
   padding: 7px 0 0 0;
   text-align: left;
 }
+form.form-l fieldset .form-group .row div .help-block,
 form.form-bgc fieldset .form-group .row div .help-block {
   border: 1px solid #000;
   outline: none;
@@ -7695,6 +7711,7 @@ form.form-bgc fieldset .form-group .row div .help-block {
   background-repeat: repeat-x;
   filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#fff4f5f5', endColorstr='#ffdfdddd', GradientType=0);
 }
+form.form-l fieldset .form-group .row div abbr,
 form.form-bgc fieldset .form-group .row div abbr {
   width: 30px;
 }
@@ -7702,6 +7719,7 @@ form.form-bgc fieldset .form-group .row div abbr {
   max-width: 20%!important;
   margin-right: 5%;
 }
+#slider-l,
 #slider {
   margin-top: 2%;
   width: 290px!important;
@@ -7721,9 +7739,11 @@ abbr.slider {
   float: left;
 }
 @media (max-width: 782px) {
+  form.form-l fieldset .form-group .row div .radio label,
   form.form-bgc fieldset .form-group .row div .radio label {
     margin-left: 16%;
   }
+  form.form-l fieldset .form-group .row div .radio label input,
   form.form-bgc fieldset .form-group .row div .radio label input {
     margin-left: -27px;
   }
@@ -7747,7 +7767,7 @@ abbr.slider {
   .form-group .row .col-xs-1 {
     height: 47px!important;
   }
-  #slider {
+  #slider-l #slider {
     margin-top: 5%!important;
     width: 64%!important;
     margin-left: 3%!important;

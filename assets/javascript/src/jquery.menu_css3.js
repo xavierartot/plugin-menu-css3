@@ -1,10 +1,10 @@
 $(function() {
+  // slider bgc
   var $val = $( "#opacity-bgc" ).val();
   $( "#slider" ).slider({
     value: $val,
     min: 0,
     max: 100,
-    step: 1,
     slide: function( event, ui ) {
       $( "#opacity-bgc" ).val( ui.value );
     }
@@ -12,6 +12,20 @@ $(function() {
   $( "#slider" ).on('slide slidecreate slidechange slidestart slidestop', function( e ){
     console.log('The event ' + e.type + ' fired'  );
   });
+
+  var $val_l = $( "#opacity-l" ).val();
+  $( "#slider-l" ).slider({
+    value: $val_l,
+    min: 0,
+    max: 100,
+    slide: function( event, ui ) {
+      $( "#opacity-l" ).val( ui.value );
+    }
+  });
+  $( "#slider-l" ).on('slide slidecreate slidechange slidestart slidestop', function( e ){
+    console.log('The event ' + e.type + ' fired'  );
+  });
+
 
   $('.help-block').popover();
 
