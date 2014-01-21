@@ -2,6 +2,7 @@
 //@import "bootstrap-css/css/bootstrap.css";
 
 @import "jquery-ui-1.10.3.custom.less";
+@import "spectrum.less";
 body, #wpcontent {
   background-color: #EDEDED;
 }
@@ -11,25 +12,6 @@ body, #wpcontent {
     background-color: #F6F6F6
 }
 
-/*
-.nav-tabs {
-    margin-bottom: 0;
-    .border-bottom-width(0px);
-    margin-left: 4px;
-
-    li.active {
-      a {
-        background-color: #F6F6F6;
-        .border-top-radius(5px);
-        .border-right-radius(5px);
-        .border-left-radius(5px);
-      }
-    }
-}
-.tab-content {
-  margin-top: 0%;
-}
-*/
 .tabbable {
     margin: 10px;
     overflow: hidden;
@@ -91,6 +73,15 @@ form.form-bgc {
             width: 62px!important;
           }
         }
+        div.color {
+          width: 197px!important;
+          input {
+            padding-left: 24%;
+          }
+         }
+        div.help-color{
+          width: 100px!important;
+         }
         div {
           input [type="radio"] { outline: none; }
           input { 
@@ -102,6 +93,7 @@ form.form-bgc {
           }
           label {
             padding: 7px 0 0 0;
+            text-align: left;
           }
           .help-block {
             border: 1px solid #000;
@@ -131,7 +123,7 @@ form.form-bgc {
   }
 }
 #slider {
-  margin-top: 1%;
+  margin-top: 2%;
   width: 290px!important;
 }
 abbr.slider {
@@ -213,3 +205,18 @@ abbr.slider {
 }
 /* POP HOVER */
 .w {color: red; }
+
+// spectrum
+.sp-replacer {
+  padding: 0;
+  border: 0 none;
+  background: none;
+  padding: 8px 0 0 0;
+  position: absolute;
+  top: 0px;
+  left: 10%;
+}
+.sp-dd {
+  display: none;
+}
+

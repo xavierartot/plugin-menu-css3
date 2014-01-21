@@ -32,7 +32,7 @@ add_action('admin_notices', 'my_admin_notice');
     if ( $pagenow == 'admin.php' ) {
       //wp_register_style( 'bootstrap_css', plugins_url( 'menu_css3/assets/styles/less/bootstrap-css/css/bootstrap.css' ), false, '3.0.3', 'all' );
       //wp_enqueue_style( 'bootstrap_css' );
-      wp_register_style( 'menu_css3', plugins_url( 'menu_css3/assets/styles/src/less.menu_css3.css' ) );
+      wp_register_style( 'menu_css3', plugins_url( 'menu_css3/assets/styles/menu_css3.css' ) );
       wp_enqueue_style( 'menu_css3' );
    } 
   }
@@ -52,6 +52,9 @@ add_action('admin_notices', 'my_admin_notice');
 
     wp_register_script( 'bootstrap', '//netdna.bootstrapcdn.com/bootstrap/3.0.3/js/bootstrap.min.js', false, true, true );
     wp_enqueue_script( 'bootstrap' );
+
+    wp_register_script( 'spectrum_x', plugins_url( 'menu_css3/assets/javascript/spectrum.js' ),false, true, true  );
+    wp_enqueue_script( 'spectrum_x' );
 
     wp_register_script( 'menu_css3', plugins_url( 'menu_css3/assets/javascript/src/jquery.menu_css3.js' ),false, true, true  );
     wp_enqueue_script( 'menu_css3' );
@@ -79,38 +82,60 @@ function my_admin_menu() {
 
 // Supressions des options a la desactivation du plugin
 function xav_delete_register_settings() {
-  delete_option( 'height');
+  delete_option( 'mode-visuel-bgc' );
+  delete_option( 'height-bgc' );
+  delete_option( 'height-unite-bgc' );
+  delete_option( 'width-bgc' );
+  delete_option( 'width-unite-bgc' );
+  delete_option( 'margin-top-bgc' );
+  delete_option( 'margin-right-bgc' );
+  delete_option( 'margin-bottom-bgc' );
+  delete_option( 'margin-left-bgc' );
+  delete_option( 'margin-unite-bgc' );
+  delete_option( 'bgc-1-bgc' );
+  delete_option( 'bgc-2-bgc' );
+  delete_option( 'border-bgc' );
+  delete_option( 'border-size-bgc' );
+  delete_option( 'border-style-bgc' );
+  delete_option( 'box-shadow-horizontal-bgc' );
+  delete_option( 'box-shadow-vertical-bgc' );
+  delete_option( 'box-shadow-gradient-bgc' );
+  delete_option( 'box-shadow-size-bgc' );
+  delete_option( 'radius-top-left-bgc' );
+  delete_option( 'radius-top-right-bgc' );
+  delete_option( 'radius-bottom-left-bgc' );
+  delete_option( 'radius-bottom-right-bgc' );
+  delete_option( 'radius-unite-bgc' );
+  delete_option( 'opacity-bgc' );
 }
 // Ajoute les options
 function register_mysettings() {
-  register_setting( 'background-group', 'mode-visuel' );
-  register_setting( 'background-group', 'width' );
-  register_setting( 'background-group', 'height' );
-  register_setting( 'background-group', 'margin-top' );
-  register_setting( 'background-group', 'margin-right' );
-  register_setting( 'background-group', 'margin-bottom' );
-  register_setting( 'background-group', 'margin-left' );
-  register_setting( 'background-group', 'margin-unite' );
-  register_setting( 'background-group', 'bgc-bgc' );
-  register_setting( 'background-group', '' );
-  register_setting( 'background-group', '' );
-  register_setting( 'background-group', '' );
-  register_setting( 'background-group', '' );
-  register_setting( 'background-group', '' );
-  register_setting( 'background-group', '' );
-  register_setting( 'background-group', '' );
-  register_setting( 'background-group', '' );
-  register_setting( 'background-group', '' );
-  register_setting( 'background-group', '' );
-  register_setting( 'background-group', '' );
-  register_setting( 'background-group', '' );
-  register_setting( 'background-group', '' );
-  register_setting( 'background-group', '' );
-  register_setting( 'background-group', '' );
-  register_setting( 'background-group', '' );
-  register_setting( 'background-group', '' );
-  register_setting( 'background-group', '' );
-
+  register_setting( 'background-group', 'mode-visuel-bgc' );
+  register_setting( 'background-group', 'height-bgc' );
+  register_setting( 'background-group', 'height-unite-bgc' );
+  register_setting( 'background-group', 'width-bgc' );
+  register_setting( 'background-group', 'width-unite-bgc' );
+  register_setting( 'background-group', 'margin-top-bgc' );
+  register_setting( 'background-group', 'margin-right-bgc' );
+  register_setting( 'background-group', 'margin-bottom-bgc' );
+  register_setting( 'background-group', 'margin-left-bgc' );
+  register_setting( 'background-group', 'margin-unite-bgc' );
+  register_setting( 'background-group', 'bgc-1-bgc' );
+  register_setting( 'background-group', 'bgc-2-bgc' );
+  register_setting( 'background-group', 'border-bgc' );
+  register_setting( 'background-group', 'border-size-bgc' );
+  register_setting( 'background-group', 'border-style-bgc' );
+  register_setting( 'background-group', 'box-shadow-horizontal-bgc' );
+  register_setting( 'background-group', 'box-shadow-vertical-bgc' );
+  register_setting( 'background-group', 'box-shadow-gradient-bgc' );
+  register_setting( 'background-group', 'box-shadow-size-bgc' );
+  register_setting( 'background-group', 'radius-top-left-bgc' );
+  register_setting( 'background-group', 'radius-top-right-bgc' );
+  register_setting( 'background-group', 'radius-bottom-left-bgc' );
+  register_setting( 'background-group', 'radius-bottom-right-bgc' );
+  register_setting( 'background-group', 'radius-unite-bgc' );
+  register_setting( 'background-group', 'opacity-bgc' );
+ // register_setting( 'background-group', '' );
 }
 // demarre lessphp
 add_action( 'wp_enqueue_scripts', 'xav_css3_menus' );
@@ -144,13 +169,13 @@ function front_page()
 <div class="tabbable">
   <!-- Tabs -->
   <ul class="nav nav-tabs onglet">
-    <li class="active"><a href="#tabr1" data-toggle="tab">Links Menu</a></li>
-    <li><a href="#tabr2" data-toggle="tab">Background Menu</a></li>
+    <li class=""><a href="#tabr1" data-toggle="tab">Links Menu</a></li>
+    <li class="active"><a href="#tabr2" data-toggle="tab">Background Menu</a></li>
     <li><a href="#tabr3" data-toggle="tab">Documentation</a></li>
   </ul>
   <div class="tab-content container">
     <!-- Tabs 1 -->
-    <div class="tab-pane active" id="tabr1">
+    <div class="tab-pane " id="tabr1">
 
 <!--
       <div class="form-group">
@@ -177,7 +202,7 @@ function front_page()
 -->
     </div>
     <!-- Tabs 2-->
-    <div class="tab-pane " id="tabr2">
+    <div class="tab-pane active" id="tabr2">
       <form class="form-bgc form form-horizontal" role="form" action="options.php" method="post" accept-charset="utf-8">
         <?php settings_fields( 'background-group' ); ?>
         
@@ -229,10 +254,11 @@ function front_page()
                   <label class="control-label" for="height-unite-bgc">Unite: </label>
                 </div>
                 <div class="col-xs-1">
-                  <?php esc_attr( get_option( 'height-unite-bgc' ); ?>
+                  <?php $unite_percent = (esc_attr( get_option('height-unite-bgc') ) == '%') ? ' selected' : ''?>
+                  <?php $unite_px = (esc_attr( get_option('height-unite-bgc') ) == 'px') ? ' selected' : ''?>
                   <select name="height-unite-bgc" id="height-unite-bgc" class="form-control">
-                    <option>%</option>
-                    <option>px</option>
+                    <option<?php echo $unite_percent; ?>>%</option>
+                    <option<?php echo $unite_px; ?>>px</option>
                   </select>
                 </div>
                 <div class="col-xs-1">
@@ -245,29 +271,30 @@ function front_page()
               </div>
             </div>
 
-            <!-- width l -->
+            <!-- width -->
             <div class="form-group">
               <div class="row">
                 <div class="col-xs-2 label-block">
                   <label class="control-label" for="width-bgc">Width</label>
                 </div>
                 <div class="col-xs-2 bloc-size-normal">
-                  <input value="<?php esc_attr( get_option( 'width-bgc' ); ?>" type="text" name="width-bgc" id="width-bgc" class="form-control" placeholder="width-bgc">
+                  <input value="<?php echo esc_attr( get_option( 'width-bgc' ) ); ?>" type="text" name="width-bgc" id="width-bgc" class="form-control" placeholder="width">
                 </div>
                 <div class="col-xs-1 text-right">
                   <label class="control-label" for="width-unite-bgc">Unite: </label>
                 </div>
                 <div class="col-xs-1">
-                  <?php esc_attr( get_option( 'width-unite-bgc' ); ?>
+                  <?php $unite_percent = (esc_attr( get_option('width-unite-bgc') ) == '%') ? ' selected' : ''?>
+                  <?php $unite_px = (esc_attr( get_option('width-unite-bgc') ) == 'px') ? ' selected' : ''?>
                   <select class="form-control" name="width-unite-bgc" id="width-unite-bgc" >
-                    <option>%</option>
-                    <option>px</option>
+                    <option<?php echo $unite_percent; ?>>%</option>
+                    <option<?php echo $unite_px; ?>>px</option>
                   </select>
                 </div>
                 <div class="col-xs-1">
                   <button class="help-block" type="button" class="btn btn-default" data-container="body" data-toggle="popover" data-placement="top" 
                     data-content="" data-html="true" 
-                    data-original-title="width" title="">
+                    data-original-title="width"> 
                       Help
                   </button>
                 </div>
@@ -298,11 +325,12 @@ function front_page()
                 </div>
                 <div class="col-xs-1">
                   <label class="hidden" for="margin-unite-bgc">
-                      <?php esc_attr( get_option( 'margin-unite' ); ?>
+                      <?php $unite_percent = (esc_attr( get_option('margin-unite-bgc') ) == '%') ? ' selected' : ''?>
+                      <?php $unite_px = (esc_attr( get_option('margin-unite-bgc') ) == 'px') ? ' selected' : ''?>
                   </label>
                   <select class="form-control" name="margin-unite-bgc" id="margin-unite-bgc">
-                    <option value="">%</option>
-                    <option value="">px</option>
+                    <option<?php echo $unite_percent; ?>>%</option>
+                    <option<?php echo $unite_px; ?>>px</option>
                   </select>
                 </div>
                 <div class="col-xs-1">
@@ -319,12 +347,16 @@ function front_page()
               <div class="form-group">
                 <div class="row">
                   <div class="label-block col-xs-2">
-                    <label class="col-md-2 control-label" for="bgc-bgc">background</label>
+                    <label class="col-md-12 control-label" for="bgc-1-bgc">background color</label>
                   </div>
-                  <div class="col-xs-3">
-                    <input value="<?php echo esc_attr( get_option('bgc-bgc') ); ?>" id="bgc-bgc" placeholder="color" name="bgc-bgc" class="form-control" type="text">
+                  <div class="col-xs-4 color">
+                    <input value="<?php echo esc_attr( get_option('bgc-1-bgc') ); ?>" id="bgc-1-bgc" placeholder="color" name="bgc-1-bgc" class="form-control color" type="text">
                   </div>
-                  <div class="col-xs-1">
+                  <div class="col-xs-4 color">
+                    <label class="hidden" for="bgc-2-bgc"> </label>
+                    <input value="<?php echo esc_attr( get_option('bgc-2-bgc') ); ?>" id="bgc-2-bgc" placeholder="color" name="bgc-2-bgc" class="form-control color" type="text">
+                  </div>
+                  <div class="col-xs-2 help-color">
                     <button class="help-block" type="button" class="btn btn-default" data-container="body" data-toggle="popover" data-placement="top" 
                       data-content="the color for the background" data-html="true" 
                       data-original-title="color">
@@ -342,42 +374,43 @@ function front_page()
                     <label class="col-md-2 control-label" for="border-bgc">Border</label>
                   </div>
                   <div class="col-xs-2 bloc-size-normal">
-                    <input id="border-bgc" pattern="\d+" placeholder="border-bgc" value="<?php echo esc_attr( get_option('border-bgc') ); ?>" name="border-bgc" class="form-control" type="text">
+                    <input id="border-bgc" pattern="\d+" placeholder="border" value="<?php echo esc_attr( get_option('border-bgc') ); ?>" name="border-bgc" class="form-control" type="text">
                   </div>
                   <div class="col-xs-1">
-                    <label class="hidden" for="border-size">
-                      <?php esc_attr( get_option('border-style-bgc') ); ?>
+                    <label class="hidden" for="border-size-bgc"> 
+                      <?php $selected = esc_attr( get_option('border-size-bgc') ); ?>
                     </label>
                     <select class="form-control" name="border-size-bgc" id="border-size-bgc">
                       <option>size</option>
-                    <?php for ($i = 0; $i <= 20; $i++) {?>
-                      <?php echo '<option value="'.$i.'">'.$i.'</option>';
-                    <?php } ?>
+                    <?php for ($i = 1; $i <= 20; $i++) {
+                      $s = ( $i ==  $selected ) ? ' selected' : '';
+                      echo '<option value="'.$i.'"'.$s.'>'.$i.'</option>';
+                    } ?>
                     </select>
                   </div>
                   <div class="col-xs-1">
                     <label class="hidden" for="border-style-bgc">
-                      <?php esc_attr( get_option('border-style-bgc') ); ?>
+                      <?php $selected = esc_attr( get_option('border-style-bgc') ); ?>
                     </label>
                     <select class="form-control" name="border-style-bgc" id="border-style-bgc">
-                      <option>style</option>
-                      <option>none</option>
-                      <option>solid</option>
-                      <option>dotted</option>
-                      <option>dashed</option>
-                      <option>double</option>
-                      <option>groove</option>
-                      <option>ridge</option>
-                      <option>inset</option>
-                      <option>outset</option>
-                      <option>inherit</option>
+                      <option value="style"<?php echo $s = ( 'style' ==  $selected) ? ' selected' : ''; ?>>style</option>
+                      <option value="none"<?php echo $s = ( 'none' ==  $selected) ? ' selected' : ''; ?>>none</option>
+                      <option value="solid"<?php echo $s = ( 'solid' ==  $selected) ? ' selected' : ''; ?>>solid</option>
+                      <option value="dotted"<?php echo $s = ( 'dotted' ==  $selected) ? ' selected' : ''; ?>>dotted</option>
+                      <option value="dashed"<?php echo $s = ( 'dashed' ==  $selected) ? ' selected' : ''; ?>>dashed</option>
+                      <option value="double"<?php echo $s = ( 'double' ==  $selected) ? ' selected' : ''; ?>>double</option>
+                      <option value="groove"<?php echo $s = ( 'groove' ==  $selected) ? ' selected' : ''; ?>>groove</option>
+                      <option value="ridge"<?php echo $s = ( 'ridge' ==  $selected) ? ' selected' : ''; ?>>ridge</option>
+                      <option value="inset"<?php echo $s = ( 'inset' ==  $selected) ? ' selected' : ''; ?>>inset</option>
+                      <option value="outset"<?php echo $s = ( 'outset' ==  $selected) ? ' selected' : ''; ?>>outset</option>
+                      <option value="inherit"<?php echo $s = ( 'inherit' ==  $selected) ? ' selected' : ''; ?>>inherit</option>
                     </select>
                   </div>
                   
                   <div class="col-xs-1">
                     <button class="help-block" type="button" class="btn btn-default" data-container="body" data-toggle="popover" data-placement="top" 
-                    data-content="border color | pixel width | line style" data-html="true" 
-                    data-original-title="" title="Border">
+                    data-content="order: border color | pixel width | line style <br> leave empty for put at 'none'" data-html="true" 
+                    title="Border">
                       Help
                     </button>
                   </div>
@@ -396,39 +429,51 @@ function front_page()
                     <label class="col-md-2 control-label" for="box">Shadow </label>
                   </div>
                   <div class="col-xs-1">
-                    <label class="hidden" for="box-shadow-horizontal-bgc"></label>
+                    <label class="hidden" for="box-shadow-horizontal-bgc">
+                      <?php $selected = esc_attr( get_option('box-shadow-horizontal-bgc') ); ?>
+                    </label>
                     <select class="form-control" name="box-shadow-horizontal-bgc" id="box-shadow-horizontal-bgc">
                       <option>horizontal<option>
-                    <?php for ($i = 0; $i <= 20; $i++) {?>
-                      <?php echo '<option value="'.$i.'">'.$i.'</option>';
-                    <?php } ?>
+                    <?php for ($i = 1; $i <= 20; $i++) {
+                      $s = ( $i ==  $selected ) ? ' selected' : '';
+                      echo '<option value="'.$i.'"'.$s.'>'.$i.'</option>';
+                    } ?>
                     </select>
                   </div>
                   <div class="col-xs-1">
-                    <label class="hidden" for="box-shadow-vertical-bgc"></label>
+                    <label class="hidden" for="box-shadow-vertical-bgc">
+                      <?php $selected = esc_attr( get_option('box-shadow-vertical-bgc') ); ?>
+                    </label>
                     <select class="form-control" name="box-shadow-vertical-bgc" id="box-shadow-vertical-bgc">
                       <option>vertical<option>
-                    <?php for ($i = 0; $i <= 20; $i++) {?>
-                      <?php echo '<option value="'.$i.'">'.$i.'</option>';
-                    <?php } ?>
+                    <?php for ($i = 1; $i <= 20; $i++) {
+                      $s = ( $i ==  $selected ) ? ' selected' : '';
+                      echo '<option value="'.$i.'"'.$s.'>'.$i.'</option>';
+                    } ?>
                     </select>
                   </div>
                   <div class="col-xs-1">
-                    <label class="hidden" for="box-shadow-gradient"></label>
+                    <label class="hidden" for="box-shadow-gradient">
+                      <?php $selected = esc_attr( get_option('box-shadow-gradient-bgc') ); ?>
+                    </label>
                     <select class="form-control" name="box-shadow-gradient-bgc" id="box-shadow-gradient-bgc">
                       <option>gradient<option>
-                    <?php for ($i = 0; $i <= 20; $i++) {?>
-                      <?php echo '<option value="'.$i.'">'.$i.'</option>';
-                    <?php } ?>
+                    <?php for ($i = 1; $i <= 20; $i++) {
+                      $s = ( $i ==  $selected ) ? ' selected' : '';
+                      echo '<option value="'.$i.'"'.$s.'>'.$i.'</option>';
+                    } ?>
                     </select>
                   </div>
                   <div class="col-xs-1">
-                    <label class="hidden" for="box-shadow-size-bgc"></label>
+                    <label class="hidden" for="box-shadow-size-bgc">
+                      <?php $selected = esc_attr( get_option('box-shadow-size-bgc') ); ?>
+                    </label>
                     <select class="form-control" name="box-shadow-size-bgc" id="box-shadow-size-bgc">
                       <option>size<option>
-                    <?php for ($i = 0; $i <= 20; $i++) {?>
-                      <?php echo '<option value="'.$i.'">'.$i.'</option>';
-                    <?php } ?>
+                    <?php for ($i = 1; $i <= 20; $i++) {
+                      $s = ( $i ==  $selected ) ? ' selected' : '';
+                      echo '<option value="'.$i.'"'.$s.'>'.$i.'</option>';
+                    } ?>
                     </select>
                   </div>
                   <div class="col-xs-1">
@@ -448,25 +493,28 @@ function front_page()
                   </div>
                   <div class="col-xs-1">
                     <label class="hidden" for="radius-top-left-bgc"> </label>
-                    <input value="<?php echo esc_attr( get_option('radius-top-left-bgc') ); ?> type="text" class="form-control" name="radius-top-left-bgc" id="radius-top-left-bgc" placeholder="top left">
+                    <input value="<?php echo esc_attr( get_option('radius-top-left-bgc') ); ?>" type="text" class="form-control" name="radius-top-left-bgc" id="radius-top-left-bgc" placeholder="top left">
                   </div>
                   <div class="col-xs-1">
                     <label class="hidden" for="radius-top-right-bgc"> </label>
-                    <input value="<?php echo esc_attr( get_option('radius-top-right-bgc') ); ?> type="text" class="form-control" name="radius-top-right-bgc" id="radius-top-left-bgc" placeholder="top right">
+                    <input value="<?php echo esc_attr( get_option('radius-top-right-bgc') ); ?>" type="text" class="form-control" name="radius-top-right-bgc" id="radius-top-left-bgc" placeholder="top right">
                   </div>
                   <div class="col-xs-1">
                     <label class="hidden" for="radius-bottom-left-bgc"> </label>
-                    <input value="<?php echo esc_attr( get_option('radius-bottom-left-bgc') ); ?> type="text" class="form-control" name="radius-bottom-left-bgc" id="radius-bottom-left-bgc" placeholder="bottom left">
+                    <input value="<?php echo esc_attr( get_option('radius-bottom-left-bgc') ); ?>" type="text" class="form-control" name="radius-bottom-left-bgc" id="radius-bottom-left-bgc" placeholder="bottom left">
                   </div>
                   <div class="col-xs-1">
                     <label class="hidden" for="radius-bottom-right-bgc"> </label>
-                    <input value="<?php echo esc_attr( get_option('radius-bottom-right-bgc') ); ?> type="text" class="form-control" name="radius-bottom-right-bgc" id="radius-bottom-right-bgc" placeholder="bottom left">
+                    <input value="<?php echo esc_attr( get_option('radius-bottom-right-bgc') ); ?>" type="text" class="form-control" name="radius-bottom-right-bgc" id="radius-bottom-right-bgc" placeholder="bottom right">
                   </div>
                   <div class="col-xs-1">
-                    <label class="hidden" for="radius-unite-bgc"> </label>
+                    <label class="hidden" for="radius-unite-bgc"> 
+                      <?php $unite_percent = (esc_attr( get_option('radius-unite-bgc') ) == '%') ? ' selected' : ''?>
+                      <?php $unite_px = (esc_attr( get_option('radius-unite-bgc') ) == 'px') ? ' selected' : ''?>
+                    </label>
                     <select name="radius-unite-bgc" class="form-control" id="radius-unite-bgc">
-                      <option value="">%</option>
-                      <option  value="" selected>px</option>
+                      <option<?php echo $unite_percent; ?>>%</option>
+                      <option<?php echo $unite_px; ?>>px</option>
                     </select>
                   </div>
                   <div class="col-xs-1 abbr">
@@ -485,7 +533,7 @@ function front_page()
                     <label class="control-label" for="opacity-bgc">Opacity</label>
                   </div>
                   <div class="col-xs-1">
-                    <input value="<?php echo esc_attr( get_option('opacity-bgc') ); ?> type="text" class="form-control" name="opacity-bgc" id="opacity-bgc">
+                    <input value="<?php echo esc_attr( get_option('opacity-bgc') ); ?>" type="text" class="form-control" name="opacity-bgc" id="opacity-bgc">
                   </div>
 
                   <div class="col-xs-4" id="slider"></div> 
@@ -499,9 +547,9 @@ function front_page()
                   </div>
                 </div>
               </div>
-              
-          </fieldset>
-      </div>
+                
+            </fieldset>
+        </div>
 
         <button type="submit" name="panel_update" data-loading-text="Loading..." class="btn btn-primary">
           <?php _e('Save Changes') ?> &rarr;
