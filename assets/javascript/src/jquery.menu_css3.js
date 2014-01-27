@@ -45,4 +45,25 @@ $(function() {
   });
 
   $(".color input").show();
-});
+
+  $(".tab-bgc select").change(function() {
+      var $selected = $(this).find('option:selected').text();
+      $(this).parents('.form-group').find('input').each(function(i, e) {
+        $('#primary-navigation').css($(this).data('property'), $(this).val() + $selected );
+      });
+      
+  });
+
+  $(".tab-bgc :input").keyup(function() {
+      var p = $(this).data("property");
+      function get_property_name() {
+        return p;
+      }
+      //console.log( $(this).parents('.form-group').find('select option:selected').text() );
+      var $selected = $(this).parents('.form-group').find('select option:selected').text();
+      if( $(this).data("property")) {
+        $('#primary-navigation').css( p , $(this).val() + $selected );
+      }
+  });
+
+}); // End

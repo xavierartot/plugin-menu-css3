@@ -12,16 +12,37 @@ Version: 0.1.1
 Author URI: 
 */
 
-// CSS charge dans l'admin
-function my_admin_notice(){
-    global $pagenow;
-    if ( $pagenow == 'admin.php' ) {
-      echo '<div class="updated">
-        <p>This notice only appears on the plugins page.</p>
-      </div>';
-    }
-}
-add_action('admin_notices', 'my_admin_notice');
+// to include the javascript with wordpress, it's dynamic.
+// we use add_action('wp_ajax_NAME_FUNCTION-CALL', NAME_FUNCTION-CALL);
+// the first parameters going to match with action=xav_ajax:w
+//add_action('wp_ajax_xav_ajax', 'xav_ajax');
+//function xav_ajax() {
+//  $test = isset( $_POST['test']) ? $_POST['test'] :  null; 
+//  $msg = 'invalid';
+//  if( $test ) {
+//    $msg = 'valid'; 
+//  }
+//  echo $msg;
+//  die();
+//}
+//// we are going to add an action for including scripts, so the action is called
+//// admin_print_scripts-options-general.php
+////and then we are going to specify a function, this hook is used to include Javascripts
+//add_action('admin_print_scripts-options-general.php', 'xav_check_script');
+//function xav_check_script() {
+//  wp_enqueue_script( 'ajax-script', plugins_url( 'test.js', __FILE__ ), array('jquery')  );
+//}
+//
+//// CSS charge dans l'admin
+//function my_admin_notice(){
+//    global $pagenow;
+//    if ( $pagenow == 'admin.php' ) {
+//      echo '<div class="updated">
+//        <p>This notice only appears on the plugins page.</p>
+//      </div>';
+//    }
+//}
+//add_action('admin_notices', 'my_admin_notice');
 
   function load_custom_wp_admin_style() {
     // //netdna.bootstrapcdn.com/bootstrap/3.0.3/css/bootstrap.min.css  CDN BOOTSTRAP
@@ -51,9 +72,10 @@ add_action('admin_notices', 'my_admin_notice');
 
     wp_register_script( 'menu_css3', plugins_url( 'menu_css3/assets/javascript/src/jquery.menu_css3.js' ),false, true, true  );
     wp_enqueue_script( 'menu_css3' );
-
   }
-  add_action( 'admin_enqueue_scripts', 'xav_admin_scripts_js' );
+  if(is_admin()){
+    add_action( 'admin_enqueue_scripts', 'xav_admin_scripts_js' );
+  }
 
 
 add_action('admin_menu', 'my_admin_menu');
@@ -87,6 +109,11 @@ function register_mysettings() {
   register_setting( 'background-group', 'margin-bottom-bgc' );
   register_setting( 'background-group', 'margin-left-bgc' );
   register_setting( 'background-group', 'margin-unite-bgc' );
+  register_setting( 'background-group', 'padding-top-bgc' );
+  register_setting( 'background-group', 'padding-right-bgc' );
+  register_setting( 'background-group', 'padding-bottom-bgc' );
+  register_setting( 'background-group', 'padding-left-bgc' );
+  register_setting( 'background-group', 'padding-unite-bgc' );
   register_setting( 'background-group', 'bgc-1-bgc' );
   register_setting( 'background-group', 'bgc-2-bgc' );
   register_setting( 'background-group', 'border-bgc' );
@@ -133,13 +160,33 @@ function register_mysettings() {
   register_setting( 'link-group', 'radius-unite-l' );
   register_setting( 'link-group', 'opacity-l' );
   register_setting( 'link-group', 'color-1-l' );
-  register_setting( 'link-group', 'color-2-l' );
   register_setting( 'link-group', 'text-shadow-horizontal-l' );
   register_setting( 'link-group', 'text-shadow-vertical-l' );
   register_setting( 'link-group', 'text-shadow-blur-l' );
   register_setting( 'link-group', 'text-shadow-color-l' );
 
-
+  register_setting( 'animate-group', 'color-text-a' );
+  register_setting( 'animate-group', 'bgc-gradient-a' );
+  register_setting( 'animate-group', 'bgc-1-a' );
+  register_setting( 'animate-group', 'bgc-2-a' );
+  register_setting( 'animate-group', 'width-a' );
+  register_setting( 'animate-group', 'width-unite-a' );
+  register_setting( 'animate-group', 'height-a' );
+  register_setting( 'animate-group', 'height-unite-a' );
+  register_setting( 'animate-group', 'padding-top-a' );
+  register_setting( 'animate-group', 'padding-right-a' );
+  register_setting( 'animate-group', 'padding-bottom-a' );
+  register_setting( 'animate-group', 'padding-left-a' );
+  register_setting( 'animate-group', 'padding-unite-a' );
+  register_setting( 'animate-group', 'margin-top-a' );
+  register_setting( 'animate-group', 'margin-right-a' );
+  register_setting( 'animate-group', 'margin-bottom-a' );
+  register_setting( 'animate-group', 'margin-left-a' );
+  register_setting( 'animate-group', 'margin-unite-a' );
+  register_setting( 'animate-group', 'border-a' );
+  register_setting( 'animate-group', 'border-size-a' );
+  register_setting( 'animate-group', 'border-style-a' );
+  register_setting( 'animate-group', 'time-a' );
 
 }
 
@@ -161,29 +208,28 @@ function front_page()
 {
   $less = '';
   $less .= '
-  @height_l       :   '.esc_attr( get_option('test1') ).';
+  @height_l       :   '.esc_attr( get_option('width') ).';
 
   .cowgirl{
-    ssssssssssssssssss: '.esc_attr( get_option('test1') ).';
+    ssssssssssssssssss: '.esc_attr( get_option('width') ).';
   }
   ';
   file_put_contents(WP_PLUGIN_DIR . '/menu_css3/assets-front-end/less/variables.less' , $less);
   //echo $_GET['page'];
-  ?>
-
-
+?>
 <div class="tabbable">
   <!-- Tabs -->
   <ul class="nav nav-tabs onglet">
     <li class=""><a href="#tabr1" data-toggle="tab">Links Menu</a></li>
-    <li class=""><a href="#tabr2" data-toggle="tab">Background Menu</a></li>
-    <li class="active"><a href="#tabr3" data-toggle="tab">Animation</a></li>
+    <li class="active"><a href="#tabr2" data-toggle="tab">Background Menu</a></li>
+    <li class=""><a href="#tabr3" data-toggle="tab">Animation Hover</a></li>
     <li class=""><a href="#tabr4" data-toggle="tab">Documentation</a></li>
   </ul>
   <div class="tab-content container">
     <!-- Tabs 1 -->
     <div class="tab-pane" id="tabr1">
 
+      <h1>Links Menu</h1>
       <form class="form-l form form-horizontal" role="form" action="options.php" method="post" accept-charset="utf-8">
         <?php settings_fields( 'link-group' ); ?>
         
@@ -197,7 +243,7 @@ function front_page()
                   <label class="control-label" for="height-l">Height </label>
                 </div>
                 <div class="col-xs-2 bloc-size-normal">
-                  <input name="height-l" value="<?php echo esc_attr( get_option('height-l') ); ?>" id="height-l" type="text" class="form-control" placeholder="height">
+                  <input data-property="height" name="height-l" value="<?php echo esc_attr( get_option('height-l') ); ?>" id="height-l" type="text" class="form-control" placeholder="height">
                 </div>
                 <div class="col-xs-1 text-right">
                   <label class="control-label" for="height-unite-l">Unite: </label>
@@ -205,7 +251,7 @@ function front_page()
                 <div class="col-xs-1">
                   <?php $unite_percent = (esc_attr( get_option('height-unite-l') ) == '%') ? ' selected' : ''?>
                   <?php $unite_px = (esc_attr( get_option('height-unite-l') ) == 'px') ? ' selected' : ''?>
-                  <select name="height-unite-l" id="height-unite-l" class="form-control">
+                  <select data-select="unite" name="height-unite-l" id="height-unite-l" class="form-control">
                     <option<?php echo $unite_percent; ?>>%</option>
                     <option<?php echo $unite_px; ?>>px</option>
                   </select>
@@ -227,7 +273,7 @@ function front_page()
                   <label class="control-label" for="width-l">Width</label>
                 </div>
                 <div class="col-xs-2 bloc-size-normal">
-                  <input value="<?php echo esc_attr( get_option( 'width-l' ) ); ?>" type="text" name="width-l" id="width-l" class="form-control" placeholder="width">
+                  <input data-property="width" value="<?php echo esc_attr( get_option( 'width-l' ) ); ?>" type="text" name="width-l" id="width-l" class="form-control" placeholder="width">
                 </div>
                 <div class="col-xs-1 text-right">
                   <label class="control-label" for="width-unite-l">Unite: </label>
@@ -258,19 +304,19 @@ function front_page()
                 </div>
                 <div class="col-xs-1">
                   <label class="hidden" for="margin-top-l"></label>
-                  <input type="text" class="form-control" value="<?php echo esc_attr( get_option('margin-top-l') ); ?>" name="margin-top-l" id="margin-top-l" placeholder="top">
+                  <input data-property="margin-top" type="text" class="form-control" value="<?php echo esc_attr( get_option('margin-top-l') ); ?>" name="margin-top-l" id="margin-top-l" placeholder="top">
                 </div>
                 <div class="col-xs-1">
                   <label class="hidden" for="margin-right-l"></label>
-                  <input type="text" class="form-control" name="margin-right-l" value="<?php echo esc_attr( get_option('margin-right-l') ); ?>" id="margin-right-l" placeholder="right">
+                  <input data-property="margin-right" type="text" class="form-control" name="margin-right-l" value="<?php echo esc_attr( get_option('margin-right-l') ); ?>" id="margin-right-l" placeholder="right">
                 </div>
                 <div class="col-xs-1">
                   <label class="hidden" for="margin-bottom-l"></label>
-                  <input type="text" class="form-control" name="margin-bottom-l" value="<?php echo esc_attr( get_option('margin-bottom-l') ); ?>" id="margin-bottom-l" placeholder="bottom">
+                  <input data-property="margin-bottom" type="text" class="form-control" name="margin-bottom-l" value="<?php echo esc_attr( get_option('margin-bottom-l') ); ?>" id="margin-bottom-l" placeholder="bottom">
                 </div>
                 <div class="col-xs-1">
                   <label class="hidden" for="margin-left-l"></label>
-                  <input type="text" class="form-control" name="margin-left-l" value="<?php echo esc_attr( get_option('margin-left-l') ); ?>" id="margin-left-l" placeholder="left">
+                  <input data-property="margin-left" type="text" class="form-control" name="margin-left-l" value="<?php echo esc_attr( get_option('margin-left-l') ); ?>" id="margin-left-l" placeholder="left">
                 </div>
                 <div class="col-xs-1">
                   <label class="hidden" for="margin-unite-l">
@@ -300,19 +346,19 @@ function front_page()
                 </div>
                 <div class="col-xs-1">
                   <label class="hidden" for="padding-top-l"></label>
-                  <input type="text" class="form-control" value="<?php echo esc_attr( get_option('padding-top-l') ); ?>" name="padding-top-l" id="padding-top-l" placeholder="top">
+                  <input data-property="padding-top" type="text" class="form-control" value="<?php echo esc_attr( get_option('padding-top-l') ); ?>" name="padding-top-l" id="padding-top-l" placeholder="top">
                 </div>
                 <div class="col-xs-1">
                   <label class="hidden" for="padding-right-l"></label>
-                  <input type="text" class="form-control" name="padding-right-l" value="<?php echo esc_attr( get_option('padding-right-l') ); ?>" id="padding-right-l" placeholder="right">
+                  <input data-property="padding-right" type="text" class="form-control" name="padding-right-l" value="<?php echo esc_attr( get_option('padding-right-l') ); ?>" id="padding-right-l" placeholder="right">
                 </div>
                 <div class="col-xs-1">
                   <label class="hidden" for="padding-bottom-l"></label>
-                  <input type="text" class="form-control" name="padding-bottom-l" value="<?php echo esc_attr( get_option('padding-bottom-l') ); ?>" id="padding-bottom-l" placeholder="bottom">
+                  <input data-property="padding-bottom" type="text" class="form-control" name="padding-bottom-l" value="<?php echo esc_attr( get_option('padding-bottom-l') ); ?>" id="padding-bottom-l" placeholder="bottom">
                 </div>
                 <div class="col-xs-1">
                   <label class="hidden" for="padding-left-l"></label>
-                  <input type="text" class="form-control" name="padding-left-l" value="<?php echo esc_attr( get_option('padding-left-l') ); ?>" id="padding-left-l" placeholder="left">
+                  <input data-property="padding-left" type="text" class="form-control" name="padding-left-l" value="<?php echo esc_attr( get_option('padding-left-l') ); ?>" id="padding-left-l" placeholder="left">
                 </div>
                 <div class="col-xs-1">
                   <label class="hidden" for="padding-unite-l">
@@ -341,11 +387,11 @@ function front_page()
                   <label class="col-md-12 control-label" for="bgc-1-l">background color</label>
                 </div>
                 <div class="col-xs-4 color">
-                  <input value="<?php echo esc_attr( get_option('bgc-1-l') ); ?>" id="bgc-1-l" placeholder="color" name="bgc-1-l" class="form-control color" type="text">
+                  <input data-property="background" value="<?php echo esc_attr( get_option('bgc-1-l') ); ?>" id="bgc-1-l" placeholder="color" name="bgc-1-l" class="form-control color" type="text">
                 </div>
                 <div class="col-xs-4 color">
                   <label class="hidden" for="bgc-2-l"> </label>
-                  <input value="<?php echo esc_attr( get_option('bgc-2-l') ); ?>" id="bgc-2-l" placeholder="color" name="bgc-2-l" class="form-control color" type="text">
+                  <input data-property="background" value="<?php echo esc_attr( get_option('bgc-2-l') ); ?>" id="bgc-2-l" placeholder="color" name="bgc-2-l" class="form-control color" type="text">
                 </div>
                 <div class="col-xs-2 help-color">
                   <button class="help-block" type="button" class="btn btn-default" data-container="body" data-toggle="popover" data-placement="top" 
@@ -358,14 +404,13 @@ function front_page()
             </div>
 
               <!-- border -->
-
               <div class="form-group">
                 <div class="row">
                   <div class="label-block col-xs-2">
                     <label class="col-md-2 control-label" for="border-l">Border</label>
                   </div>
-                  <div class="col-xs-2 bloc-size-normal">
-                    <input id="border-l" pattern="\d+" placeholder="border" value="<?php echo esc_attr( get_option('border-l') ); ?>" name="border-l" class="form-control" type="text">
+                  <div class="col-xs-2 bloc-size-normal color">
+                    <input data-property="border-color" id="border-l" pattern="\d+" placeholder="border" value="<?php echo esc_attr( get_option('border-l') ); ?>" name="border-l" class="form-control" type="text">
                   </div>
                   <div class="col-xs-1">
                     <label class="hidden" for="border-size-l"> 
@@ -484,19 +529,19 @@ function front_page()
                   </div>
                   <div class="col-xs-1">
                     <label class="hidden" for="radius-top-left-l"> </label>
-                    <input value="<?php echo esc_attr( get_option('radius-top-left-l') ); ?>" type="text" class="form-control" name="radius-top-left-l" id="radius-top-left-l" placeholder="top left">
+                    <input data-property="border-top-left-radius" value="<?php echo esc_attr( get_option('radius-top-left-l') ); ?>" type="text" class="form-control" name="radius-top-left-l" id="radius-top-left-l" placeholder="top left">
                   </div>
                   <div class="col-xs-1">
                     <label class="hidden" for="radius-top-right-l"> </label>
-                    <input value="<?php echo esc_attr( get_option('radius-top-right-l') ); ?>" type="text" class="form-control" name="radius-top-right-l" id="radius-top-left-l" placeholder="top right">
-                  </div>
-                  <div class="col-xs-1">
-                    <label class="hidden" for="radius-bottom-left-l"> </label>
-                    <input value="<?php echo esc_attr( get_option('radius-bottom-left-l') ); ?>" type="text" class="form-control" name="radius-bottom-left-l" id="radius-bottom-left-l" placeholder="bottom left">
+                    <input data-property="border-top-right-radius" value="<?php echo esc_attr( get_option('radius-top-right-l') ); ?>" type="text" class="form-control" name="radius-top-right-l" id="radius-top-left-l" placeholder="top right">
                   </div>
                   <div class="col-xs-1">
                     <label class="hidden" for="radius-bottom-right-l"> </label>
-                    <input value="<?php echo esc_attr( get_option('radius-bottom-right-l') ); ?>" type="text" class="form-control" name="radius-bottom-right-l" id="radius-bottom-right-l" placeholder="bottom right">
+                    <input data-property="border-bottom-right-radius" value="<?php echo esc_attr( get_option('radius-bottom-right-l') ); ?>" type="text" class="form-control" name="radius-bottom-right-l" id="radius-bottom-right-l" placeholder="bottom right">
+                  </div>
+                  <div class="col-xs-1">
+                    <label class="hidden" for="radius-bottom-left-l"> </label>
+                    <input data-property="border-bottom-left-radius" value="<?php echo esc_attr( get_option('radius-bottom-left-l') ); ?>" type="text" class="form-control" name="radius-bottom-left-l" id="radius-bottom-left-l" placeholder="bottom left">
                   </div>
                   <div class="col-xs-1">
                     <label class="hidden" for="radius-unite-l"> 
@@ -524,7 +569,7 @@ function front_page()
                     <label class="control-label" for="opacity-l">Opacity</label>
                   </div>
                   <div class="col-xs-1">
-                    <input value="<?php echo esc_attr( get_option('opacity-l') ); ?>" type="text" class="form-control" name="opacity-l" id="opacity-l">
+                    <input data-property="opacity" value="<?php echo esc_attr( get_option('opacity-l') ); ?>" type="text" class="form-control" name="opacity-l" id="opacity-l">
                   </div>
 
                   <div class="col-xs-4" id="slider-l"></div> 
@@ -546,11 +591,7 @@ function front_page()
                   <label class="col-md-12 control-label" for="color-1-l">color</label>
                 </div>
                 <div class="col-xs-4 color">
-                  <input value="<?php echo esc_attr( get_option('color-1-l') ); ?>" id="color-1-l" placeholder="color" name="color-1-l" class="form-control color" type="text">
-                </div>
-                <div class="col-xs-4 color">
-                  <label class="hidden" for="color-2-l"> </label>
-                  <input value="<?php echo esc_attr( get_option('color-2-l') ); ?>" id="color-2-l" placeholder="color" name="color-2-l" class="form-control color" type="text">
+                  <input data-property="color" value="<?php echo esc_attr( get_option('color-1-l') ); ?>" id="color-1-l" placeholder="color" name="color-1-l" class="form-control color" type="text">
                 </div>
                 <div class="col-xs-2 help-color">
                   <button class="help-block" type="button" class="btn btn-default" data-container="body" data-toggle="popover" data-placement="top" 
@@ -570,19 +611,19 @@ function front_page()
                 </div>
                 <div class="col-xs-1">
                   <label class="hidden" for="text-shadow-horizontal-l"></label>
-                  <input type="text" class="form-control" value="<?php echo esc_attr( get_option('text-shadow-horizontal-l') ); ?>" name="text-shadow-horizontal-l" id="text-shadow-horizontal-l" placeholder="horizontal">
+                  <input data-property="" type="text" class="form-control" value="<?php echo esc_attr( get_option('text-shadow-horizontal-l') ); ?>" name="text-shadow-horizontal-l" id="text-shadow-horizontal-l" placeholder="horizontal">
                 </div>
                 <div class="col-xs-1">
                   <label class="hidden" for="text-shadow-vertical-l"></label>
-                  <input type="text" class="form-control" name="text-shadow-vertical-l" value="<?php echo esc_attr( get_option('text-shadow-vertical-l') ); ?>" id="text-shadow-vertical-l" placeholder="vertical">
+                  <input data-property="" type="text" class="form-control" name="text-shadow-vertical-l" value="<?php echo esc_attr( get_option('text-shadow-vertical-l') ); ?>" id="text-shadow-vertical-l" placeholder="vertical">
                 </div>
                 <div class="col-xs-1">
                   <label class="hidden" for="text-shadow-blur-l"></label>
-                  <input type="text" class="form-control" name="text-shadow-blur-l" value="<?php echo esc_attr( get_option('text-shadow-blur-l') ); ?>" id="text-shadow-blur-l" placeholder="blur">
+                  <input data-property="" type="text" class="form-control" name="text-shadow-blur-l" value="<?php echo esc_attr( get_option('text-shadow-blur-l') ); ?>" id="text-shadow-blur-l" placeholder="blur">
                 </div>
                 <div class="col-xs-4 color">
                   <label class="hidden" for="text-shadow-color-l"> </label>
-                  <input value="<?php echo esc_attr( get_option('text-shadow-color-l') ); ?>" id="text-shadow-color-l" placeholder="color" name="text-shadow-color-l" class="form-control color" type="text">
+                  <input data-property="" value="<?php echo esc_attr( get_option('text-shadow-color-l') ); ?>" id="text-shadow-color-l" placeholder="color" name="text-shadow-color-l" class="form-control color" type="text">
                 </div>
                 <div class="col-xs-1">
                   <button class="help-block" type="button" class="btn btn-default" data-container="body" data-toggle="popover" data-placement="top" 
@@ -631,7 +672,8 @@ function front_page()
     </div>
 
     <!-- Tabs 2-->
-    <div class="tab-pane" id="tabr2">
+    <div class="tab-pane active tab-bgc" id="tabr2">
+      <h1>Animation</h1>
       <form class="form-bgc form form-horizontal" role="form" action="options.php" method="post" accept-charset="utf-8">
         <?php settings_fields( 'background-group' ); ?>
         
@@ -677,7 +719,7 @@ function front_page()
                   <label class="control-label" for="height-bgc">Height </label>
                 </div>
                 <div class="col-xs-2 bloc-size-normal">
-                  <input name="height-bgc" value="<?php echo esc_attr( get_option('height-bgc') ); ?>" id="height-bgc" type="text" class="form-control" placeholder="height">
+                  <input data-property="height" name="height-bgc" value="<?php echo esc_attr( get_option('height-bgc') ); ?>" id="height-bgc" type="text" class="form-control" placeholder="height">
                 </div>
                 <div class="col-xs-1 text-right">
                   <label class="control-label" for="height-unite-bgc">Unite: </label>
@@ -707,7 +749,7 @@ function front_page()
                   <label class="control-label" for="width-bgc">Width</label>
                 </div>
                 <div class="col-xs-2 bloc-size-normal">
-                  <input value="<?php echo esc_attr( get_option( 'width-bgc' ) ); ?>" type="text" name="width-bgc" id="width-bgc" class="form-control" placeholder="width">
+                  <input data-property="width" value="<?php echo esc_attr( get_option( 'width-bgc' ) ); ?>" type="text" name="width-bgc" id="width-bgc" class="form-control" placeholder="width">
                 </div>
                 <div class="col-xs-1 text-right">
                   <label class="control-label" for="width-unite-bgc">Unite: </label>
@@ -738,19 +780,19 @@ function front_page()
                 </div>
                 <div class="col-xs-1">
                   <label class="hidden" for="margin-top-bgc"></label>
-                  <input type="text" class="form-control" value="<?php echo esc_attr( get_option('margin-top-bgc') ); ?>" name="margin-top-bgc" id="margin-top-bgc" placeholder="top">
+                  <input data-property="margin-top" type="text" class="form-control" value="<?php echo esc_attr( get_option('margin-top-bgc') ); ?>" name="margin-top-bgc" id="margin-top-bgc" placeholder="top">
                 </div>
                 <div class="col-xs-1">
                   <label class="hidden" for="margin-right-bgc"></label>
-                  <input type="text" class="form-control" name="margin-right-bgc" value="<?php echo esc_attr( get_option('margin-right-bgc') ); ?>" id="margin-right-bgc" placeholder="right">
+                  <input data-property="margin-right" type="text" class="form-control" name="margin-right-bgc" value="<?php echo esc_attr( get_option('margin-right-bgc') ); ?>" id="margin-right-bgc" placeholder="right">
                 </div>
                 <div class="col-xs-1">
                   <label class="hidden" for="margin-bottom-bgc"></label>
-                  <input type="text" class="form-control" name="margin-bottom-bgc" value="<?php echo esc_attr( get_option('margin-bottom-bgc') ); ?>" id="margin-bottom-bgc" placeholder="bottom">
+                  <input data-property="margin-bottom" type="text" class="form-control" name="margin-bottom-bgc" value="<?php echo esc_attr( get_option('margin-bottom-bgc') ); ?>" id="margin-bottom-bgc" placeholder="bottom">
                 </div>
                 <div class="col-xs-1">
                   <label class="hidden" for="margin-left-bgc"></label>
-                  <input type="text" class="form-control" name="margin-left-bgc" value="<?php echo esc_attr( get_option('margin-left-bgc') ); ?>" id="margin-left-bgc" placeholder="left">
+                  <input data-property="margin-left" type="text" class="form-control" name="margin-left-bgc" value="<?php echo esc_attr( get_option('margin-left-bgc') ); ?>" id="margin-left-bgc" placeholder="left">
                 </div>
                 <div class="col-xs-1">
                   <label class="hidden" for="margin-unite-bgc">
@@ -772,6 +814,46 @@ function front_page()
               </div>
             </div>
 
+            <div class="form-group">
+              <div class="row">
+                <div class="label-block col-xs-2">
+                  <label class="control-label" for="padding-bgc">Padding</label>
+                </div>
+                <div class="col-xs-1">
+                  <label class="hidden" for="padding-top-bgc"></label>
+                  <input data-property="padding-top" type="text" class="form-control" value="<?php echo esc_attr( get_option('padding-top-bgc') ); ?>" name="padding-top-bgc" id="padding-top-bgc" placeholder="top">
+                </div>
+                <div class="col-xs-1">
+                  <label class="hidden" for="padding-right-bgc"></label>
+                  <input data-property="padding-right" type="text" class="form-control" name="padding-right-bgc" value="<?php echo esc_attr( get_option('padding-right-bgc') ); ?>" id="padding-right-bgc" placeholder="right">
+                </div>
+                <div class="col-xs-1">
+                  <label class="hidden" for="padding-bottom-bgc"></label>
+                  <input data-property="padding-bottom" type="text" class="form-control" name="padding-bottom-bgc" value="<?php echo esc_attr( get_option('padding-bottom-bgc') ); ?>" id="padding-bottom-bgc" placeholder="bottom">
+                </div>
+                <div class="col-xs-1">
+                  <label class="hidden" for="padding-left-bgc"></label>
+                  <input data-property="padding-left" type="text" class="form-control" name="padding-left-bgc" value="<?php echo esc_attr( get_option('padding-left-bgc') ); ?>" id="padding-left-bgc" placeholder="left">
+                </div>
+                <div class="col-xs-1">
+                  <label class="hidden" for="padding-unite-bgc">
+                      <?php $unite_percent = (esc_attr( get_option('padding-unite-bgc') ) == '%') ? ' selected' : ''?>
+                      <?php $unite_px = (esc_attr( get_option('padding-unite-bgc') ) == 'px') ? ' selected' : ''?>
+                  </label>
+                  <select class="form-control" name="padding-unite-bgc" id="padding-unite-bgc">
+                    <option<?php echo $unite_percent; ?>>%</option>
+                    <option<?php echo $unite_px; ?>>px</option>
+                  </select>
+                </div>
+                <div class="col-xs-1">
+                  <button class="help-block" type="button" class="btn btn-default" data-container="body" data-toggle="popover" data-placement="top" 
+                    data-content="top | right | bottom | left" data-html="true" 
+                    data-original-title="Padding">
+                      Help
+                  </button>
+                </div>
+              </div>
+            </div>
               <!-- bgc -->
               <div class="form-group">
                 <div class="row">
@@ -779,11 +861,11 @@ function front_page()
                     <label class="col-md-12 control-label" for="bgc-1-bgc">background color</label>
                   </div>
                   <div class="col-xs-4 color">
-                    <input value="<?php echo esc_attr( get_option('bgc-1-bgc') ); ?>" id="bgc-1-bgc" placeholder="color" name="bgc-1-bgc" class="form-control color" type="text">
+                    <input data-gradient="gradient-1" value="<?php echo esc_attr( get_option('bgc-1-bgc') ); ?>" id="bgc-1-bgc" placeholder="color" name="bgc-1-bgc" class="form-control color" type="text">
                   </div>
                   <div class="col-xs-4 color">
                     <label class="hidden" for="bgc-2-bgc"> </label>
-                    <input value="<?php echo esc_attr( get_option('bgc-2-bgc') ); ?>" id="bgc-2-bgc" placeholder="color" name="bgc-2-bgc" class="form-control color" type="text">
+                    <input data-gradient="gradient-2" value="<?php echo esc_attr( get_option('bgc-2-bgc') ); ?>" id="bgc-2-bgc" placeholder="color" name="bgc-2-bgc" class="form-control color" type="text">
                   </div>
                   <div class="col-xs-2 help-color">
                     <button class="help-block" type="button" class="btn btn-default" data-container="body" data-toggle="popover" data-placement="top" 
@@ -802,21 +884,6 @@ function front_page()
                   <div class="label-block col-xs-2">
                     <label class="col-md-2 control-label" for="border-bgc">Border</label>
                   </div>
-                  <div class="col-xs-2 bloc-size-normal">
-                    <input id="border-bgc" pattern="\d+" placeholder="border" value="<?php echo esc_attr( get_option('border-bgc') ); ?>" name="border-bgc" class="form-control" type="text">
-                  </div>
-                  <div class="col-xs-1">
-                    <label class="hidden" for="border-size-bgc"> 
-                      <?php $selected = esc_attr( get_option('border-size-bgc') ); ?>
-                    </label>
-                    <select class="form-control" name="border-size-bgc" id="border-size-bgc">
-                      <option>size</option>
-                    <?php for ($i = 1; $i <= 20; $i++) {
-                      $s = ( $i ==  $selected ) ? ' selected' : '';
-                      echo '<option value="'.$i.'"'.$s.'>'.$i.'</option>';
-                    } ?>
-                    </select>
-                  </div>
                   <div class="col-xs-1">
                     <label class="hidden" for="border-style-bgc">
                       <?php $selected = esc_attr( get_option('border-style-bgc') ); ?>
@@ -834,6 +901,21 @@ function front_page()
                       <option value="outset"<?php echo $s = ( 'outset' ==  $selected) ? ' selected' : ''; ?>>outset</option>
                       <option value="inherit"<?php echo $s = ( 'inherit' ==  $selected) ? ' selected' : ''; ?>>inherit</option>
                     </select>
+                  </div>
+                  <div class="col-xs-1">
+                    <label class="hidden" for="border-size-bgc"> 
+                      <?php $selected = esc_attr( get_option('border-size-bgc') ); ?>
+                    </label>
+                    <select class="form-control" name="border-size-bgc" id="border-size-bgc">
+                      <option>size</option>
+                    <?php for ($i = 1; $i <= 20; $i++) {
+                      $s = ( $i ==  $selected ) ? ' selected' : '';
+                      echo '<option value="'.$i.'px"'.$s.'>'.$i.'</option>';
+                    } ?>
+                    </select>
+                  </div>
+                  <div class="col-xs-2 bloc-size-normal color">
+                    <input data-border="color" id="border-bgc" pattern="\d+" placeholder="border" value="<?php echo esc_attr( get_option('border-bgc') ); ?>" name="border-bgc" class="form-control" type="text">
                   </div>
                   
                   <div class="col-xs-1">
@@ -922,19 +1004,19 @@ function front_page()
                   </div>
                   <div class="col-xs-1">
                     <label class="hidden" for="radius-top-left-bgc"> </label>
-                    <input value="<?php echo esc_attr( get_option('radius-top-left-bgc') ); ?>" type="text" class="form-control" name="radius-top-left-bgc" id="radius-top-left-bgc" placeholder="top left">
+                    <input data-property="border-top-left-radius" value="<?php echo esc_attr( get_option('radius-top-left-bgc') ); ?>" type="text" class="form-control" name="radius-top-left-bgc" id="radius-top-left-bgc" placeholder="top left">
                   </div>
                   <div class="col-xs-1">
                     <label class="hidden" for="radius-top-right-bgc"> </label>
-                    <input value="<?php echo esc_attr( get_option('radius-top-right-bgc') ); ?>" type="text" class="form-control" name="radius-top-right-bgc" id="radius-top-left-bgc" placeholder="top right">
-                  </div>
-                  <div class="col-xs-1">
-                    <label class="hidden" for="radius-bottom-left-bgc"> </label>
-                    <input value="<?php echo esc_attr( get_option('radius-bottom-left-bgc') ); ?>" type="text" class="form-control" name="radius-bottom-left-bgc" id="radius-bottom-left-bgc" placeholder="bottom left">
+                    <input data-property="border-top-right-radius" value="<?php echo esc_attr( get_option('radius-top-right-bgc') ); ?>" type="text" class="form-control" name="radius-top-right-bgc" id="radius-top-left-bgc" placeholder="top right">
                   </div>
                   <div class="col-xs-1">
                     <label class="hidden" for="radius-bottom-right-bgc"> </label>
-                    <input value="<?php echo esc_attr( get_option('radius-bottom-right-bgc') ); ?>" type="text" class="form-control" name="radius-bottom-right-bgc" id="radius-bottom-right-bgc" placeholder="bottom right">
+                    <input data-property="border-bottom-right-radius" value="<?php echo esc_attr( get_option('radius-bottom-right-bgc') ); ?>" type="text" class="form-control" name="radius-bottom-right-bgc" id="radius-bottom-right-bgc" placeholder="bottom right">
+                  </div>
+                  <div class="col-xs-1">
+                    <label class="hidden" for="radius-bottom-left-bgc"> </label>
+                    <input data-property="border-bottom-left-radius" value="<?php echo esc_attr( get_option('radius-bottom-left-bgc') ); ?>" type="text" class="form-control" name="radius-bottom-left-bgc" id="radius-bottom-left-bgc" placeholder="bottom left">
                   </div>
                   <div class="col-xs-1">
                     <label class="hidden" for="radius-unite-bgc"> 
@@ -962,7 +1044,7 @@ function front_page()
                     <label class="control-label" for="opacity-bgc">Opacity</label>
                   </div>
                   <div class="col-xs-1">
-                    <input value="<?php echo esc_attr( get_option('opacity-bgc') ); ?>" type="text" class="form-control" name="opacity-bgc" id="opacity-bgc">
+                    <input data-property="opacity" value="<?php echo esc_attr( get_option('opacity-bgc') ); ?>" type="text" class="form-control" name="opacity-bgc" id="opacity-bgc">
                   </div>
 
                   <div class="col-xs-4" id="slider"></div> 
@@ -989,26 +1071,320 @@ function front_page()
     </div>
 
     <!-- Tabs 3-->
-    <div class="tab-pane active" id="tabr3">
+    <div class="tab-pane " id="tabr3">
       <h1>Animation</h1>
       <form class="form-l form form-horizontal" role="form" action="options.php" method="post" accept-charset="utf-8">
-        <?php settings_fields( 'link-group' ); ?>
-        
+        <?php settings_fields( 'animate-group' ); ?>
+
         <div class="col-8">
           <fieldset>
 
+            <!-- hover color -->
+            <div class="form-group">
+              <div class="row">
+                <div class="label-block col-xs-2">
+                  <label class="col-md-12 control-label" for="color-text-a">color</label>
+                </div>
+                <div class="col-xs-4 color">
+                  <input data-property="color" value="<?php echo esc_attr( get_option('color-text-a') ); ?>" id="color-text-a" placeholder="color" name="color-text-a" class="form-control color" type="text">
+                </div>
+                <div class="col-xs-2 help-color">
+                  <button class="help-block" type="button" class="btn btn-default" data-container="body" data-toggle="popover" data-placement="top" 
+                    data-content="the text color" data-html="true" 
+                    data-original-title="color">
+                      Help
+                  </button>
+                </div>
+              </div>
+            </div>
+
+            <div class="form-group">
+              <div class="row">
+                <div class="label-block col-xs-2">
+                  <label class="col-md-12 control-label" for="bgc-1-a">background color</label>
+                </div>
+                <div class="col-xs-4 color">
+                  <input data-property="background" value="<?php echo esc_attr( get_option('bgc-1-a') ); ?>" id="bgc-1-a" placeholder="color" name="bgc-1-a" class="form-control color" type="text">
+                </div>
+                <div class="col-xs-4 color">
+                  <label class="hidden" for="bgc-2-a"> </label>
+                  <input data-property="background" value="<?php echo esc_attr( get_option('bgc-2-a') ); ?>" id="bgc-2-a" placeholder="color" name="bgc-2-a" class="form-control color" type="text">
+                </div>
+                <div class="col-xs-1">
+                  <label class="hidden" for="bgc-gradient-a"> </label>
+                  <?php $horizontal= (esc_attr( get_option('bgc-gradient-a') ) == 'horizontal') ? ' selected' : ''?>
+                  <?php $vertical = (esc_attr( get_option('bgc-gradient-a') ) == 'vertical') ? ' selected' : ''?>
+                  <?php $radial = (esc_attr( get_option('bgc-gradient-a') ) == 'radial') ? ' selected' : ''?>
+                  <select name="bgc-gradient-a" id="bgc-gradient-a" class="form-control">
+                    <option value="horizontal"<?php echo $horizontal; ?>>horizontal</option>
+                    <option value="vertical"<?php echo $vertical; ?>>vertical</option>
+                    <option value="radial"<?php echo $radial; ?>>radial</option>
+                  </select>
+                </div>
+                <div class="col-xs-2 help-color">
+                  <button class="help-block" type="button" class="btn btn-default" data-container="body" data-toggle="popover" data-placement="top" 
+                    data-content="the color for the background hover" data-html="true" 
+                    data-original-title="color">
+                      Help
+                  </button>
+                </div>
+              </div>
+            </div>
+
+            <div class="form-group">
+              <div class="row">
+                <div class="col-xs-2 label-block">
+                  <label class="control-label" for="width-a">Width</label>
+                </div>
+                <div class="col-xs-2 bloc-size-normal">
+                  <input data-property="width" value="<?php echo esc_attr( get_option( 'width-a' ) ); ?>" type="text" name="width-a" id="width-a" class="form-control" placeholder="width">
+                </div>
+                <div class="col-xs-1 text-right">
+                  <label class="control-label" for="width-unite-a">Unite: </label>
+                </div>
+                <div class="col-xs-1">
+                  <?php $unite_percent = (esc_attr( get_option('width-unite-a') ) == '%') ? ' selected' : ''?>
+                  <?php $unite_px = (esc_attr( get_option('width-unite-a') ) == 'px') ? ' selected' : ''?>
+                  <select class="form-control" name="width-unite-a" id="width-unite-a" >
+                    <option<?php echo $unite_percent; ?>>%</option>
+                    <option<?php echo $unite_px; ?>>px</option>
+                  </select>
+                </div>
+                <div class="col-xs-1">
+                  <button class="help-block" type="button" class="btn btn-default" data-container="body" data-toggle="popover" data-placement="top" 
+                    data-content="" data-html="true" 
+                    data-original-title="width"> 
+                      Help
+                  </button>
+                </div>
+              </div>
+            </div>
+
+            <div class="form-group">
+              <div class="row">
+                <div class="label-block col-xs-2">
+                  <label class="control-label" for="height-a">Height </label>
+                </div>
+                <div class="col-xs-2 bloc-size-normal">
+                  <input data-property="height" name="height-a" value="<?php echo esc_attr( get_option('height-a') ); ?>" id="height-a" type="text" class="form-control" placeholder="height">
+                </div>
+                <div class="col-xs-1 text-right">
+                  <label class="control-label" for="height-unite-a">Unite: </label>
+                </div>
+                <div class="col-xs-1">
+                  <?php $unite_percent = (esc_attr( get_option('height-unite-a') ) == '%') ? ' selected' : ''?>
+                  <?php $unite_px = (esc_attr( get_option('height-unite-a') ) == 'px') ? ' selected' : ''?>
+                  <select name="height-unite-a" id="height-unite-a" class="form-control">
+                    <option<?php echo $unite_percent; ?>>%</option>
+                    <option<?php echo $unite_px; ?>>px</option>
+                  </select>
+                </div>
+                <div class="col-xs-1">
+                  <button class="help-block" type="button" class="btn btn-default" data-container="body" data-toggle="popover" data-placement="top" 
+                    data-content="" data-html="true" 
+                    data-original-title="height"> 
+                      Help
+                  </button>
+                </div>
+              </div>
+            </div>
+
+            <div class="form-group">
+              <div class="row">
+                <div class="label-block col-xs-2">
+                  <label class="control-label" for="padding-a">Padding</label>
+                </div>
+                <div class="col-xs-1">
+                  <label class="hidden" for="padding-top-a"> ee</label>
+                  <input data-property="padding-top" type="text" class="form-control" value="<?php echo esc_attr( get_option('padding-top-a') ); ?>" name="padding-top-a" id="padding-top-a" placeholder="top">
+                </div>
+                <div class="col-xs-1">
+                  <label class="hidden" for="padding-right-a"></label>
+                  <input data-property="padding-right" type="text" class="form-control" name="padding-right-a" value="<?php echo esc_attr( get_option('padding-right-a') ); ?>" id="padding-right-a" placeholder="right">
+                </div>
+                <div class="col-xs-1">
+                  <label class="hidden" for="padding-bottom-a"></label>
+                  <input data-property="padding-bottom" type="text" class="form-control" name="padding-bottom-a" value="<?php echo esc_attr( get_option('padding-bottom-a') ); ?>" id="padding-bottom-a" placeholder="bottom">
+                </div>
+                <div class="col-xs-1">
+                  <label class="hidden" for="padding-left-a"></label>
+                  <input data-property="padding-left" type="text" class="form-control" name="padding-left-a" value="<?php echo esc_attr( get_option('padding-left-a') ); ?>" id="padding-left-a" placeholder="left">
+                </div>
+                <div class="col-xs-1">
+                  <label class="hidden" for="padding-unite-a">
+                      <?php $unite_percent = (esc_attr( get_option('padding-unite-a') ) == '%') ? ' selected' : ''?>
+                      <?php $unite_px = (esc_attr( get_option('padding-unite-a') ) == 'px') ? ' selected' : ''?>
+                  </label>
+                  <select class="form-control" name="padding-unite-a" id="padding-unite-a">
+                    <option<?php echo $unite_percent; ?>>%</option>
+                    <option<?php echo $unite_px; ?>>px</option>
+                  </select>
+                </div>
+                <div class="col-xs-1">
+                  <button class="help-block" type="button" class="btn btn-default" data-container="body" data-toggle="popover" data-placement="top" 
+                    data-content="top | right | bottom | left" data-html="true" 
+                    data-original-title="Padding">
+                      Help
+                  </button>
+                </div>
+              </div>
+            </div>
+
+            <div class="form-group">
+              <div class="row">
+                <div class="label-block col-xs-2">
+                  <label class="control-label" for="margin-a">Margin </label>
+                </div>
+                <div class="col-xs-1">
+                  <label class="hidden" for="margin-top-a"></label>
+                  <input data-property="margin-top" type="text" class="form-control" value="<?php echo esc_attr( get_option('margin-top-a') ); ?>" name="margin-top-a" id="margin-top-a" placeholder="top">
+                </div>
+                <div class="col-xs-1">
+                  <label class="hidden" for="margin-right-a"></label>
+                  <input data-property="margin-right" type="text" class="form-control" name="margin-right-a" value="<?php echo esc_attr( get_option('margin-right-a') ); ?>" id="margin-right-a" placeholder="right">
+                </div>
+                <div class="col-xs-1">
+                  <label class="hidden" for="margin-bottom-a"></label>
+                  <input data-property="margin-bottom" type="text" class="form-control" name="margin-bottom-a" value="<?php echo esc_attr( get_option('margin-bottom-a') ); ?>" id="margin-bottom-a" placeholder="bottom">
+                </div>
+                <div class="col-xs-1">
+                  <label class="hidden" for="margin-left-a"></label>
+                  <input data-property="margin-left" type="text" class="form-control" name="margin-left-a" value="<?php echo esc_attr( get_option('margin-left-a') ); ?>" id="margin-left-a" placeholder="left">
+                </div>
+                <div class="col-xs-1">
+                  <label class="hidden" for="margin-unite-a">
+                      <?php $unite_percent = (esc_attr( get_option('margin-unite-a') ) == '%') ? ' selected' : ''?>
+                      <?php $unite_px = (esc_attr( get_option('margin-unite-a') ) == 'px') ? ' selected' : ''?>
+                  </label>
+                  <select class="form-control" name="margin-unite-a" id="margin-unite-a">
+                    <option<?php echo $unite_percent; ?>>%</option>
+                    <option<?php echo $unite_px; ?>>px</option>
+                  </select>
+                </div>
+                <div class="col-xs-1">
+                  <button class="help-block" type="button" class="btn btn-default" data-container="body" data-toggle="popover" data-placement="top" 
+                    data-content="top | right | bottom | left" data-html="true" 
+                    data-original-title="margin">
+                      Help
+                  </button>
+                </div>
+              </div>
+            </div>
+
+            <div class="form-group">
+              <div class="row">
+                <div class="label-block col-xs-2">
+                  <label class="col-md-2 control-label" for="border-a">Border</label>
+                </div>
+                <div class="col-xs-2 bloc-size-normal color">
+                  <input data-property="border-color" id="border-a" pattern="\d+" placeholder="border" value="<?php echo esc_attr( get_option('border-a') ); ?>" name="border-a" class="form-control" type="text">
+                </div>
+                <div class="col-xs-1">
+                  <label class="hidden" for="border-size-a"> 
+                    <?php $selected = esc_attr( get_option('border-size-a') ); ?>
+                  </label>
+                  <select class="form-control" name="border-size-a" id="border-size-a">
+                    <option>size</option>
+                  <?php for ($i = 1; $i <= 20; $i++) {
+                    $s = ( $i ==  $selected ) ? ' selected' : '';
+                    echo '<option value="'.$i.'"'.$s.'>'.$i.'</option>';
+                  } ?>
+                  </select>
+                </div>
+                <div class="col-xs-1">
+                  <label class="hidden" for="border-style-a">
+                    <?php $selected = esc_attr( get_option('border-style-a') ); ?>
+                  </label>
+                  <select class="form-control" name="border-style-a" id="border-style-a">
+                    <option value="style"<?php echo $s = ( 'style' ==  $selected) ? ' selected' : ''; ?>>style</option>
+                    <option value="none"<?php echo $s = ( 'none' ==  $selected) ? ' selected' : ''; ?>>none</option>
+                    <option value="solid"<?php echo $s = ( 'solid' ==  $selected) ? ' selected' : ''; ?>>solid</option>
+                    <option value="dotted"<?php echo $s = ( 'dotted' ==  $selected) ? ' selected' : ''; ?>>dotted</option>
+                    <option value="dashed"<?php echo $s = ( 'dashed' ==  $selected) ? ' selected' : ''; ?>>dashed</option>
+                    <option value="double"<?php echo $s = ( 'double' ==  $selected) ? ' selected' : ''; ?>>double</option>
+                    <option value="groove"<?php echo $s = ( 'groove' ==  $selected) ? ' selected' : ''; ?>>groove</option>
+                    <option value="ridge"<?php echo $s = ( 'ridge' ==  $selected) ? ' selected' : ''; ?>>ridge</option>
+                    <option value="inset"<?php echo $s = ( 'inset' ==  $selected) ? ' selected' : ''; ?>>inset</option>
+                    <option value="outset"<?php echo $s = ( 'outset' ==  $selected) ? ' selected' : ''; ?>>outset</option>
+                    <option value="inherit"<?php echo $s = ( 'inherit' ==  $selected) ? ' selected' : ''; ?>>inherit</option>
+                  </select>
+                </div>
+                
+                <div class="col-xs-1">
+                  <button class="help-block" type="button" class="btn btn-default" data-container="body" data-toggle="popover" data-placement="top" 
+                  data-content="order: border color | pixel width | line style <br> leave empty for put at 'none'" data-html="true" 
+                  title="Border">
+                    Help
+                  </button>
+                </div>
+              </div>
+            </div>
+
+            <div class="form-group">
+              <div class="row">
+                <div class="label-block col-xs-2">
+                  <label class="col-md-12 control-label" for="time-a">time</label>
+                </div>
+                <div class="col-xs-4 ">
+                  <input data-animate="" value="<?php echo esc_attr( get_option('time-a') ); ?>" id="time-a" placeholder="timer" name="time-a" class="form-control " type="text">
+                </div>
+                <div class="col-xs-2 help-color">
+                  <button class="help-block" type="button" class="btn btn-default" data-container="body" data-toggle="popover" data-placement="top" 
+                    data-content="the duration for the animate in millisecond" data-html="true" 
+                    data-original-title="color">
+                      Help
+                  </button>
+                </div>
+              </div>
+            </div>
+
+
           </fieldset>
         </div>
+
+        <button type="submit" name="panel_update" data-loading-text="Loading..." class="btn btn-primary">
+          <?php _e('Save Changes') ?> &rarr;
+        </button>
+        <input type="hidden" name="panel_nonce_animate" value="<?php echo wp_create_nonce('animate-panel'); ?>">
+      </form>
+
       </form>
     </div>
 
     <!-- Tabs 3-->
-    <div class="tab-pane " id="tabr4">
-      <h1>Documantation</h1>
+    <div class="tab-pane " id="-grouptabr4">
+      <h1>Documentation</h1>
     </div>
   </div><!-- FIN Tabs -->
 
 </div>
+
+
+<div id="primary-navigation">
+<?php
+$defaults = array(
+  'theme_location'  => '',
+  'menu'            => '',
+  'container'       => 'div',
+  'container_class' => 'nav-menu',
+  'container_id'    => '',
+  'menu_class'      => '',
+  'menu_id'         => '',
+  'echo'            => true,
+  'fallback_cb'     => 'wp_page_menu',
+  'before'          => '',
+  'after'           => '',
+  'link_before'     => '',
+  'link_after'      => '',
+  'items_wrap'      => '<ul id="%1$s" class="%2$s">%3$s</ul>',
+  'depth'           => 3,
+  'walker'          => ''
+);
+wp_nav_menu( $defaults );
+?>
+</nav>
+
+
 <?php
 }
 ?>

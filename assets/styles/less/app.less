@@ -141,6 +141,37 @@ abbr.slider {
   float: left;
 }
 
+#primary-navigation{
+  position:fixed;bottom:0px;width:100%; left: 210px;
+  float: right;
+  font-size: 11px;
+  margin: 0 1px 0 -12px;
+  padding: 0;
+  text-transform: uppercase;
+  .nav-menu {
+    margin-right:auto;
+    margin-left:auto; /*what ever other styles*/
+    display: block;
+    ul {
+      list-style: none;
+      margin: 0;
+      li {
+        border: 0;
+        display: inline-block;
+        height: 48px;
+        line-height: 48px;
+        position: relative;
+        a {
+          display: inline-block;
+          padding: 0 12px;
+          white-space: nowrap;
+        }
+      }
+    }
+  }
+}
+
+
 @media (max-width: 782px) {
  form.form-l, form.form-bgc {
   fieldset{
