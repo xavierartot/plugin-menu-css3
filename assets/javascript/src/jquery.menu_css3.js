@@ -8,6 +8,10 @@ $(function() {
 //  else if( $tab_links ) { $meta = $("#primary-navigation a");}
 //  else if($tab_animate ) { $meta = $("#primary-navigation a:hover");}  
 //
+
+  //$('#primary-navigation').data();
+
+
   // slider bgc
   var $val = $( "#opacity-bgc" ).val();
   $( "#slider" ).slider({
@@ -59,10 +63,10 @@ $(function() {
       var $tab_bgc = $(this).parents( "div.tab-bgc" ).length;
       var $tab_links = $(this).parents( "div.tab-links" ).length;
       var $tab_animate = $(this).parents( "div.tab-animate" ).length;
-      var $meta = '';
+      var $meta = ''; var $metaHover = '';
       if( $tab_bgc ) { $meta = $("#primary-navigation");}
       else if( $tab_links ) { $meta = $("#primary-navigation a");}
-      else if($tab_animate ) { $meta = $("#primary-navigation a:hover");}  
+      else if($tab_animate ) { $metaHover = $("#primary-navigation a:hover");}  
 
 
       if( $(this).data('gradient') ) {
@@ -76,6 +80,7 @@ $(function() {
        $meta.css("background-image", "-moz-linear-gradient(top, "+$gradient_1+" 0%,"+$gradient_2+" 100%)");
        $meta.css("background-image", "-o-linear-gradient(top, "+$gradient_1+" 0%,"+$gradient_2+" 100%)");
        $meta.css("background-image", "linear-gradient(top, "+$gradient_1+" 0%,"+$gradient_2+" 100%)");
+
       } 
 
       if($(this).data('border') ) {
@@ -100,6 +105,11 @@ $(function() {
       } 
     },
   });
+
+  // hover background-color
+  //if($metaHover.is(':hover')){
+  //     console.log($(this).val());
+  //}
 
   $(".color input").keyup(function() {
     var $tab_bgc = $(this).parents( "div.tab-bgc" ).length;
@@ -203,6 +213,23 @@ $(function() {
     }
   });
 
+  // text-align
+  $('input[type=radio]').change(function(){
+    if($(this).find('input[type="radio"]:checked').length === 0 ) {
+      var $tab_bgc = $(this).parents( "div.tab-bgc" ).length;
+      var $tab_links = $(this).parents( "div.tab-links" ).length;
+      var $tab_animate = $(this).parents( "div.tab-animate" ).length;
+      var $meta = '';
+      if( $tab_bgc ) { $meta = $("#primary-navigation");}
+      else if( $tab_links ) { $meta = $("#primary-navigation a");}
+      else if($tab_animate ) { $meta = $("#primary-navigation a:hover");}  
+
+      console.log( $(this).val() );
+      $meta.css( 'text-align' ,$(this).val() );
+    }
+  });
+
+
   $("input").keyup(function() {
 
     var $tab_bgc = $(this).parents( "div.tab-bgc" ).length;
@@ -213,7 +240,7 @@ $(function() {
     else if( $tab_links ) { $meta = $("#primary-navigation a");}
     else if($tab_animate ) { $meta = $("#primary-navigation a:hover");}  
 
-    
+   console.log('eee'); 
     var p = $(this).data("property");
     function get_property_name() {
       return p;
@@ -221,8 +248,21 @@ $(function() {
     var $selected = $(this).closest('div.form-group').find('select option:selected').text();
     var $val_input = ( !$(this).val().length ) ? 'inherit' : $(this).val() + $selected;
     if( $(this).data("property")) {
+      //console.log(p, $val_input);
       $meta.css( p , $val_input );
     }
+  });
+
+  $('#effects a').click( function() {
+
+    $('#effects a').removeClass('selected ');
+    var effet = $(this).removeClass('button').attr('class');
+    $(this).addClass('button selected').addClass('selected').addClass(effet);
+    
+    //console.log(effet);
+    $("#primary-navigation a").removeClass().addClass(effet);
+    $('#effet-a').val(effet);
+    
   });
 
   // gradient animate
@@ -238,6 +278,6 @@ $(function() {
   //
   //    ++interval;
   //}, 50);
-
+  //$('#primary-navigation .nav-menu ul li a').addClass('grow');
 
 }); // End

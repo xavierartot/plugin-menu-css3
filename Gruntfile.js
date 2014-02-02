@@ -27,6 +27,7 @@ module.exports = function (grunt) {
             }
         },
 
+    
         cssmin : {
             combine : {
                 files : {
@@ -45,9 +46,10 @@ module.exports = function (grunt) {
             }
         },
 
+
         uglify: {
             options: {
-                //sourceMap: 'assets/javascript/jquery.<%= pkg.name %>.sourcemap.js',
+               sourceMap: 'assets/javascript/jquery.<%= pkg.name %>.sourcemap.js',
                 banner: '/*! <%= pkg.name %> <%= grunt.template.today("dd-mm-yyyy") %> */\n'
             },
             dist: {
@@ -82,20 +84,22 @@ module.exports = function (grunt) {
         },
 
 
+
         watch: {
             files: [
                 '<%= jshint.files %>',
                 'assets/styles/src/*.css',
-                'assets/styles/less/*.less'
+                'assets/styles/less/*.less',
+                'assets/styles/less/effects/*.less'
             ],
             tasks: [ 'jshint', 'less:development', 'cssmin' ]
         }
     });
 
     // Common npm tasks
-    grunt.loadNpmTasks('grunt-contrib-uglify');
     grunt.loadNpmTasks('grunt-contrib-jshint');
     grunt.loadNpmTasks('grunt-contrib-watch');
+    grunt.loadNpmTasks('grunt-contrib-uglify');
     grunt.loadNpmTasks('grunt-contrib-concat');
     grunt.loadNpmTasks('grunt-contrib-less');
     grunt.loadNpmTasks('grunt-contrib-cssmin');

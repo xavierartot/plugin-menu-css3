@@ -17,6 +17,7 @@
     "grunt-contrib-concat": "latest",
     "grunt-contrib-less": "latest",
     "grunt-contrib-cssmin": "latest",
-    "grunt-bower-install-shopware": "latest"
+    "grunt-bower-install-shopware": "latest",
+    "grunt-autoprefixer": "~0.6.5"
   }
 }

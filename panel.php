@@ -72,9 +72,15 @@ Author URI:
 
     wp_register_script( 'menu_css3', plugins_url( 'menu_css3/assets/javascript/src/jquery.menu_css3.js' ),false, true, true  );
     wp_enqueue_script( 'menu_css3' );
+
+    wp_register_script( 'prefix', plugins_url( 'menu_css3/assets/javascript/prefixfree.min.js' ),false, true, true  );
+    wp_enqueue_script( 'prefix' );
   }
   if(is_admin()){
-    add_action( 'admin_enqueue_scripts', 'xav_admin_scripts_js' );
+      add_action( 'admin_enqueue_scripts', 'xav_admin_scripts_js' );
+      global $pagenow;
+        if ( $pagenow == 'admin.php' ) {
+    }
   }
 
 
@@ -99,7 +105,6 @@ function my_admin_menu() {
 // Ajoute les options
 function register_mysettings() {
   // background
-  register_setting( 'background-group', 'mode-visuel-bgc' );
   register_setting( 'background-group', 'height-bgc' );
   register_setting( 'background-group', 'height-unite-bgc' );
   register_setting( 'background-group', 'width-bgc' );
@@ -129,11 +134,15 @@ function register_mysettings() {
   register_setting( 'background-group', 'radius-bottom-right-bgc' );
   register_setting( 'background-group', 'radius-unite-bgc' );
   register_setting( 'background-group', 'opacity-bgc' );
+
   // link
+  register_setting( 'link-group', 'text-align-l' );
   register_setting( 'link-group', 'height-l' );
   register_setting( 'link-group', 'height-unite-l' );
   register_setting( 'link-group', 'width-l' );
   register_setting( 'link-group', 'width-unite-l' );
+  register_setting( 'link-group', 'line-height-l' );
+  register_setting( 'link-group', 'line-height-unite-l' );
   register_setting( 'link-group', 'margin-top-l' );
   register_setting( 'link-group', 'margin-right-l' );
   register_setting( 'link-group', 'margin-bottom-l' );
@@ -220,14 +229,14 @@ function front_page()
 <div class="tabbable">
   <!-- Tabs -->
   <ul class="nav nav-tabs onglet">
-    <li class="active"><a href="#tabr1" data-toggle="tab">Links Menu</a></li>
+    <li class=""><a href="#tabr1" data-toggle="tab">Links Menu</a></li>
     <li class=""><a href="#tabr2" data-toggle="tab">Background Menu</a></li>
-    <li class=""><a href="#tabr3" data-toggle="tab">Animation Hover</a></li>
+    <li class="active"><a href="#tabr3" data-toggle="tab">Animation Hover</a></li>
     <li class=""><a href="#tabr4" data-toggle="tab">Documentation</a></li>
   </ul>
   <div class="tab-content container">
     <!-- Tabs 1 -->
-    <div class="tab-pane tab-links active " id="tabr1">
+    <div class="tab-pane tab-links" id="tabr1">
 
       <h1>Links Menu</h1>
       <form class="form-l form form-horizontal" role="form" action="options.php" method="post" accept-charset="utf-8">
@@ -235,6 +244,43 @@ function front_page()
         
         <div class="col-8">
           <fieldset>
+
+            <div class="form-group" style="height: 100px;">
+              <div class="row">
+                <div class="col-xs-2 label-block">
+                  <label class="">Align Text</label>
+                </div>
+                <?php $left = (esc_attr( get_option('text-align-l') ) == 'left') ? ' checked' : ''?>
+                <?php $center= (esc_attr( get_option('text-align-l') ) == 'center') ? ' checked' : ''?>
+                <?php $right= (esc_attr( get_option('text-align-l') ) == 'right') ? ' checked' : ''?>
+                <div class="col-xs-2 bloc-size-normal">
+                  <div class="radio">
+                    <label for="left">
+                      Left
+                      <input data-text="left" type="radio" name="text-align-l" id="left" value="left"<?php echo $left; ?>>
+                    </label>
+                  </div>
+                  <div class="radio">
+                    <label for="center">
+                      Center
+                      <input data-text="center" type="radio" name="text-align-l" id="center" value="center"<?php echo $center; ?>>
+                    </label>
+                  </div><div class="radio">
+                    <label for="right">
+                      Right
+                      <input data-text="right" type="radio" name="text-align-l" id="right" value="right"<?php echo $right; ?>>
+                    </label>
+                  </div>
+                </div>
+                <div class="col-xs-1">
+                  <button class="help-block" type="button" class="btn btn-default" data-container="body" data-toggle="popover" data-placement="top" 
+                    data-content="Align you terxt here" data-html="true" 
+                    data-original-title="mode">
+                      Help
+                  </button>
+                </div>
+              </div>
+            </div>
 
               <!-- height -->
             <div class="form-group">
@@ -295,6 +341,38 @@ function front_page()
                 </div>
               </div>
             </div>
+
+            <!-- line-height -->
+            <div class="form-group">
+              <div class="row">
+                <div class="label-block col-xs-2">
+                  <label class="control-label" for="line-height-l">Vertical Text</label>
+                </div>
+                <div class="col-xs-2 bloc-size-normal">
+                  <input data-property="line-height" name="line-height-l" value="<?php echo esc_attr( get_option('line-height-l') ); ?>" id="line-height-l" type="text" class="form-control" placeholder="line-height">
+                </div>
+                <div class="col-xs-1 text-right">
+                  <label class="control-label" for="width-unite-l">Unite: </label>
+                </div>
+                <div class="col-xs-1">
+                  <?php $unite_percent = (esc_attr( get_option('line-height-unite-l') ) == '%') ? ' selected' : ''?>
+                  <?php $unite_px = (esc_attr( get_option('line-height-unite-l') ) == 'px') ? ' selected' : ''?>
+                  <select data-unite="unite" data-select="unite" name="line-height-unite-l" id="line-height-unite-l" class="form-control">
+                    <option<?php echo $unite_px; ?>>px</option>
+                    <option<?php echo $unite_percent; ?>>%</option>
+                  </select>
+                </div>
+                <div class="col-xs-1">
+                  <button class="help-block" type="button" class="btn btn-default" data-container="body" data-toggle="popover" data-placement="top" 
+                    data-content="" data-html="true" 
+                    data-original-title="height" title="">
+                      Help
+                  </button>
+                </div>
+              </div>
+            </div>
+
+
 
             <!-- margin -->
             <div class="form-group">
@@ -384,7 +462,7 @@ function front_page()
             <div class="form-group">
               <div class="row">
                 <div class="label-block col-xs-2">
-                  <label class="col-md-12 control-label" for="bgc-1-l">background color</label>
+                  <label class="col-md-12 control-label" for="bgc-1-l">Background Color</label>
                 </div>
                 <div class="col-xs-4 color">
                   <input data-gradient="gradient-1" value="<?php echo esc_attr( get_option('bgc-1-l') ); ?>" i="bgc-1-l" placeholder="color" name="bgc-1-l" class="form-control color" type="text">
@@ -582,7 +660,7 @@ function front_page()
             <div class="form-group">
               <div class="row">
                 <div class="label-block col-xs-2">
-                  <label class="col-md-12 control-label" for="color-l">color</label>
+                  <label class="col-md-12 control-label" for="color-l">Color</label>
                 </div>
                 <div class="col-xs-4 color">
                   <input data-text="color" value="<?php echo esc_attr( get_option('color-l') ); ?>" id="color-l" placeholder="color" name="color-l" class="form-control color" type="text">
@@ -676,36 +754,6 @@ function front_page()
           <fieldset>
 
             <!-- Multiple Radios (inline) -->
-              <div class="form-group" style="height: 60px;">
-                <div class="row">
-                  <div class="col-xs-2 label-block">
-                    <label class="">Mode </label>
-                  </div>
-                  <?php $responsive = (esc_attr( get_option('mode-visuel-bgc') ) == 'responsive') ? ' checked' : ''?>
-                  <?php $pixel = (esc_attr( get_option('mode-visuel-bgc') ) == 'pixel') ? ' checked' : ''?>
-                  <div class="col-xs-2 bloc-size-normal">
-                    <div class="radio">
-                      <label for="responsive">
-                        Responsive
-                        <input type="radio" name="mode-visuel-bgc" id="responsive" value="responsive"<?php echo $responsive; ?>>
-                      </label>
-                    </div>
-                    <div class="radio">
-                      <label for="pixel">
-                        Fixe
-                        <input type="radio" name="mode-visuel-bgc" id="pixel" value="pixel"<?php echo $pixel; ?>>
-                      </label>
-                    </div>
-                  </div>
-                  <div class="col-xs-1">
-                    <button class="help-block" type="button" class="btn btn-default" data-container="body" data-toggle="popover" data-placement="top" 
-                      data-content="responsive all value will in %" data-html="true" 
-                      data-original-title="mode">
-                        Help
-                    </button>
-                  </div>
-                </div>
-              </div>
 
               <!-- height -->
           <div class="form-group">
@@ -849,28 +897,28 @@ function front_page()
                 </div>
               </div>
             </div>
-              <!-- bgc -->
-              <div class="form-group">
-                <div class="row">
-                  <div class="label-block col-xs-2">
-                    <label class="col-md-12 control-label" for="bgc-1-bgc">background color</label>
-                  </div>
-                  <div class="col-xs-4 color">
-                    <input data-gradient="gradient-1" value="<?php echo esc_attr( get_option('bgc-1-bgc') ); ?>" id="bgc-1-bgc" placeholder="color" name="bgc-1-bgc" class="form-control color" type="text">
-                  </div>
-                  <div class="col-xs-4 color">
-                    <label class="hidden" for="bgc-2-bgc"> </label>
-                    <input data-gradient="gradient-2" value="<?php echo esc_attr( get_option('bgc-2-bgc') ); ?>" id="bgc-2-bgc" placeholder="color" name="bgc-2-bgc" class="form-control color" type="text">
-                  </div>
-                  <div class="col-xs-2 help-color">
-                    <button class="help-block" type="button" class="btn btn-default" data-container="body" data-toggle="popover" data-placement="top" 
-                      data-content="the color for the background" data-html="true" 
-                      data-original-title="color">
-                        Help
-                    </button>
-                  </div>
+            <!-- bgc -->
+            <div class="form-group">
+              <div class="row">
+                <div class="label-block col-xs-2">
+                  <label class="col-md-12 control-label" for="bgc-1-bgc">background color</label>
+                </div>
+                <div class="col-xs-4 color">
+                  <input data-gradient="gradient-1" value="<?php echo esc_attr( get_option('bgc-1-bgc') ); ?>" id="bgc-1-bgc" placeholder="color" name="bgc-1-bgc" class="form-control color" type="text">
+                </div>
+                <div class="col-xs-4 color">
+                  <label class="hidden" for="bgc-2-bgc"> </label>
+                  <input data-gradient="gradient-2" value="<?php echo esc_attr( get_option('bgc-2-bgc') ); ?>" id="bgc-2-bgc" placeholder="color" name="bgc-2-bgc" class="form-control color" type="text">
+                </div>
+                <div class="col-xs-2 help-color">
+                  <button class="help-block" type="button" class="btn btn-default" data-container="body" data-toggle="popover" data-placement="top" 
+                    data-content="the color for the background" data-html="true" 
+                    data-original-title="color">
+                      Help
+                  </button>
                 </div>
               </div>
+            </div>
 
               <!-- border -->
 
@@ -1061,9 +1109,9 @@ function front_page()
     </div>
 
     <!-- Tabs 3-->
-    <div class="tab-pane tab-animate" id="tabr3">
+    <div class="tab-pane tab-animate active" id="tabr3">
       <h1>Animation</h1>
-      <form class="form-l form form-horizontal" role="form" action="options.php" method="post" accept-charset="utf-8">
+      <form class="form-a form form-horizontal" role="form" action="options.php" method="post" accept-charset="utf-8">
         <?php settings_fields( 'animate-group' ); ?>
 
         <div class="col-8">
@@ -1091,29 +1139,18 @@ function front_page()
             <div class="form-group">
               <div class="row">
                 <div class="label-block col-xs-2">
-                  <label class="col-md-12 control-label" for="bgc-1-a">background color</label>
+                  <label class="col-md-12 control-label" for="bgc-1-a">Background Color</label>
                 </div>
                 <div class="col-xs-4 color">
-                  <input data-property="background" value="<?php echo esc_attr( get_option('bgc-1-a') ); ?>" id="bgc-1-a" placeholder="color" name="bgc-1-a" class="form-control color" type="text">
+                  <input data-gradient="gradient-1" value="<?php echo esc_attr( get_option('bgc-1-a') ); ?>" id="bgc-1-a" placeholder="color" name="bgc-1-a" class="form-control color" type="text">
                 </div>
                 <div class="col-xs-4 color">
                   <label class="hidden" for="bgc-2-a"> </label>
-                  <input data-property="background" value="<?php echo esc_attr( get_option('bgc-2-a') ); ?>" id="bgc-2-a" placeholder="color" name="bgc-2-a" class="form-control color" type="text">
-                </div>
-                <div class="col-xs-1">
-                  <label class="hidden" for="bgc-gradient-a"> </label>
-                  <?php $horizontal= (esc_attr( get_option('bgc-gradient-a') ) == 'horizontal') ? ' selected' : ''?>
-                  <?php $vertical = (esc_attr( get_option('bgc-gradient-a') ) == 'vertical') ? ' selected' : ''?>
-                  <?php $radial = (esc_attr( get_option('bgc-gradient-a') ) == 'radial') ? ' selected' : ''?>
-                  <select name="bgc-gradient-a" id="bgc-gradient-a" class="form-control">
-                    <option value="horizontal"<?php echo $horizontal; ?>>horizontal</option>
-                    <option value="vertical"<?php echo $vertical; ?>>vertical</option>
-                    <option value="radial"<?php echo $radial; ?>>radial</option>
-                  </select>
+                  <input data-gradient="gradient-2" value="<?php echo esc_attr( get_option('bgc-2-a') ); ?>" id="bgc-2-a" placeholder="color" name="bgc-2-a" class="form-control color" type="text">
                 </div>
                 <div class="col-xs-2 help-color">
                   <button class="help-block" type="button" class="btn btn-default" data-container="body" data-toggle="popover" data-placement="top" 
-                    data-content="the color for the background hover" data-html="true" 
+                    data-content="the color for the background" data-html="true" 
                     data-original-title="color">
                       Help
                   </button>
@@ -1123,197 +1160,8 @@ function front_page()
 
             <div class="form-group">
               <div class="row">
-                <div class="col-xs-2 label-block">
-                  <label class="control-label" for="width-a">Width</label>
-                </div>
-                <div class="col-xs-2 bloc-size-normal">
-                  <input data-property="width" value="<?php echo esc_attr( get_option( 'width-a' ) ); ?>" type="text" name="width-a" id="width-a" class="form-control" placeholder="width">
-                </div>
-                <div class="col-xs-1 text-right">
-                  <label class="control-label" for="width-unite-a">Unite: </label>
-                </div>
-                <div class="col-xs-1">
-                  <?php $unite_percent = (esc_attr( get_option('width-unite-a') ) == '%') ? ' selected' : ''?>
-                  <?php $unite_px = (esc_attr( get_option('width-unite-a') ) == 'px') ? ' selected' : ''?>
-                  <select data-unite="unite" class="form-control" name="width-unite-a" id="width-unite-a" >
-                    <option<?php echo $unite_percent; ?>>%</option>
-                    <option<?php echo $unite_px; ?>>px</option>
-                  </select>
-                </div>
-                <div class="col-xs-1">
-                  <button class="help-block" type="button" class="btn btn-default" data-container="body" data-toggle="popover" data-placement="top" 
-                    data-content="" data-html="true" 
-                    data-original-title="width"> 
-                      Help
-                  </button>
-                </div>
-              </div>
-            </div>
-
-            <div class="form-group">
-              <div class="row">
                 <div class="label-block col-xs-2">
-                  <label class="control-label" for="height-a">Height </label>
-                </div>
-                <div class="col-xs-2 bloc-size-normal">
-                  <input data-property="height" name="height-a" value="<?php echo esc_attr( get_option('height-a') ); ?>" id="height-a" type="text" class="form-control" placeholder="height">
-                </div>
-                <div class="col-xs-1 text-right">
-                  <label class="control-label" for="height-unite-a">Unite: </label>
-                </div>
-                <div class="col-xs-1">
-                  <?php $unite_percent = (esc_attr( get_option('height-unite-a') ) == '%') ? ' selected' : ''?>
-                  <?php $unite_px = (esc_attr( get_option('height-unite-a') ) == 'px') ? ' selected' : ''?>
-                  <select data-unite="unite" name="height-unite-a" id="height-unite-a" class="form-control">
-                    <option<?php echo $unite_percent; ?>>%</option>
-                    <option<?php echo $unite_px; ?>>px</option>
-                  </select>
-                </div>
-                <div class="col-xs-1">
-                  <button class="help-block" type="button" class="btn btn-default" data-container="body" data-toggle="popover" data-placement="top" 
-                    data-content="" data-html="true" 
-                    data-original-title="height"> 
-                      Help
-                  </button>
-                </div>
-              </div>
-            </div>
-
-            <div class="form-group">
-              <div class="row">
-                <div class="label-block col-xs-2">
-                  <label class="control-label" for="padding-a">Padding</label>
-                </div>
-                <div class="col-xs-1">
-                  <label class="hidden" for="padding-top-a"> ee</label>
-                  <input data-property="padding-top" type="text" class="form-control" value="<?php echo esc_attr( get_option('padding-top-a') ); ?>" name="padding-top-a" id="padding-top-a" placeholder="top">
-                </div>
-                <div class="col-xs-1">
-                  <label class="hidden" for="padding-right-a"></label>
-                  <input data-property="padding-right" type="text" class="form-control" name="padding-right-a" value="<?php echo esc_attr( get_option('padding-right-a') ); ?>" id="padding-right-a" placeholder="right">
-                </div>
-                <div class="col-xs-1">
-                  <label class="hidden" for="padding-bottom-a"></label>
-                  <input data-property="padding-bottom" type="text" class="form-control" name="padding-bottom-a" value="<?php echo esc_attr( get_option('padding-bottom-a') ); ?>" id="padding-bottom-a" placeholder="bottom">
-                </div>
-                <div class="col-xs-1">
-                  <label class="hidden" for="padding-left-a"></label>
-                  <input data-property="padding-left" type="text" class="form-control" name="padding-left-a" value="<?php echo esc_attr( get_option('padding-left-a') ); ?>" id="padding-left-a" placeholder="left">
-                </div>
-                <div class="col-xs-1">
-                  <label class="hidden" for="padding-unite-a">
-                      <?php $unite_percent = (esc_attr( get_option('padding-unite-a') ) == '%') ? ' selected' : ''?>
-                      <?php $unite_px = (esc_attr( get_option('padding-unite-a') ) == 'px') ? ' selected' : ''?>
-                  </label>
-                  <select data-unite="unite" class="form-control" name="padding-unite-a" id="padding-unite-a">
-                    <option<?php echo $unite_percent; ?>>%</option>
-                    <option<?php echo $unite_px; ?>>px</option>
-                  </select>
-                </div>
-                <div class="col-xs-1">
-                  <button class="help-block" type="button" class="btn btn-default" data-container="body" data-toggle="popover" data-placement="top" 
-                    data-content="top | right | bottom | left" data-html="true" 
-                    data-original-title="Padding">
-                      Help
-                  </button>
-                </div>
-              </div>
-            </div>
-
-            <div class="form-group">
-              <div class="row">
-                <div class="label-block col-xs-2">
-                  <label class="control-label" for="margin-a">Margin </label>
-                </div>
-                <div class="col-xs-1">
-                  <label class="hidden" for="margin-top-a"></label>
-                  <input data-property="margin-top" type="text" class="form-control" value="<?php echo esc_attr( get_option('margin-top-a') ); ?>" name="margin-top-a" id="margin-top-a" placeholder="top">
-                </div>
-                <div class="col-xs-1">
-                  <label class="hidden" for="margin-right-a"></label>
-                  <input data-property="margin-right" type="text" class="form-control" name="margin-right-a" value="<?php echo esc_attr( get_option('margin-right-a') ); ?>" id="margin-right-a" placeholder="right">
-                </div>
-                <div class="col-xs-1">
-                  <label class="hidden" for="margin-bottom-a"></label>
-                  <input data-property="margin-bottom" type="text" class="form-control" name="margin-bottom-a" value="<?php echo esc_attr( get_option('margin-bottom-a') ); ?>" id="margin-bottom-a" placeholder="bottom">
-                </div>
-                <div class="col-xs-1">
-                  <label class="hidden" for="margin-left-a"></label>
-                  <input data-property="margin-left" type="text" class="form-control" name="margin-left-a" value="<?php echo esc_attr( get_option('margin-left-a') ); ?>" id="margin-left-a" placeholder="left">
-                </div>
-                <div class="col-xs-1">
-                  <label class="hidden" for="margin-unite-a">
-                      <?php $unite_percent = (esc_attr( get_option('margin-unite-a') ) == '%') ? ' selected' : ''?>
-                      <?php $unite_px = (esc_attr( get_option('margin-unite-a') ) == 'px') ? ' selected' : ''?>
-                  </label>
-                  <select data-unite="unite" class="form-control" name="margin-unite-a" id="margin-unite-a">
-                    <option<?php echo $unite_percent; ?>>%</option>
-                    <option<?php echo $unite_px; ?>>px</option>
-                  </select>
-                </div>
-                <div class="col-xs-1">
-                  <button class="help-block" type="button" class="btn btn-default" data-container="body" data-toggle="popover" data-placement="top" 
-                    data-content="top | right | bottom | left" data-html="true" 
-                    data-original-title="margin">
-                      Help
-                  </button>
-                </div>
-              </div>
-            </div>
-
-            <div class="form-group">
-              <div class="row">
-                <div class="label-block col-xs-2">
-                  <label class="col-md-2 control-label" for="border-a">Border</label>
-                </div>
-                <div class="col-xs-2 bloc-size-normal color">
-                  <input data-property="border-color" id="border-a" pattern="\d+" placeholder="border" value="<?php echo esc_attr( get_option('border-a') ); ?>" name="border-a" class="form-control" type="text">
-                </div>
-                <div class="col-xs-1">
-                  <label class="hidden" for="border-size-a"> 
-                    <?php $selected = esc_attr( get_option('border-size-a') ); ?>
-                  </label>
-                  <select class="form-control" name="border-size-a" id="border-size-a">
-                    <option>size</option>
-                  <?php for ($i = 1; $i <= 20; $i++) {
-                    $s = ( $i ==  $selected ) ? ' selected' : '';
-                    echo '<option value="'.$i.'"'.$s.'>'.$i.'</option>';
-                  } ?>
-                  </select>
-                </div>
-                <div class="col-xs-1">
-                  <label class="hidden" for="border-style-a">
-                    <?php $selected = esc_attr( get_option('border-style-a') ); ?>
-                  </label>
-                  <select class="form-control" name="border-style-a" id="border-style-a">
-                    <option value="style"<?php echo $s = ( 'style' ==  $selected) ? ' selected' : ''; ?>>style</option>
-                    <option value="none"<?php echo $s = ( 'none' ==  $selected) ? ' selected' : ''; ?>>none</option>
-                    <option value="solid"<?php echo $s = ( 'solid' ==  $selected) ? ' selected' : ''; ?>>solid</option>
-                    <option value="dotted"<?php echo $s = ( 'dotted' ==  $selected) ? ' selected' : ''; ?>>dotted</option>
-                    <option value="dashed"<?php echo $s = ( 'dashed' ==  $selected) ? ' selected' : ''; ?>>dashed</option>
-                    <option value="double"<?php echo $s = ( 'double' ==  $selected) ? ' selected' : ''; ?>>double</option>
-                    <option value="groove"<?php echo $s = ( 'groove' ==  $selected) ? ' selected' : ''; ?>>groove</option>
-                    <option value="ridge"<?php echo $s = ( 'ridge' ==  $selected) ? ' selected' : ''; ?>>ridge</option>
-                    <option value="inset"<?php echo $s = ( 'inset' ==  $selected) ? ' selected' : ''; ?>>inset</option>
-                    <option value="outset"<?php echo $s = ( 'outset' ==  $selected) ? ' selected' : ''; ?>>outset</option>
-                    <option value="inherit"<?php echo $s = ( 'inherit' ==  $selected) ? ' selected' : ''; ?>>inherit</option>
-                  </select>
-                </div>
-                
-                <div class="col-xs-1">
-                  <button class="help-block" type="button" class="btn btn-default" data-container="body" data-toggle="popover" data-placement="top" 
-                  data-content="order: border color | pixel width | line style <br> leave empty for put at 'none'" data-html="true" 
-                  title="Border">
-                    Help
-                  </button>
-                </div>
-              </div>
-            </div>
-
-            <div class="form-group">
-              <div class="row">
-                <div class="label-block col-xs-2">
-                  <label class="col-md-12 control-label" for="time-a">time</label>
+                  <label class="col-md-12 control-label" for="time-a">Animate Time</label>
                 </div>
                 <div class="col-xs-4 ">
                   <input data-animate="" value="<?php echo esc_attr( get_option('time-a') ); ?>" id="time-a" placeholder="timer" name="time-a" class="form-control " type="text">
@@ -1328,7 +1176,104 @@ function front_page()
               </div>
             </div>
 
+            <br>
 
+            <div id="effects">
+              
+              <h2>
+                <div class="help-effect">
+                  <button class="help-block" type="button" class="btn btn-default" data-container="body" data-toggle="popover" data-placement="top"  
+                    data-content="Animation wwwww" data-html="true" data-original-title="mode">
+                      Help
+                  </button>
+                </div>
+                <span>Transforms</span> 
+              </h2>
+              <a data-animate="grow" rel="grow" class="button grow">Grow</a>
+              <a data-animate="shrink" rel="shrink" class="button shrink">Shrink</a>
+              <a data-animate="pulse" rel="pulse" class="button pulse">Pulse</a>
+              <a data-animate="pulse-grow" rel="pulse-grow" class="button pulse-grow">Pulse Grow</a>
+              <a data-animate="pulse-shrink" rel="pulse-shrink" class="button pulse-shrink">Pulse Shrink</a>
+              <a data-animate="pulse-shrink" rel="push" class="button push">Push</a>
+              <a data-animate="pop" rel="pop" class="button pop">Pop</a>
+              <a data-animate="rotate" rel="rotate" class="button rotate">Rotate</a>
+              <a data-animate="grow-rotate" rel="grow-rotate" class="button grow-rotate">Grow Rotate</a>
+              <a data-animate="float" rel="float" class="button float">Float</a>
+              <a data-animate="sink" rel="sink" class="button sink">Sink</a>
+              <a data-animate="hover" rel="hover" class="button hover">Hover</a>
+              <a data-animate="hang" rel="hang" class="button hang">Hang</a>
+              <a data-animate="skew" rel="skew" class="button skew">Skew</a>
+              <a data-animate="skew-forward" rel="skew-forward" class="button skew-forward">Skew Forward</a>
+              <a data-animate="skew-backward" rel="skew-backward" class="button skew-backward">Skew Backward</a>
+              <a data-animate="wobble-horizontal" rel="wobble-horizontal" class="button wobble-horizontal">Wobble Horizontal</a>
+              <a data-animate="wobble-vertical" rel="wobble-vertical" class="button wobble-vertical">Wobble Vertical</a>
+              <a data-animate="wobble-to-bottom-right" rel="wobble-to-bottom-right" class="button wobble-to-bottom-right">Wobble To Bottom Right</a>
+              <a data-animate="wobble-to-top-right" rel="wobble-to-top-right" class="button wobble-to-top-right">Wobble To Top Right</a>
+              <a data-animate="wobble-top" rel="wobble-top" class="button wobble-top">Wobble Top</a>
+              <a data-animate="wobble-bottom" rel="wobble-bottom" class="button wobble-bottom">Wobble Bottom</a>
+              <a data-animate="wobble-skew" rel="wobble-skew" class="button wobble-skew">Wobble Skew</a>
+              <a data-animate="buzz" rel="buzz" class="button buzz">Buzz</a>
+              <a data-animate="buzz-out" rel="buzz-out" class="button buzz-out">Buzz Out</a>
+
+
+
+              <h2>
+                <div class="help-effect">
+                  <button class="help-block" type="button" class="btn btn-default" data-container="body" data-toggle="popover" data-placement="top"  
+                    data-content="Animation wwwww" data-html="true" data-original-title="mode">
+                      Help
+                  </button>
+                </div>
+                <span>Border</span> 
+              </h2>
+
+              <a data-animate="border-fade" rel="border-fade" class="button border-fade">Border Fade</a>
+              <a data-animate="hollow" rel="hollow" class="button hollow">Hollow</a>
+              <a data-animate="trim" rel="trim" class="button trim">Trim</a>
+              <a data-animate="outline-outward" rel="outline-outward" class="button outline-outward">Outline Outward</a>
+              <a data-animate="outline-inward" rel="outline-inward" class="button outline-inward">Outline Inward</a>
+              <a data-animate="round-corners" rel="round-corners" class="button round-corners">Round Corners</a>
+
+
+              <h2>
+                <div class="help-effect">
+                  <button class="help-block" type="button" class="btn btn-default" data-container="body" data-toggle="popover" data-placement="top"  
+                    data-content="Animation wwwww" data-html="true" data-original-title="mode">
+                      Help
+                  </button>
+                </div>
+                <span>Shadow And Glow transition</span> 
+              </h2>
+              <a data-animate="glow" rel="glow" class="button glow">Glow</a>
+              <a data-animate="box-shadow-outset" rel="box-shadow-outset" class="button box-shadow-outset">Box Shadow Outset</a>
+              <a data-animate="box-shadow-inset" rel="box-shadow-inset" class="button box-shadow-inset">Box Shadow Inset</a>
+              <a data-animate="float-shadow" rel="float-shadow" class="button float-shadow">Float Shadow</a>
+              <a data-animate="hover-shadow" rel="hover-shadow" class="button hover-shadow">Hover Shadow</a>
+              <a data-animate="shadow-radial" rel="shadow-radial" class="button shadow-radial">Shadow Radial</a>
+
+              <h2>
+                <div class="help-effect">
+                  <button class="help-block" type="button" class="btn btn-default" data-container="body" data-toggle="popover" data-placement="top"  
+                    data-content="Animation wwwww" data-html="true" data-original-title="mode">
+                      Help
+                  </button>
+                </div>
+                <span>Speech Bubbles</span> 
+              </h2>
+              <a data-animate="curl-top-left" rel="curl-top-left" class="button curl-top-left">Curl Top Left</a>
+              <a data-animate="curl-top-right" rel="curl-top-right" class="button curl-top-right">Curl Top Right</a>
+              <a data-animate="curl-bottom-right" rel="curl-bottom-right" class="button curl-bottom-right">Curl Bottom Right</a>
+              <a data-animate="curl-bottom-left" rel="curl-bottom-left" class="button curl-bottom-left">Curl Bottom Left</a>
+
+            </div>
+              <div class="row">
+                <div class="hidden">
+                  <label class="col-md-12 control-label" for="effet-a"></label>
+                </div>
+                <div class="">
+                  <input value="<?php echo esc_attr( get_option('effet-a') ); ?>" id="effet-a" name="effet-a" type="hidden">
+                </div>
+              </div>
           </fieldset>
         </div>
 
