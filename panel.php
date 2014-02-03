@@ -1140,7 +1140,7 @@ function front_page()
                 </div>
               </div>
             </div>
-
+            <!--
             <div class="form-group">
               <div class="row">
                 <div class="label-block col-xs-2">
@@ -1158,6 +1158,7 @@ function front_page()
                 </div>
               </div>
             </div>
+            -->
 
             <br>
 

@@ -63,10 +63,10 @@ $(function() {
       var $tab_bgc = $(this).parents( "div.tab-bgc" ).length;
       var $tab_links = $(this).parents( "div.tab-links" ).length;
       var $tab_animate = $(this).parents( "div.tab-animate" ).length;
-      var $meta = ''; var $metaHover = '';
+      var $meta = '';
       if( $tab_bgc ) { $meta = $("#primary-navigation");}
       else if( $tab_links ) { $meta = $("#primary-navigation a");}
-      else if($tab_animate ) { $metaHover = $("#primary-navigation a:hover");}  
+      else if($tab_animate ) { $meta = $("#primary-navigation a:hover");}  
 
 
       if( $(this).data('gradient') ) {
@@ -297,7 +297,27 @@ $('#primary-navigation a').hover(function(){
 
 });
 
+// duration animation
+//// DEFAULT OPTIONS
+//@defaultDuration: .3s;
+//@primaryColour: #e1e1e1;
+//@secondaryColour: #666;
+//@shadowColour: rgba(0, 0, 0, .6);
+//
+////Speech bubbles options
+//@tipWidth: 10px;  //the width of the speech bubble tip
+//@tipHeight: 10px; //the height of the speech bubble tip
+//@tipColour: @primaryColour;
+//
+//// Curl dimensions
+//@curlWidth: 25px;
+//@curlHeight: 25px;
 
+// Curl colours
+//@revealAreaColour: white;			// reveal area behind the curl
+//@curlLineColour: #aaa;				// crease line
+//@curlTransitionColour: #ccc;	// colour transitioning from crease line to final colour
+//@curlLastColour: white;				// final colour of the back of the curl
 
   // gradient animate
   //http://stackoverflow.com/questions/10963059/jquery-animate-div-background-color-gradient
