@@ -175,27 +175,10 @@ function register_mysettings() {
   register_setting( 'link-group', 'text-shadow-color-l' );
 
   register_setting( 'animate-group', 'color-text-a' );
-  register_setting( 'animate-group', 'bgc-gradient-a' );
   register_setting( 'animate-group', 'bgc-1-a' );
   register_setting( 'animate-group', 'bgc-2-a' );
-  register_setting( 'animate-group', 'width-a' );
-  register_setting( 'animate-group', 'width-unite-a' );
-  register_setting( 'animate-group', 'height-a' );
-  register_setting( 'animate-group', 'height-unite-a' );
-  register_setting( 'animate-group', 'padding-top-a' );
-  register_setting( 'animate-group', 'padding-right-a' );
-  register_setting( 'animate-group', 'padding-bottom-a' );
-  register_setting( 'animate-group', 'padding-left-a' );
-  register_setting( 'animate-group', 'padding-unite-a' );
-  register_setting( 'animate-group', 'margin-top-a' );
-  register_setting( 'animate-group', 'margin-right-a' );
-  register_setting( 'animate-group', 'margin-bottom-a' );
-  register_setting( 'animate-group', 'margin-left-a' );
-  register_setting( 'animate-group', 'margin-unite-a' );
-  register_setting( 'animate-group', 'border-a' );
-  register_setting( 'animate-group', 'border-size-a' );
-  register_setting( 'animate-group', 'border-style-a' );
   register_setting( 'animate-group', 'time-a' );
+  register_setting( 'animate-group', 'effet-a' );
 
 }
 
@@ -465,7 +448,7 @@ function front_page()
                   <label class="col-md-12 control-label" for="bgc-1-l">Background Color</label>
                 </div>
                 <div class="col-xs-4 color">
-                  <input data-gradient="gradient-1" value="<?php echo esc_attr( get_option('bgc-1-l') ); ?>" i="bgc-1-l" placeholder="color" name="bgc-1-l" class="form-control color" type="text">
+                  <input data-gradient="gradient-1" value="<?php echo esc_attr( get_option('bgc-1-l') ); ?>" id="bgc-1-l" placeholder="color" name="bgc-1-l" class="form-control color" type="text">
                 </div>
                 <div class="col-xs-4 color">
                   <label class="hidden" for="bgc-2-l"> </label>

@@ -251,6 +251,7 @@ $(function() {
       //console.log(p, $val_input);
       $meta.css( p , $val_input );
     }
+
   });
 
   $('#effects a').click( function() {
@@ -264,6 +265,39 @@ $(function() {
     $('#effet-a').val(effet);
     
   });
+
+
+$('#primary-navigation a').hover(function(){
+ 
+    var $gradient_1 = $('#bgc-1-a').val();
+    var $gradient_2 = $('#bgc-2-a').val();
+    var $color = $('#color-text-a').val();
+  //console.log($gradient_2 );
+      var $this = $(this);
+      $this.css("background-image", "-webkit-gradient(linear, 50% 0%, 50% 100%, color-stop(0%, " +$gradient_1+" ), color-stop(100%, "+$gradient_2+"))");
+      $this.css("background-image", "-webkit-linear-gradient(top, "+$gradient_1+" 0%, "+$gradient_2+" 100%)");
+      $this.css("background-image", "-moz-linear-gradient(top, "+$gradient_1+" 0%,"+$gradient_2+" 100%)");
+      $this.css("background-image", "-o-linear-gradient(top, "+$gradient_1+" 0%,"+$gradient_2+" 100%)");
+      $this.css("background-image", "linear-gradient(top, "+$gradient_1+" 0%,"+$gradient_2+" 100%)");
+      $this.css( 'color', $color );
+
+}, function(){
+
+    var $gradient_1 = $('#bgc-1-l').val();
+    var $gradient_2 = $('#bgc-2-l').val();
+    var $color = $('#color-text-l').val();
+  console.log($gradient_1, $gradient_2 );
+      var $this = $(this);
+      $this.css("background-image", "-webkit-gradient(linear, 50% 0%, 50% 100%, color-stop(0%, " +$gradient_1+" ), color-stop(100%, "+$gradient_2+"))");
+      $this.css("background-image", "-webkit-linear-gradient(top, "+$gradient_1+" 0%, "+$gradient_2+" 100%)");
+      $this.css("background-image", "-moz-linear-gradient(top, "+$gradient_1+" 0%,"+$gradient_2+" 100%)");
+      $this.css("background-image", "-o-linear-gradient(top, "+$gradient_1+" 0%,"+$gradient_2+" 100%)");
+      $this.css("background-image", "linear-gradient(top, "+$gradient_1+" 0%,"+$gradient_2+" 100%)");
+      $this.css( 'color', $color );
+
+});
+
+
 
   // gradient animate
   //http://stackoverflow.com/questions/10963059/jquery-animate-div-background-color-gradient
