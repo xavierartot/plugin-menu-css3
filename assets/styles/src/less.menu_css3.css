@@ -9801,3 +9801,36 @@ abbr.slider {
 .fonts {
   margin-right: 44px;
 }
+#primary-navigation {
+  position: absolute;
+}
+.drag-me {
+  position: absolute;
+  z-index: 100000;
+  margin-top: -30px;
+  margin-left: 12px;
+  padding: 5px;
+  border-top-right-radius: 5px;
+  border-top-left-radius: 5px;
+  background-color: #2ce730;
+  width: 68px;
+}
+.drag-me img {
+  height: 20px;
+  width: 20px;
+  float: left;
+  cursor: move;
+}
+.drag-me .toggle {
+  height: 20px;
+  width: 20px;
+  background: url("https://cdn1.iconfinder.com/data/icons/freeapplication/png/24x24/Add.png");
+  background-repeat: no-repeat;
+  float: left;
+}
+.drag-me .toggle.expanded {
+  height: 20px;
+  width: 20px;
+  background: url("http://cdn2.iconfinder.com/data/icons/onebit/PNG/onebit_32.png");
+  background-repeat: no-repeat;
+}

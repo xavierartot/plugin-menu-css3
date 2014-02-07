@@ -1,6 +1,17 @@
 $(function() {
+
+
   // mise en place ces css sur le menu au chargement de la page
   var $bgc_load = $("#primary-navigation");
+ 
+  var $content = $bgc_load.hide();
+  $(".toggle").on("click", function(e){
+    $(this).toggleClass("expanded");
+    $content.slideToggle();
+  });
+
+  $('#drag-bloc').draggable();
+
   var $gradient_1_load_bgc = $('#bgc-1-bgc').val();
   var $gradient_2_load_bgc = $('#bgc-2-bgc').val();
   if( $gradient_1_load_bgc === '' || $gradient_2_load_bgc=== '') { 
@@ -27,9 +38,9 @@ $(function() {
     //$bgc_load.css('width'( $('#width-bgc').val()!== '') ? $('#width-bgc').val() + $('#width-unite-bgc').val() : '',
 
   $bgc_load.css( {
-    'bottom'                     : '60px',
+    //'bottom'                     : '60px',
     'z-index'                    : '100000',
-    'position'                   : 'fixed',
+    //'position'                   : 'fixed',
     'margin-right'               : 'auto',
     'margin-left'                : 'auto', 
     'display'                    : 'block',
@@ -493,10 +504,10 @@ $(function() {
           $meta.css( 'float' ,$(this).val() ).parent().css('overflow', 'hidden');
         }
       }
-      if( $(this).data("displaypos")) {
-        console.log('eee' + $(this).val() ); 
-        $meta.css( 'position' ,$(this).val() );
-      }
+      //if( $(this).data("displaypos")) {
+      //  console.log('eee' + $(this).val() ); 
+      //  $meta.css( 'position' ,$(this).val() );
+      //}
       if( $(this).data("senspos")) {
         if( $(this).data("senspos") === 'horizontal' ) {
           $('#width-bgc').val( '' );

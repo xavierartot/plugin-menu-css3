@@ -124,7 +124,7 @@ function register_mysettings() {
 
   // position
   register_setting( 'background-group', 'sens-pos-bgc' );
-  register_setting( 'background-group', 'display-hook-bgc' );
+  //register_setting( 'background-group', 'display-hook-bgc' );
   register_setting( 'background-group', 'pos-bgc' );
 
   // link
@@ -216,6 +216,8 @@ function front_page()
   //echo $_GET['page'];
 ?>
 <div class="tabbable">
+
+
   <!-- Tabs -->
   <ul class="nav nav-tabs onglet">
     <li class="active"><a href="#tabr1" data-toggle="tab">Links Menu</a></li>
@@ -223,6 +225,38 @@ function front_page()
     <li class=""><a href="#tabr3" data-toggle="tab">Animation Hover</a></li>
     <li class=""><a href="#tabr4" data-toggle="tab">Documentation</a></li>
   </ul>
+  <div id="drag-bloc">
+  <div id="primary-navigation">
+    <?php
+    $defaults = array(
+      'theme_location'  => '',
+      'menu'            => '',
+      'container'       => 'div',
+      'container_class' => 'nav-menu',
+      'container_id'    => '',
+      'menu_class'      => '',
+      'menu_id'         => '',
+      'echo'            => true,
+      'fallback_cb'     => 'wp_page_menu',
+      'before'          => '',
+      'after'           => '',
+      'link_before'     => '',
+      'link_after'      => '',
+      'items_wrap'      => '<ul id="%1$s" class="%2$s">%3$s</ul>',
+      'depth'           => 3,
+      'walker'          => ''
+    );
+    wp_nav_menu( $defaults );
+    ?>
+  </div>
+  <span class="drag-me">
+    <img src="https://cdn1.iconfinder.com/data/icons/free-mobile-icon-kit/20/Cursor_drag_arrow.png">
+    <div class="toggle"></div>
+  </span>
+</div>
+
+
+
   <div class="tab-content container">
     <!-- Tabs 1 -->
     <div class="tab-pane tab-links active" id="tabr1">
@@ -1337,7 +1371,7 @@ function front_page()
                   </div>
                 </div>
               </div>
-
+              <!--
               <div class="form-group" style="margin-top: 6%;">
                 <div class="row">
                   <div class="col-xs-2 label-block">
@@ -1370,6 +1404,7 @@ function front_page()
                   </div>
                 </div>
               </div>
+              -->
 
               <div class="form-group" style="margin-top: 6%;">
                 <div class="row">
@@ -1603,29 +1638,7 @@ function front_page()
 </div>
 
 
-<div id="primary-navigation">
-<?php
-$defaults = array(
-  'theme_location'  => '',
-  'menu'            => '',
-  'container'       => 'div',
-  'container_class' => 'nav-menu',
-  'container_id'    => '',
-  'menu_class'      => '',
-  'menu_id'         => '',
-  'echo'            => true,
-  'fallback_cb'     => 'wp_page_menu',
-  'before'          => '',
-  'after'           => '',
-  'link_before'     => '',
-  'link_after'      => '',
-  'items_wrap'      => '<ul id="%1$s" class="%2$s">%3$s</ul>',
-  'depth'           => 3,
-  'walker'          => ''
-);
-wp_nav_menu( $defaults );
-?>
-</nav>
+
 
 
 <?php
