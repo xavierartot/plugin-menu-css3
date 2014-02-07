@@ -7988,31 +7988,6 @@ See http://bgrins.github.io/spectrum/themes/ for instructions.
   height: 25px;
 }
 /* Curl Top Right */
-.curl-top-right {
-  display: inline-block;
-  position: relative;
-  transform: translateZ(0);
-  box-shadow: 0 0 1px rgba(0, 0, 0, 0);
-}
-.curl-top-right:before {
-  pointer-events: none;
-  position: absolute;
-  content: '';
-  height: 0;
-  width: 0;
-  top: 0;
-  right: 0;
-  background: #ffffff;
-  /* IE9 */
-  background: linear-gradient(225deg, #ffffff 45%, #aaaaaa 50%, #cccccc 56%, #ffffff 80%);
-  box-shadow: -1px 1px 1px rgba(0, 0, 0, 0.4);
-  transition-duration: 0.3s;
-  transition-property: width, height;
-}
-.curl-top-right:hover:before {
-  width: 25px;
-  height: 25px;
-}
 /* Float Shadow */
 .float-shadow {
   display: inline-block;
@@ -9490,8 +9465,8 @@ See http://bgrins.github.io/spectrum/themes/ for instructions.
   transition-property: width, height;
 }
 .curl-top-right:hover:before {
-  width: 25px;
-  height: 25px;
+  width: 15px;
+  height: 15px;
 }
 .curl-bottom-right {
   display: inline-block;
@@ -9678,7 +9653,6 @@ form.form-a fieldset .form-group .row div .help-block {
   font-size: 12px;
   font-family: arial, helvetica, sans-serif;
   text-decoration: none;
-  display: inline-block;
   background-color: #f4f5f5;
   background-image: -webkit-linear-gradient(top, #f4f5f5 0%, #dfdddd 100%);
   background-image: linear-gradient(to bottom, #f4f5f5 0%, #dfdddd 100%);
@@ -9690,6 +9664,33 @@ form.form-a fieldset .form-group .row div .help-block {
   padding-right: 5px !important;
   padding-bottom: 2px !important;
   padding-left: 5px !important;
+  display: inline-block;
+  position: relative;
+  transform: translateZ(0);
+  box-shadow: 0 0 1px rgba(0, 0, 0, 0);
+}
+form.form-l fieldset .form-group .row div .help-block:before,
+form.form-bgc fieldset .form-group .row div .help-block:before,
+form.form-a fieldset .form-group .row div .help-block:before {
+  pointer-events: none;
+  position: absolute;
+  content: '';
+  height: 0;
+  width: 0;
+  top: 0;
+  right: 0;
+  background: #ffffff;
+  /* IE9 */
+  background: linear-gradient(225deg, #ffffff 45%, #aaaaaa 50%, #cccccc 56%, #ffffff 80%);
+  box-shadow: -1px 1px 1px rgba(0, 0, 0, 0.4);
+  transition-duration: 0.3s;
+  transition-property: width, height;
+}
+form.form-l fieldset .form-group .row div .help-block:hover:before,
+form.form-bgc fieldset .form-group .row div .help-block:hover:before,
+form.form-a fieldset .form-group .row div .help-block:hover:before {
+  width: 15px;
+  height: 15px;
 }
 form.form-l fieldset .form-group .row div abbr,
 form.form-bgc fieldset .form-group .row div abbr,
@@ -9718,48 +9719,6 @@ abbr.slider {
 }
 .error {
   float: left;
-}
-#primary-navigation {
-  position: fixed;
-  bottom: 0px;
-  width: 100%;
-  left: 210px;
-  z-index: 100000;
-  float: right;
-  font-size: 11px;
-  margin: 0 1px 0 -12px;
-  padding: 0;
-  text-transform: uppercase;
-}
-#primary-navigation .nav-menu {
-  margin-right: auto;
-  margin-left: auto;
-  /*what ever other styles*/
-  display: block;
-}
-#primary-navigation .nav-menu ul {
-  list-style: none;
-  margin: 0;
-}
-#primary-navigation .nav-menu ul li {
-  border: 0;
-  display: inline-block;
-  height: 48px;
-  line-height: 48px;
-  position: relative;
-}
-#primary-navigation .nav-menu ul li a {
-  display: inline-block;
-  padding: 0 12px;
-  white-space: nowrap;
-  -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
-  /* test hover */
-  margin: .4em;
-  padding: 1em;
-  cursor: pointer;
-  background: #e1e1e1;
-  text-decoration: none;
-  color: #666666;
 }
 @media (max-width: 782px) {
   form.form-l fieldset .form-group .row div .radio label,
@@ -9838,4 +9797,7 @@ abbr.slider {
   padding-bottom: 5px;
   margin-top: 0;
   margin-bottom: 0;
+}
+.fonts {
+  margin-right: 44px;
 }

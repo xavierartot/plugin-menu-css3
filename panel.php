@@ -12,20 +12,7 @@ Version: 0.1.1
 Author URI: 
 */
 
-// to include the javascript with wordpress, it's dynamic.
-// we use add_action('wp_ajax_NAME_FUNCTION-CALL', NAME_FUNCTION-CALL);
-// the first parameters going to match with action=xav_ajax:w
-//add_action('wp_ajax_xav_ajax', 'xav_ajax');
-//function xav_ajax() {
-//  $test = isset( $_POST['test']) ? $_POST['test'] :  null; 
-//  $msg = 'invalid';
-//  if( $test ) {
-//    $msg = 'valid'; 
-//  }
-//  echo $msg;
-//  die();
-//}
-//// we are going to add an action for including scripts, so the action is called
+/// we are going to add an action for including scripts, so the action is called
 //// admin_print_scripts-options-general.php
 ////and then we are going to specify a function, this hook is used to include Javascripts
 //add_action('admin_print_scripts-options-general.php', 'xav_check_script');
@@ -127,7 +114,7 @@ function register_mysettings() {
   register_setting( 'background-group', 'box-shadow-horizontal-bgc' );
   register_setting( 'background-group', 'box-shadow-vertical-bgc' );
   register_setting( 'background-group', 'box-shadow-gradient-bgc' );
-  register_setting( 'background-group', 'box-shadow-size-bgc' );
+  register_setting( 'background-group', 'box-shadow-color-bgc' );
   register_setting( 'background-group', 'radius-top-left-bgc' );
   register_setting( 'background-group', 'radius-top-right-bgc' );
   register_setting( 'background-group', 'radius-bottom-left-bgc' );
@@ -135,12 +122,17 @@ function register_mysettings() {
   register_setting( 'background-group', 'radius-unite-bgc' );
   register_setting( 'background-group', 'opacity-bgc' );
 
+  // position
+  register_setting( 'background-group', 'sens-pos-bgc' );
+  register_setting( 'background-group', 'display-hook-bgc' );
+  register_setting( 'background-group', 'pos-bgc' );
+
   // link
-  register_setting( 'link-group', 'text-align-l' );
-  register_setting( 'link-group', 'height-l' );
-  register_setting( 'link-group', 'height-unite-l' );
-  register_setting( 'link-group', 'width-l' );
-  register_setting( 'link-group', 'width-unite-l' );
+  //register_setting( 'link-group', 'text-align-l' );
+  //register_setting( 'link-group', 'height-l' );
+  //register_setting( 'link-group', 'height-unite-l' );
+  //register_setting( 'link-group', 'width-l' );
+  //register_setting( 'link-group', 'width-unite-l' );
   register_setting( 'link-group', 'line-height-l' );
   register_setting( 'link-group', 'line-height-unite-l' );
   register_setting( 'link-group', 'margin-top-l' );
@@ -173,19 +165,33 @@ function register_mysettings() {
   register_setting( 'link-group', 'text-shadow-vertical-l' );
   register_setting( 'link-group', 'text-shadow-blur-l' );
   register_setting( 'link-group', 'text-shadow-color-l' );
-
+  register_setting( 'link-group', 'font-size-l' );
+  register_setting( 'link-group', 'style-variant-l' );
+  register_setting( 'link-group', 'transform-l' );
+  register_setting( 'link-group', 'letter-spacing-l' );
+  register_setting( 'link-group', 'font-style-l' );
+  register_setting( 'link-group', 'font-weight-l' );
+  register_setting( 'link-group', 'letter-spacing-unite-l' );
+  register_setting( 'link-group', 'fonts-l' );
+  register_setting( 'link-group', 'small-caps-l' );
+  register_setting( 'link-group', 'font-weight-l' );
+  register_setting( 'link-group', 'font-style-l' );
+  register_setting( 'link-group', 'transform-l' );
+  
+  // hover 
   register_setting( 'animate-group', 'color-text-a' );
   register_setting( 'animate-group', 'bgc-1-a' );
   register_setting( 'animate-group', 'bgc-2-a' );
   register_setting( 'animate-group', 'time-a' );
   register_setting( 'animate-group', 'effet-a' );
 
+
 }
 
 // demarre lessphp
 add_action( 'wp_enqueue_scripts', 'xav_css3_menus' );
 function xav_css3_menus() {
-  wp_register_style( 'menu_css3', plugins_url( 'menu_css3/assets-front-end/less/style.php' ) );
+  wp_register_style( 'menu_css3', plugins_url( 'menu_css3/less/style.php' ) );
   wp_enqueue_style( 'menu_css3' );
 }
 
@@ -200,35 +206,35 @@ function front_page()
 {
   $less = '';
   $less .= '
-  @height_l       :   '.esc_attr( get_option('width') ).';
+  @height_l       :   '.esc_attr( get_option('width-l') ).';
 
   .cowgirl{
-    ssssssssssssssssss: '.esc_attr( get_option('width') ).';
+   width : '.esc_attr( get_option('width-l') ).';
   }
   ';
-  file_put_contents(WP_PLUGIN_DIR . '/menu_css3/assets-front-end/less/variables.less' , $less);
+  file_put_contents(WP_PLUGIN_DIR . '/menu_css3/less/variables.less' , $less);
   //echo $_GET['page'];
 ?>
 <div class="tabbable">
   <!-- Tabs -->
   <ul class="nav nav-tabs onglet">
-    <li class=""><a href="#tabr1" data-toggle="tab">Links Menu</a></li>
+    <li class="active"><a href="#tabr1" data-toggle="tab">Links Menu</a></li>
     <li class=""><a href="#tabr2" data-toggle="tab">Background Menu</a></li>
-    <li class="active"><a href="#tabr3" data-toggle="tab">Animation Hover</a></li>
+    <li class=""><a href="#tabr3" data-toggle="tab">Animation Hover</a></li>
     <li class=""><a href="#tabr4" data-toggle="tab">Documentation</a></li>
   </ul>
   <div class="tab-content container">
     <!-- Tabs 1 -->
-    <div class="tab-pane tab-links" id="tabr1">
+    <div class="tab-pane tab-links active" id="tabr1">
 
-      <h1>Links Menu</h1>
+      <h2>Links Menu</h2>
       <form class="form-l form form-horizontal" role="form" action="options.php" method="post" accept-charset="utf-8">
         <?php settings_fields( 'link-group' ); ?>
         
         <div class="col-8">
           <fieldset>
 
-            <div class="form-group" style="height: 100px;">
+            <!-- <div class="form-group" style="height: 100px;">
               <div class="row">
                 <div class="col-xs-2 label-block">
                   <label class="">Align Text</label>
@@ -240,24 +246,24 @@ function front_page()
                   <div class="radio">
                     <label for="left">
                       Left
-                      <input data-text="left" type="radio" name="text-align-l" id="left" value="left"<?php echo $left; ?>>
+                      <input data-text="text-align" type="radio" name="text-align-l" id="text-align-left" value="left"<?php echo $left; ?>>
                     </label>
                   </div>
                   <div class="radio">
                     <label for="center">
                       Center
-                      <input data-text="center" type="radio" name="text-align-l" id="center" value="center"<?php echo $center; ?>>
+                      <input data-text="text-align" type="radio" name="text-align-l" id="text-align-center" value="center"<?php echo $center; ?>>
                     </label>
                   </div><div class="radio">
                     <label for="right">
                       Right
-                      <input data-text="right" type="radio" name="text-align-l" id="right" value="right"<?php echo $right; ?>>
+                      <input data-text="text-align" type="radio" name="text-align-l" id="text-align-right" value="right"<?php echo $right; ?>>
                     </label>
                   </div>
                 </div>
                 <div class="col-xs-1">
                   <button class="help-block" type="button" class="btn btn-default" data-container="body" data-toggle="popover" data-placement="top" 
-                    data-content="Align you terxt here" data-html="true" 
+                    data-content="Align you text here, this works with the width defined.<br> You can use the padding for more precise." data-html="true" 
                     data-original-title="mode">
                       Help
                   </button>
@@ -265,7 +271,6 @@ function front_page()
               </div>
             </div>
 
-              <!-- height -->
             <div class="form-group">
               <div class="row">
                 <div class="label-block col-xs-2">
@@ -295,7 +300,6 @@ function front_page()
               </div>
             </div>
 
-            <!-- width -->
             <div class="form-group">
               <div class="row">
                 <div class="col-xs-2 label-block">
@@ -324,7 +328,7 @@ function front_page()
                 </div>
               </div>
             </div>
-
+            -->
             <!-- line-height -->
             <div class="form-group">
               <div class="row">
@@ -343,6 +347,35 @@ function front_page()
                   <select data-unite="unite" data-select="unite" name="line-height-unite-l" id="line-height-unite-l" class="form-control">
                     <option<?php echo $unite_px; ?>>px</option>
                     <option<?php echo $unite_percent; ?>>%</option>
+                  </select>
+                </div>
+                <div class="col-xs-1">
+                  <button class="help-block" type="button" class="btn btn-default" data-container="body" data-toggle="popover" data-placement="top" 
+                    data-content="" data-html="true" 
+                    data-original-title="height" title="">
+                      Help
+                  </button>
+                </div>
+              </div>
+            </div>
+
+            <div class="form-group">
+              <div class="row">
+                <div class="label-block col-xs-2">
+                  <label class="control-label" for="letter-spacing-l">Letter Spacing</label>
+                </div>
+                <div class="col-xs-2 bloc-size-normal">
+                  <input data-property="letter-spacing" name="letter-spacing-l" value="<?php echo esc_attr( get_option('letter-spacing-l') ); ?>" id="letter-spacing-l" type="text" class="form-control" placeholder="letter-spacing">
+                </div>
+                <div class="col-xs-1 text-right">
+                  <label class="control-label" for="width-unite-l">Unite: </label>
+                </div>
+                <div class="col-xs-1">
+                  <?php $unite_em = (esc_attr( get_option('letter-spacing-unite-l') ) == 'em') ? ' selected' : ''?>
+                  <?php $unite_px = (esc_attr( get_option('letter-spacing-unite-l') ) == 'px') ? ' selected' : ''?>
+                  <select data-unite="unite" data-select="unite" name="letter-spacing-unite-l" id="letter-spacing-unite-l" class="form-control">
+                    <option<?php echo $unite_px; ?>>px</option>
+                    <option<?php echo $unite_em; ?>>em</option>
                   </select>
                 </div>
                 <div class="col-xs-1">
@@ -475,7 +508,6 @@ function front_page()
                       <?php $selected = esc_attr( get_option('border-style-l') ); ?>
                     </label>
                     <select data-border="style" class="form-control" name="border-style-l" id="border-style-l">
-                      <option value="style"<?php echo $s = ( 'style' ==  $selected) ? ' selected' : ''; ?>>style</option>
                       <option value="none"<?php echo $s = ( 'none' ==  $selected) ? ' selected' : ''; ?>>none</option>
                       <option value="solid"<?php echo $s = ( 'solid' ==  $selected) ? ' selected' : ''; ?>>solid</option>
                       <option value="dotted"<?php echo $s = ( 'dotted' ==  $selected) ? ' selected' : ''; ?>>dotted</option>
@@ -530,7 +562,7 @@ function front_page()
                       <?php $selected = esc_attr( get_option('box-shadow-horizontal-l') ); ?>
                     </label>
                     <select data-shadow="horizontal" class="form-control" name="box-shadow-horizontal-l" id="box-shadow-horizontal-l">
-                      <option>horizontal<option>
+                      <option>none<option>
                     <?php for ($i = 1; $i <= 20; $i++) {
                       $s = ( $i ==  $selected ) ? ' selected' : '';
                       echo '<option value="'.$i.'"'.$s.'>'.$i.'</option>';
@@ -542,7 +574,7 @@ function front_page()
                       <?php $selected = esc_attr( get_option('box-shadow-vertical-l') ); ?>
                     </label>
                     <select data-shadow="vertical" class="form-control" name="box-shadow-vertical-l" id="box-shadow-vertical-l">
-                      <option>vertical<option>
+                      <option>none<option>
                     <?php for ($i = 1; $i <= 20; $i++) {
                       $s = ( $i ==  $selected ) ? ' selected' : '';
                       echo '<option value="'.$i.'"'.$s.'>'.$i.'</option>';
@@ -554,7 +586,7 @@ function front_page()
                       <?php $selected = esc_attr( get_option('box-shadow-gradient-l') ); ?>
                     </label>
                     <select data-shadow="gradient" class="form-control" name="box-shadow-gradient-l" id="box-shadow-gradient-l">
-                      <option>gradient<option>
+                      <option>none<option>
                     <?php for ($i = 1; $i <= 20; $i++) {
                       $s = ( $i ==  $selected ) ? ' selected' : '';
                       echo '<option value="'.$i.'"'.$s.'>'.$i.'</option>';
@@ -658,43 +690,222 @@ function front_page()
               </div>
             </div>
                 
-            <!-- text shadow l 
+            <!-- Fonts -->
             <div class="form-group">
               <div class="row">
                 <div class="label-block col-xs-2">
-                  <label class="control-label" for="text-shadow-l">Text shadow</label>
+                  <div class="hidden hide-fonts"> 
+                    <?php echo esc_attr( get_option('fonts-l') ); ?>
+                  </div>
+                  <label class="col-md-12 control-label" for="fonts-l">Fonts</label>
+                </div>
+                <div class="col-xs-4 fonts">
+                  <select id="fonts-l" name="fonts-l">
+                    <optgroup id="classique" label="Font Classique">
+                      <option value="arial">Arial </option>
+                      <option value="Times New Roman">Times New Roman</option>
+                      <option value="Times">Times</option>
+                      <option value="Helvetica">Helvetica</option>
+                      <option value="Arial Black">Arial Black</option>
+                      <option value="Comic Sans MS">Comic Sans MS</option>
+                      <option value="Lucida Grande">Lucida Grande</option>
+                      <option value="Tahoma">Tahoma</option>
+                      <option value="Geneva">Geneva</option>
+                      <option value="Trebuchet MS">Trebuchet MS</option>
+                      <option value="Helvetica">Helvetica</option>
+                      <option value="Verdana">Verdana</option>
+                      <option value="Geneva">Geneva</option>
+                      <option value="Courier New">Courier New</option>
+                      <option value="Courier">Courier</option>
+                      <option value="Lucida Console">Lucida Console</option>
+                      <option value="Monaco">Monaco</option>
+                      <option value="Georgia, serif">Georgia, serif </option>
+                      <option value="Palatino Linotype">Palatino Linotype </option>
+                    </optgroup>
+                    <optgroup id="google" label="Google Fonts">
+                    </optgroup>
+                  </select>
+                </div>
+                <div class="col-xs-2 help-color">
+                  <button class="help-block" type="button" class="btn btn-default" data-container="body" data-toggle="popover" data-placement="top" 
+                    data-content="675 fonts are avalaible" data-html="true" 
+                    data-original-title="color">
+                      Help
+                  </button>
+                </div>
+              </div>
+            </div> <!-- End fonts -->
+
+            <!-- font size -->
+            <div class="form-group">
+              <div class="row">
+                <div class="label-block col-xs-2">
+                  <label class="control-label" for="font-size-l">Font Size</label>
+                </div>
+                <div class="col-xs-2 bloc-size-normal">
+                  <input data-property="font-size" name="font-size-l" value="<?php echo esc_attr( get_option('font-size-l') ); ?>" id="font-size-l" type="text" class="form-control" placeholder="font-size">
+                </div>
+                <div class="col-xs-1 text-right">
+                  <label class="control-label" for="font-size-unite-l">Unite: </label>
                 </div>
                 <div class="col-xs-1">
-                  <label class="hidden" for="text-shadow-horizontal-l"></label>
-                  <input data-property="" type="text" class="form-control" value="<?php echo esc_attr( get_option('text-shadow-horizontal-l') ); ?>" name="text-shadow-horizontal-l" id="text-shadow-horizontal-l" placeholder="horizontal">
-                </div>
-                <div class="col-xs-1">
-                  <label class="hidden" for="text-shadow-vertical-l"></label>
-                  <input data-property="" type="text" class="form-control" name="text-shadow-vertical-l" value="<?php echo esc_attr( get_option('text-shadow-vertical-l') ); ?>" id="text-shadow-vertical-l" placeholder="vertical">
-                </div>
-                <div class="col-xs-1">
-                  <label class="hidden" for="text-shadow-blur-l"></label>
-                  <input data-property="" type="text" class="form-control" name="text-shadow-blur-l" value="<?php echo esc_attr( get_option('text-shadow-blur-l') ); ?>" id="text-shadow-blur-l" placeholder="blur">
-                </div>
-                <div class="col-xs-4 color">
-                  <label class="hidden" for="text-shadow-color-l"> </label>
-                  <input data-property="" value="<?php echo esc_attr( get_option('text-shadow-color-l') ); ?>" id="text-shadow-color-l" placeholder="color" name="text-shadow-color-l" class="form-control color" type="text">
+                  <?php $unite_em = (esc_attr( get_option('font-size-unite-l') ) == 'em') ? ' selected' : ''?>
+                  <?php $unite_px = (esc_attr( get_option('font-size-unite-l') ) == 'px') ? ' selected' : ''?>
+                  <select data-unite="unite" data-select="unite" name="font-size-unite-l" id="font-size-unite-l" class="form-control">
+                    <option<?php echo $unite_em; ?>>em</option>
+                    <option<?php echo $unite_px; ?>>px</option>
+                  </select>
                 </div>
                 <div class="col-xs-1">
                   <button class="help-block" type="button" class="btn btn-default" data-container="body" data-toggle="popover" data-placement="top" 
-                    data-content="- h-shadow  Required. The position of the horizontal shadow. Negative values are allowed.
-                    <br>- v-shadow  Required. The position of the vertical shadow. Negative values are allowed.
-                    <br>- blur  Optional. The blur distance. 
-                    <br>- color Optional. The color of the shadow.
-                    <br> <a href='http://www.w3schools.com/cssref/playit.asp?filename=playcss_text-shadow' target='_blank'>try it</a>" data-html="true" 
-                    data-original-title="text-shadow">
+                    data-content="" data-html="true" 
+                    data-original-title="font-size for your font" title="">
                       Help
                   </button>
                 </div>
               </div>
             </div>
-                -->
-            </fieldset>
+
+            <div class="form-group" style="margin-top: 6%;">
+              <div class="row">
+                <div class="col-xs-2 label-block">
+                  <label>Style Variant</label>
+                </div>
+                <?php $small_caps= (esc_attr( get_option('style-variant-l') ) == 'small-caps') ? ' checked' : ''?>
+                <?php $normal = (esc_attr( get_option('style-variant-l') ) == 'normal') ? ' checked' : ''?>
+                <div class="col-xs-2 bloc-size-normal">
+                  <div class="radio">
+                    <label for="variant-normal-l">
+                      Normal
+                      <input data-variant="text-align" type="radio" name="style-variant-l" id="variant-normal-l" value="normal"<?php echo $normal; ?>>
+                    </label>
+                  </div>
+                  <div class="radio">
+                    <label for="small-caps-l">
+                      Small Caps
+                      <input data-variant="text-align" type="radio" name="style-variant-l" id="small-caps-l" value="small-caps"<?php echo $small_caps; ?>>
+                    </label>
+                  </div>
+                </div>
+                <div class="col-xs-1">
+                  <button class="help-block" type="button" class="btn btn-default" data-container="body" data-toggle="popover" data-placement="top" 
+                    data-content="font variant" data-html="true" 
+                    data-original-title="Mode Style Variant">
+                      Help
+                  </button>
+                </div>
+              </div>
+            </div>
+
+
+            <div class="form-group" style="margin-top: 6%;">
+              <div class="row">
+                <div class="col-xs-2 label-block">
+                  <label>Font Weight</label>
+                </div>
+                <?php $bold = (esc_attr( get_option('font-weight-l') ) == 'bold') ? ' checked' : ''?>
+                <?php $normal = (esc_attr( get_option('font-weight-l') ) == 'normal') ? ' checked' : ''?>
+                <div class="col-xs-2 bloc-size-normal">
+                  <div class="radio">
+                    <label for="weight-normal-l">
+                      Normal
+                      <input data-weight="normal" type="radio" name="font-weight-l" id="weight-normal-l" value="normal"<?php echo $normal; ?>>
+                    </label>
+                  </div>
+                  <div class="radio">
+                    <label for="bold-l">
+                      Bold
+                      <input data-weight="bold" type="radio" name="font-weight-l" id="bold-l" value="bold"<?php echo $bold; ?>>
+                    </label>
+                  </div>
+                </div>
+                <div class="col-xs-1">
+                  <button class="help-block" type="button" class="btn btn-default" data-container="body" data-toggle="popover" data-placement="top" 
+                    data-content="font variant" data-html="true" 
+                    data-original-title="Mode font-weight">
+                      Help
+                  </button>
+                </div>
+              </div>
+            </div>
+
+            <div class="form-group" style="margin-top: 6%;">
+              <div class="row">
+                <div class="col-xs-2 label-block">
+                  <label>Font Style</label>
+                </div>
+                <?php $italic = (esc_attr( get_option('font-style-l') ) == 'italic') ? ' checked' : ''?>
+                <?php $normal = (esc_attr( get_option('font-style-l') ) == 'normal') ? ' checked' : ''?>
+                <div class="col-xs-2 bloc-size-normal">
+                  <div class="radio">
+                    <label for="style-normal-l">
+                      Normal
+                      <input data-style="normal" type="radio" name="font-style-l" id="style-normal-l" value="normal"<?php echo $normal; ?>>
+                    </label>
+                  </div>
+                  <div class="radio">
+                    <label for="italic-l">
+                      Italic
+                      <input data-style="italic" type="radio" name="font-style-l" id="italic-l" value="italic"<?php echo $italic; ?>>
+                    </label>
+                  </div>
+                </div>
+                <div class="col-xs-1">
+                  <button class="help-block" type="button" class="btn btn-default" data-container="body" data-toggle="popover" data-placement="top" 
+                    data-content="font variant" data-html="true" 
+                    data-original-title="Mode font-style">
+                      Help
+                  </button>
+                </div>
+              </div>
+            </div>
+
+            <div class="form-group" style="margin-top: 6%;">
+              <div class="row">
+                <div class="col-xs-2 label-block">
+                  <label>Transform</label>
+                </div>
+                <?php $capitalize = (esc_attr( get_option('transform-l') ) == 'capitalize') ? ' checked' : ''?>
+                <?php $uppercase = (esc_attr( get_option('transform-l') ) == 'uppercase') ? ' checked' : ''?>
+                <?php $lowercase = (esc_attr( get_option('transform-l') ) == 'lowercase') ? ' checked' : ''?>
+                <?php $none = (esc_attr( get_option('transform-l') ) == 'none') ? ' checked' : ''?>
+                <div class="col-xs-2 bloc-size-normal">
+                  <div class="radio">
+                    <label for="capitalize-l">
+                      Abc
+                      <input data-transform="capitalize" type="radio" name="transform-l" id="capitalize-l" value="capitalize"<?php echo $capitalize; ?>>
+                    </label>
+                  </div>
+                  <div class="radio">
+                    <label for="uppercase-l">
+                      ABC
+                      <input data-transform="uppercase" type="radio" name="transform-l" id="uppercase-l" value="uppercase"<?php echo $uppercase; ?>>
+                    </label>
+                  </div>
+                  <div class="radio">
+                    <label for="lowercase-l">
+                      abc
+                      <input data-transform="lowercase" type="radio" name="transform-l" id="lowercase-l" value="lowercase"<?php echo $lowercase; ?>>
+                    </label>
+                  </div>
+                  <div class="radio">
+                    <label for="none-l">
+                      None
+                      <input data-transform="none" type="radio" name="transform-l" id="none-l" value="none"<?php echo $none; ?>>
+                    </label>
+                  </div>
+                </div>
+                <div class="col-xs-1">
+                  <button class="help-block" type="button" class="btn btn-default" data-container="body" data-toggle="popover" data-placement="top" 
+                    data-content="font variant" data-html="true" 
+                    data-original-title="Mode font-style">
+                      Help
+                  </button>
+                </div>
+              </div>
+            </div>
+
+          </fieldset>
         </div>
 
         <button type="submit" name="panel_update" data-loading-text="Loading..." class="btn btn-primary">
@@ -728,8 +939,8 @@ function front_page()
     </div>
 
     <!-- Tabs 2-->
-    <div class="tab-pane tab-bgc" id="tabr2">
-      <h1>Background</h1>
+    <div class="tab-pane tab-bgc " id="tabr2">
+      <h2>Background</h2>
       <form class="form-bgc form form-horizontal" role="form" action="options.php" method="post" accept-charset="utf-8">
         <?php settings_fields( 'background-group' ); ?>
         
@@ -791,7 +1002,7 @@ function front_page()
                 <div class="col-xs-1">
                   <button class="help-block" type="button" class="btn btn-default" data-container="body" data-toggle="popover" data-placement="top" 
                     data-content="" data-html="true" 
-                    data-original-title="width"> 
+                    data-original-title="width for set a menu horizontal leave empty this parameter, but you can precise your value, try it."> 
                       Help
                   </button>
                 </div>
@@ -884,7 +1095,7 @@ function front_page()
             <div class="form-group">
               <div class="row">
                 <div class="label-block col-xs-2">
-                  <label class="col-md-12 control-label" for="bgc-1-bgc">background color</label>
+                  <label class="col-md-12 control-label" for="bgc-1-bgc">Background Color</label>
                 </div>
                 <div class="col-xs-4 color">
                   <input data-gradient="gradient-1" value="<?php echo esc_attr( get_option('bgc-1-bgc') ); ?>" id="bgc-1-bgc" placeholder="color" name="bgc-1-bgc" class="form-control color" type="text">
@@ -915,7 +1126,6 @@ function front_page()
                       <?php $selected = esc_attr( get_option('border-style-bgc') ); ?>
                     </label>
                     <select data-border="style" class="form-control" name="border-style-bgc" id="border-style-bgc">
-                      <option value="style"<?php echo $s = ( 'style' ==  $selected) ? ' selected' : ''; ?>>style</option>
                       <option value="none"<?php echo $s = ( 'none' ==  $selected) ? ' selected' : ''; ?>>none</option>
                       <option value="solid"<?php echo $s = ( 'solid' ==  $selected) ? ' selected' : ''; ?>>solid</option>
                       <option value="dotted"<?php echo $s = ( 'dotted' ==  $selected) ? ' selected' : ''; ?>>dotted</option>
@@ -970,7 +1180,7 @@ function front_page()
                       <?php $selected = esc_attr( get_option('box-shadow-horizontal-bgc') ); ?>
                     </label>
                     <select data-shadow="horizontal" class="form-control" name="box-shadow-horizontal-bgc" id="box-shadow-horizontal-bgc">
-                      <option>horizontal<option>
+                      <option>none<option>
                     <?php for ($i = 1; $i <= 20; $i++) {
                       $s = ( $i ==  $selected ) ? ' selected' : '';
                       echo '<option value="'.$i.'"'.$s.'>'.$i.'</option>';
@@ -982,7 +1192,7 @@ function front_page()
                       <?php $selected = esc_attr( get_option('box-shadow-vertical-bgc') ); ?>
                     </label>
                     <select data-shadow="vertical" class="form-control" name="box-shadow-vertical-bgc" id="box-shadow-vertical-bgc">
-                      <option>vertical<option>
+                      <option>none<option>
                     <?php for ($i = 1; $i <= 20; $i++) {
                       $s = ( $i ==  $selected ) ? ' selected' : '';
                       echo '<option value="'.$i.'"'.$s.'>'.$i.'</option>';
@@ -994,7 +1204,7 @@ function front_page()
                       <?php $selected = esc_attr( get_option('box-shadow-gradient-bgc') ); ?>
                     </label>
                     <select data-shadow="gradient" class="form-control" name="box-shadow-gradient-bgc" id="box-shadow-gradient-bgc">
-                      <option>gradient</option>
+                      <option>none<option>
                     <?php for ($i = 1; $i <= 20; $i++) {
                       $s = ( $i ==  $selected ) ? ' selected' : '';
                       echo '<option value="'.$i.'"'.$s.'>'.$i.'</option>';
@@ -1006,7 +1216,7 @@ function front_page()
                     <label class="hidden" for="box-shadow-color-bgc">
                       <?php $selected = esc_attr( get_option('box-shadow-color-bgc') ); ?>
                     </label>
-                    <input data-shadow="color" value="<?php echo esc_attr( get_option('box-shadow-color-bgc') ); ?>" id="box-shadow-1-bgc" placeholder="color" name="box-shadow-1-bgc" class="form-control color" type="text">
+                    <input data-shadow="color" value="<?php echo esc_attr( get_option('box-shadow-color-bgc') ); ?>" id="box-shadow-color-bgc" placeholder="color" name="box-shadow-color-bgc" class="form-control color" type="text">
                   </div>
                   <div class="col-xs-1">
                     <button class="help-block" type="button" class="btn btn-default" data-container="body" data-toggle="popover" data-placement="top" 
@@ -1081,6 +1291,120 @@ function front_page()
               </div>
                 
             </fieldset>
+
+
+            <fieldset>
+              <h2>Position & display</h2>
+
+              <div class="form-group" style="margin-top: 6%;">
+                <div class="row">
+                  <div class="col-xs-2 label-block">
+                    <label>Position</label>
+                  </div>
+                  <?php $left_pos = (esc_attr( get_option('pos-bgc') ) == 'left') ? ' checked' : ''?>
+                  <?php $center_pos = (esc_attr( get_option('pos-bgc') ) == 'center') ? ' checked' : ''?>
+                  <?php $right_pos = (esc_attr( get_option('pos-bgc') ) == 'right') ? ' checked' : ''?>
+                  <div class="col-xs-2 bloc-size-normal">
+                    <div class="radio">
+                      <label for="left-pos-bgc">
+                        Left
+                        <input data-position="left" type="radio" name="pos-bgc" id="left-pos-bgc" value="left"<?php echo $left_pos; ?>>
+                      </label>
+                    </div>
+                  </div>
+                  <div class="col-xs-2 bloc-size-normal">
+                    <div class="radio">
+                      <label for="center-pos-bgc">
+                        Center
+                        <input data-position="center" type="radio" name="pos-bgc" id="center-pos-bgc" value="center"<?php echo $center_pos; ?>>
+                      </label>
+                    </div>
+                  </div>
+                  <div class="col-xs-2 bloc-size-normal">
+                    <div class="radio">
+                      <label for="right-pos-bgc">
+                        Right
+                        <input data-position="right" type="radio" name="pos-bgc" id="right-pos-bgc" value="right"<?php echo $right_pos; ?>>
+                      </label>
+                    </div>
+                  </div>
+                  <div class="col-xs-1">
+                    <button class="help-block" type="button" class="btn btn-default" data-container="body" data-toggle="popover" data-placement="top" 
+                      data-content="" data-html="true" 
+                      data-original-title="You can use this position if you menu is fixed">
+                        Help
+                    </button>
+                  </div>
+                </div>
+              </div>
+
+              <div class="form-group" style="margin-top: 6%;">
+                <div class="row">
+                  <div class="col-xs-2 label-block">
+                    <label>Display Hook</label>
+                  </div>
+                  <?php $scroll_pos= (esc_attr( get_option('display-hook-bgc') ) == '') ? ' checked' : ''?>
+                  <?php $fixed_pos= (esc_attr( get_option('display-hook-bgc') ) == '') ? ' checked' : ''?>
+                  <div class="col-xs-2 bloc-size-normal">
+                    <div class="radio">
+                      <label for="scroll-bgc">
+                        Scroll
+                        <input data-displaypos="relative" type="radio" name="display-hook-bgc" id="scroll-bgc" value="relative"<?php echo $scroll_pos; ?>>
+                      </label>
+                    </div>
+                  </div>
+                  <div class="col-xs-2 bloc-size-normal">
+                    <div class="radio">
+                      <label for="fixed-bgc">
+                        Fixed
+                        <input data-displaypos="fixed" type="radio" name="display-hook-bgc" id="fixed-bgc" value="fixed"<?php echo $fixed_pos; ?>>
+                      </label>
+                    </div>
+                  </div>
+                  <div class="col-xs-1">
+                    <button class="help-block" type="button" class="btn btn-default" data-container="body" data-toggle="popover" data-placement="top" 
+                      data-content="" data-html="true" 
+                      data-original-title="">
+                        Help
+                    </button>
+                  </div>
+                </div>
+              </div>
+
+              <div class="form-group" style="margin-top: 6%;">
+                <div class="row">
+                  <div class="col-xs-2 label-block">
+                    <label>Display Nav</label>
+                  </div>
+                  <?php $vertical_pos = (esc_attr( get_option('sens-pos-bgc') ) == '') ? ' checked' : ''?>
+                  <?php $horisontal_pos = (esc_attr( get_option('sens-pos-bgc') ) == '') ? ' checked' : ''?>
+                  <div class="col-xs-2 bloc-size-normal">
+                    <div class="radio">
+                      <label for="vertical-sens-bgc">
+                        Vertical
+                        <input data-senspos="vertical" type="radio" name="sens-pos-bgc" id="vertical-sens-bgc" value="vertical"<?php echo $vertical_pos; ?>>
+                      </label>
+                    </div>
+                  </div>
+                  <div class="col-xs-2 bloc-size-normal">
+                    <div class="radio">
+                      <label for="horizontal-sens-bgc">
+                        Horizontal
+                        <input data-senspos="horizontal" type="radio" name="sens-pos-bgc" id="horizontal-sens-bgc" value="horizontal"<?php echo $horisontal_pos; ?>>
+                      </label>
+                    </div>
+                  </div>
+                  <div class="col-xs-1">
+                    <button class="help-block" type="button" class="btn btn-default" data-container="body" data-toggle="popover" data-placement="top" 
+                      data-content="" data-html="true" 
+                      data-original-title="">
+                        Help
+                    </button>
+                  </div>
+                </div>
+              </div>
+            </fieldset>
+
         </div>
 
         <button type="submit" name="panel_update" data-loading-text="Loading..." class="btn btn-primary">
@@ -1092,8 +1416,8 @@ function front_page()
     </div>
 
     <!-- Tabs 3-->
-    <div class="tab-pane tab-animate active" id="tabr3">
-      <h1>Animation</h1>
+    <div class="tab-pane tab-animate " id="tabr3">
+      <h2>Animation</h2>
       <form class="form-a form form-horizontal" role="form" action="options.php" method="post" accept-charset="utf-8">
         <?php settings_fields( 'animate-group' ); ?>
 
@@ -1226,7 +1550,7 @@ function front_page()
                       Help
                   </button>
                 </div>
-                <span>Shadow And Glow transition</span> 
+                <span>Shadow and Glow Transition</span> 
               </h2>
               <a data-animate="glow" rel="glow" class="button glow">Glow</a>
               <a data-animate="box-shadow-outset" rel="box-shadow-outset" class="button box-shadow-outset">Box Shadow Outset</a>
@@ -1272,7 +1596,7 @@ function front_page()
 
     <!-- Tabs 3-->
     <div class="tab-pane " id="-grouptabr4">
-      <h1>Documentation</h1>
+      <h2>Documentation</h2>
     </div>
   </div><!-- FIN Tabs -->
 

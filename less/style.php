@@ -4,7 +4,7 @@ else ob_start();
  
 $files = array(
     'mixins.less',
-    'variables.less',
+    //'variables.less',
     'app.less'
 ); 
  
@@ -45,14 +45,7 @@ if(!$recache && isset($_SERVER['If-Modified-Since']) && strtotime($_SERVER['If-M
 
         foreach($files as $file){
             $css .= file_get_contents($file);
-        }  
- 
-        //$css .= '
-        //.cowgirl{
-        //  test1: '.$xav.';
-        //}
-        //';
-
+        } 
         $css = $lc->parse($css);
         file_put_contents($cache, $css);
         
