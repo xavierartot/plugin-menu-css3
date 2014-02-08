@@ -31,6 +31,22 @@ Author URI:
 //}
 //add_action('admin_notices', 'my_admin_notice');
 
+// lang
+add_action( 'init', 'make_wpm_multilang' );
+function make_wpm_multilang() {
+  load_plugin_textdomain('menu_css3', false, dirname( plugin_basename( __FILE__ ) ).'/lang');
+}
+// Localization
+add_action('init', 'localizationsample_init');
+function localizationsample_init() {
+    $path = dirname(plugin_basename( __FILE__ )) . '/lang/';
+    $loaded = load_plugin_textdomain( 'menu_css3', false, $path);
+    if ($_GET['page'] == basename(__FILE__) && !$loaded) {          
+        echo '<div class="error">Sample Localization: ' . __('Could not load the localization file: ' . $path, 'localizationsample') . '</div>';
+        return;
+    } 
+} 
+
   function load_custom_wp_admin_style() {
     // //netdna.bootstrapcdn.com/bootstrap/3.0.3/css/bootstrap.min.css  CDN BOOTSTRAP
     global $pagenow;
@@ -220,10 +236,10 @@ function front_page()
 
   <!-- Tabs -->
   <ul class="nav nav-tabs onglet">
-    <li class="active"><a href="#tabr1" data-toggle="tab">Links Menu</a></li>
-    <li class=""><a href="#tabr2" data-toggle="tab">Background Menu</a></li>
-    <li class=""><a href="#tabr3" data-toggle="tab">Animation Hover</a></li>
-    <li class=""><a href="#tabr4" data-toggle="tab">Documentation</a></li>
+    <li class="active"><a href="#tabr1" data-toggle="tab"><?php _e('Links Menu' , 'menu_css3'); ?></a></li>
+    <li class=""><a href="#tabr2" data-toggle="tab"><?php _e('Background Menu' , 'menu_css3'); ?></a></li>
+    <li class=""><a href="#tabr3" data-toggle="tab"><?php _e('Animation Hover' , 'menu_css3'); ?></a></li>
+    <li class=""><a href="#tabr4" data-toggle="tab"><?php _e('Documentation' , 'menu_css3'); ?></a></li>
   </ul>
   <div id="drag-bloc">
   <div id="primary-navigation">
@@ -255,13 +271,13 @@ function front_page()
   </span>
 </div>
 
-
+<h1><?php _e('Hello World' , 'menu_css3'); ?></h1>
 
   <div class="tab-content container">
     <!-- Tabs 1 -->
     <div class="tab-pane tab-links active" id="tabr1">
 
-      <h2>Links Menu</h2>
+      <h2><?php _e('Links Menu' , 'menu_css3'); ?></h2>
       <form class="form-l form form-horizontal" role="form" action="options.php" method="post" accept-charset="utf-8">
         <?php settings_fields( 'link-group' ); ?>
         
@@ -367,13 +383,13 @@ function front_page()
             <div class="form-group">
               <div class="row">
                 <div class="label-block col-xs-2">
-                  <label class="control-label" for="line-height-l">Vertical Text</label>
+                  <label class="control-label" for="line-height-l"><?php _e('Vertical Text' , 'menu_css3'); ?></label>
                 </div>
                 <div class="col-xs-2 bloc-size-normal">
-                  <input data-property="line-height" name="line-height-l" value="<?php echo esc_attr( get_option('line-height-l') ); ?>" id="line-height-l" type="text" class="form-control" placeholder="line-height">
+                  <input data-property="line-height" name="line-height-l" value="<?php echo esc_attr( get_option('line-height-l') ); ?>" id="line-height-l" type="text" class="form-control" placeholder="<?php _e('line-height' , 'menu_css3'); ?>">
                 </div>
                 <div class="col-xs-1 text-right">
-                  <label class="control-label" for="width-unite-l">Unite: </label>
+                  <label class="control-label" for="width-unite-l"><?php _e('Unite: ' , 'menu_css3'); ?></label>
                 </div>
                 <div class="col-xs-1">
                   <?php $unite_percent = (esc_attr( get_option('line-height-unite-l') ) == '%') ? ' selected' : ''?>
@@ -386,7 +402,7 @@ function front_page()
                 <div class="col-xs-1">
                   <button class="help-block" type="button" class="btn btn-default" data-container="body" data-toggle="popover" data-placement="top" 
                     data-content="" data-html="true" 
-                    data-original-title="height" title="">
+                    data-original-title="<?php _e('height' , 'menu_css3'); ?>" title="">
                       Help
                   </button>
                 </div>
@@ -396,13 +412,13 @@ function front_page()
             <div class="form-group">
               <div class="row">
                 <div class="label-block col-xs-2">
-                  <label class="control-label" for="letter-spacing-l">Letter Spacing</label>
+                  <label class="control-label" for="letter-spacing-l"><?php _e('Letter Spacing' , 'menu_css3'); ?></label>
                 </div>
                 <div class="col-xs-2 bloc-size-normal">
-                  <input data-property="letter-spacing" name="letter-spacing-l" value="<?php echo esc_attr( get_option('letter-spacing-l') ); ?>" id="letter-spacing-l" type="text" class="form-control" placeholder="letter-spacing">
+                  <input data-property="letter-spacing" name="letter-spacing-l" value="<?php echo esc_attr( get_option('letter-spacing-l') ); ?>" id="letter-spacing-l" type="text" class="form-control" placeholder="<?php _e('letter-spacing' , 'menu_css3'); ?>">
                 </div>
                 <div class="col-xs-1 text-right">
-                  <label class="control-label" for="width-unite-l">Unite: </label>
+                  <label class="control-label" for="width-unite-l"><?php _e('Unite: ' , 'menu_css3'); ?></label>
                 </div>
                 <div class="col-xs-1">
                   <?php $unite_em = (esc_attr( get_option('letter-spacing-unite-l') ) == 'em') ? ' selected' : ''?>
@@ -415,7 +431,7 @@ function front_page()
                 <div class="col-xs-1">
                   <button class="help-block" type="button" class="btn btn-default" data-container="body" data-toggle="popover" data-placement="top" 
                     data-content="" data-html="true" 
-                    data-original-title="height" title="">
+                    data-original-title="<?php _e('height' , 'menu_css3'); ?>" title="">
                       Help
                   </button>
                 </div>
@@ -428,23 +444,23 @@ function front_page()
             <div class="form-group">
               <div class="row">
                 <div class="label-block col-xs-2">
-                  <label class="control-label" for="margin-l">Margin </label>
+                  <label class="control-label" for="margin-l"><?php _e('Margin ' , 'menu_css3'); ?></label>
                 </div>
                 <div class="col-xs-1">
                   <label class="hidden" for="margin-top-l"></label>
-                  <input data-property="margin-top" type="text" class="form-control" value="<?php echo esc_attr( get_option('margin-top-l') ); ?>" name="margin-top-l" id="margin-top-l" placeholder="top">
+                  <input data-property="margin-top" type="text" class="form-control" value="<?php echo esc_attr( get_option('margin-top-l') ); ?>" name="margin-top-l" id="margin-top-l" placeholder="<?php _e('top' , 'menu_css3'); ?>">
                 </div>
                 <div class="col-xs-1">
                   <label class="hidden" for="margin-right-l"></label>
-                  <input data-property="margin-right" type="text" class="form-control" name="margin-right-l" value="<?php echo esc_attr( get_option('margin-right-l') ); ?>" id="margin-right-l" placeholder="right">
+                  <input data-property="margin-right" type="text" class="form-control" name="margin-right-l" value="<?php echo esc_attr( get_option('margin-right-l') ); ?>" id="margin-right-l" placeholder="<?php _e('right' , 'menu_css3'); ?>">
                 </div>
                 <div class="col-xs-1">
                   <label class="hidden" for="margin-bottom-l"></label>
-                  <input data-property="margin-bottom" type="text" class="form-control" name="margin-bottom-l" value="<?php echo esc_attr( get_option('margin-bottom-l') ); ?>" id="margin-bottom-l" placeholder="bottom">
+                  <input data-property="margin-bottom" type="text" class="form-control" name="margin-bottom-l" value="<?php echo esc_attr( get_option('margin-bottom-l') ); ?>" id="margin-bottom-l" placeholder="<?php _e('bottom' , 'menu_css3'); ?>">
                 </div>
                 <div class="col-xs-1">
                   <label class="hidden" for="margin-left-l"></label>
-                  <input data-property="margin-left" type="text" class="form-control" name="margin-left-l" value="<?php echo esc_attr( get_option('margin-left-l') ); ?>" id="margin-left-l" placeholder="left">
+                  <input data-property="margin-left" type="text" class="form-control" name="margin-left-l" value="<?php echo esc_attr( get_option('margin-left-l') ); ?>" id="margin-left-l" placeholder="<?php _e('left' , 'menu_css3'); ?>">
                 </div>
                 <div class="col-xs-1">
                   <label class="hidden" for="margin-unite-l">
@@ -457,10 +473,10 @@ function front_page()
                   </select>
                 </div>
                 <div class="col-xs-1">
-                  <button class="help-block" type="button" class="btn btn-default" data-container="body" data-toggle="popover" data-placement="top" 
-                    data-content="top | right | bottom | left" data-html="true" 
-                    data-original-title="margin">
-                      Help
+                  <button class="help-block" type="button" class="btn btn-default" data-container="body" data-toggle="popover" data-placement="<?php _e('top' , 'menu_css3'); ?>" 
+                    data-content="<?php _e('top | right | bottom | left' , 'menu_css3'); ?>" data-html="true" 
+                    data-original-title="<?php _e('margin' , 'menu_css3'); ?>">
+                      <?php _e('Help' , 'menu_css3'); ?>
                   </button>
                 </div>
               </div>
@@ -470,23 +486,23 @@ function front_page()
             <div class="form-group">
               <div class="row">
                 <div class="label-block col-xs-2">
-                  <label class="control-label" for="padding-l">Padding</label>
+                  <label class="control-label" for="padding-l"><?php _e('Padding' , 'menu_css3'); ?></label>
                 </div>
                 <div class="col-xs-1">
                   <label class="hidden" for="padding-top-l"></label>
-                  <input data-property="padding-top" type="text" class="form-control" value="<?php echo esc_attr( get_option('padding-top-l') ); ?>" name="padding-top-l" id="padding-top-l" placeholder="top">
+                  <input data-property="padding-top" type="text" class="form-control" value="<?php echo esc_attr( get_option('padding-top-l') ); ?>" name="padding-top-l" id="padding-top-l" placeholder="<?php _e('top' , 'menu_css3'); ?>">
                 </div>
                 <div class="col-xs-1">
                   <label class="hidden" for="padding-right-l"></label>
-                  <input data-property="padding-right" type="text" class="form-control" name="padding-right-l" value="<?php echo esc_attr( get_option('padding-right-l') ); ?>" id="padding-right-l" placeholder="right">
+                  <input data-property="padding-right" type="text" class="form-control" name="padding-right-l" value="<?php echo esc_attr( get_option('padding-right-l') ); ?>" id="padding-right-l" placeholder="<?php _e('right' , 'menu_css3'); ?>">
                 </div>
                 <div class="col-xs-1">
                   <label class="hidden" for="padding-bottom-l"></label>
-                  <input data-property="padding-bottom" type="text" class="form-control" name="padding-bottom-l" value="<?php echo esc_attr( get_option('padding-bottom-l') ); ?>" id="padding-bottom-l" placeholder="bottom">
+                  <input data-property="padding-bottom" type="text" class="form-control" name="padding-bottom-l" value="<?php echo esc_attr( get_option('padding-bottom-l') ); ?>" id="padding-bottom-l" placeholder="<?php _e('bottom' , 'menu_css3'); ?>">
                 </div>
                 <div class="col-xs-1">
                   <label class="hidden" for="padding-left-l"></label>
-                  <input data-property="padding-left" type="text" class="form-control" name="padding-left-l" value="<?php echo esc_attr( get_option('padding-left-l') ); ?>" id="padding-left-l" placeholder="left">
+                  <input data-property="padding-left" type="text" class="form-control" name="padding-left-l" value="<?php echo esc_attr( get_option('padding-left-l') ); ?>" id="padding-left-l" placeholder="<?php _e('left' , 'menu_css3'); ?>">
                 </div>
                 <div class="col-xs-1">
                   <label class="hidden" for="padding-unite-l">
@@ -500,9 +516,9 @@ function front_page()
                 </div>
                 <div class="col-xs-1">
                   <button class="help-block" type="button" class="btn btn-default" data-container="body" data-toggle="popover" data-placement="top" 
-                    data-content="top | right | bottom | left" data-html="true" 
-                    data-original-title="Padding">
-                      Help
+                    data-content="<?php _e('top | right | bottom | left' , 'menu_css3'); ?>" data-html="true" 
+                    data-original-title="<?php _e('Padding' , 'menu_css3'); ?>">
+                      <?php _e('Help' , 'menu_css3'); ?>
                   </button>
                 </div>
               </div>
@@ -512,7 +528,7 @@ function front_page()
             <div class="form-group">
               <div class="row">
                 <div class="label-block col-xs-2">
-                  <label class="col-md-12 control-label" for="bgc-1-l">Background Color</label>
+                  <label class="col-md-12 control-label" for="bgc-1-l"><?php _e('Background Color' , 'menu_css3'); ?></label>
                 </div>
                 <div class="col-xs-4 color">
                   <input data-gradient="gradient-1" value="<?php echo esc_attr( get_option('bgc-1-l') ); ?>" id="bgc-1-l" placeholder="color" name="bgc-1-l" class="form-control color" type="text">
@@ -523,9 +539,9 @@ function front_page()
                 </div>
                 <div class="col-xs-2 help-color">
                   <button class="help-block" type="button" class="btn btn-default" data-container="body" data-toggle="popover" data-placement="top" 
-                    data-content="the color for the background" data-html="true" 
-                    data-original-title="color">
-                      Help
+                    data-content="<?php _e('the color for the background' , 'menu_css3'); ?>" data-html="true" 
+                    data-original-title="<?php _e('color' , 'menu_css3'); ?>">
+                      <?php _e('Help' , 'menu_css3'); ?>
                   </button>
                 </div>
               </div>
@@ -535,7 +551,7 @@ function front_page()
               <div class="form-group">
                 <div class="row">
                   <div class="label-block col-xs-2">
-                    <label class="col-md-2 control-label" for="border-l">Border</label>
+                    <label class="col-md-2 control-label" for="border-l"><?php _e('Border' , 'menu_css3'); ?></label>
                   </div>
                   <div class="col-xs-1">
                     <label class="hidden" for="border-style-l">
@@ -572,9 +588,9 @@ function front_page()
                   
                   <div class="col-xs-1">
                     <button class="help-block" type="button" class="btn btn-default" data-container="body" data-toggle="popover" data-placement="top" 
-                    data-content="order: border color | pixel width | line style <br> leave empty for put at 'none'" data-html="true" 
-                    title="Border">
-                      Help
+                    data-content="<?php _e('order: border color | pixel width | line style <br> leave empty for put at 'none'' , 'menu_css3'); ?>" data-html="true" 
+                    title="<?php _e('Border' , 'menu_css3'); ?>">
+                      <?php _e('Help' , 'menu_css3'); ?>
                     </button>
                   </div>
                 </div>
@@ -589,7 +605,7 @@ function front_page()
               <div class="form-group">
                 <div class="row">
                   <div class="label-block col-xs-2">
-                    <label class="col-md-2 control-label" for="box">Shadow </label>
+                    <label class="col-md-2 control-label" for="box"><?php _e('Shadow ' , 'menu_css3'); ?></label>
                   </div>
                   <div class="col-xs-1">
                     <label class="hidden" for="box-shadow-horizontal-l">
@@ -635,9 +651,9 @@ function front_page()
                   </div>
                   <div class="col-xs-1">
                     <button class="help-block" type="button" class="btn btn-default" data-container="body" data-toggle="popover" data-placement="top" 
-                      data-content="horizontal | vertical | gradient | size" data-html="true" 
-                      data-original-title="" title="box shadow">
-                        Help
+                      data-content="<?php _e('horizontal | vertical | gradient | size' , 'menu_css3'); ?>" data-html="true" 
+                      data-original-title="<?php _e('etc,..' , 'menu_css3'); ?>" title="<?php _e('box shadow' , 'menu_css3'); ?>">
+                        <?php _e('Help' , 'menu_css3'); ?>
                     </button>
                   </div>
                 </div>
@@ -646,7 +662,7 @@ function front_page()
               <div class="form-group">
                 <div class="row">
                   <div class="label-block col-xs-2">
-                    <label class="control-label" for="radius">Border Radius</label>
+                    <label class="control-label" for="radius"><?php _e('Border Radius' , 'menu_css3'); ?></label>
                   </div>
                   <div class="col-xs-1">
                     <label class="hidden" for="radius-top-left-l"> </label>
@@ -676,9 +692,9 @@ function front_page()
                   </div>
                   <div class="col-xs-1 abbr">
                     <button class="help-block" type="button" class="btn btn-default" data-container="body" data-toggle="popover" data-placement="top" 
-                      data-content="top left | top right | bottom right | bottom left" data-html="true" 
-                      data-original-title="border radius"> 
-                        Help
+                      data-content="<?php _e('top left | top right | bottom right | bottom left' , 'menu_css3'); ?>" data-html="true" 
+                      data-original-title="<?php _e('border radius' , 'menu_css3'); ?>"> 
+                        <?php _e('Help' , 'menu_css3'); ?>
                     </button>
                   </div>
                 </div>
@@ -687,7 +703,7 @@ function front_page()
               <div class="form-group">
                 <div class="row">
                   <div class="label-block col-xs-2">
-                    <label class="control-label" for="opacity-l">Opacity</label>
+                    <label class="control-label" for="opacity-l"><?php _e('Opacity' , 'menu_css3'); ?></label>
                   </div>
                   <div class="col-xs-1">
                     <input data-property="opacity" value="<?php echo esc_attr( get_option('opacity-l') ); ?>" type="text" class="form-control" name="opacity-l" id="opacity-l">
@@ -697,9 +713,9 @@ function front_page()
 
                   <div class="col-xs-1">
                     <button class="help-block" type="button" class="btn btn-default" data-container="body" data-toggle="popover" data-placement="top" 
-                      data-content=" in percent" data-html="true" 
-                      data-original-title="background opacity">
-                        Help
+                      data-content="<?php _e('in percent' , 'menu_css3'); ?> " data-html="true" 
+                      data-original-title="<?php _e('background opacity' , 'menu_css3'); ?>">
+                        <?php _e('Help' , 'menu_css3'); ?>
                     </button>
                   </div>
                 </div>
@@ -709,16 +725,16 @@ function front_page()
             <div class="form-group">
               <div class="row">
                 <div class="label-block col-xs-2">
-                  <label class="col-md-12 control-label" for="color-l">Color</label>
+                  <label class="col-md-12 control-label" for="color-l"><?php _e('Color' , 'menu_css3'); ?></label>
                 </div>
                 <div class="col-xs-4 color">
                   <input data-text="color" value="<?php echo esc_attr( get_option('color-l') ); ?>" id="color-l" placeholder="color" name="color-l" class="form-control color" type="text">
                 </div>
                 <div class="col-xs-2 help-color">
                   <button class="help-block" type="button" class="btn btn-default" data-container="body" data-toggle="popover" data-placement="top" 
-                    data-content="the color for the background" data-html="true" 
-                    data-original-title="color">
-                      Help
+                    data-content="<?php _e('the color for the background' , 'menu_css3'); ?>" data-html="true" 
+                    data-original-title="<?php _e('color' , 'menu_css3'); ?>">
+                      <?php _e('Help' , 'menu_css3'); ?>
                   </button>
                 </div>
               </div>
@@ -731,7 +747,7 @@ function front_page()
                   <div class="hidden hide-fonts"> 
                     <?php echo esc_attr( get_option('fonts-l') ); ?>
                   </div>
-                  <label class="col-md-12 control-label" for="fonts-l">Fonts</label>
+                  <label class="col-md-12 control-label" for="fonts-l"><?php _e('Fonts' , 'menu_css3'); ?></label>
                 </div>
                 <div class="col-xs-4 fonts">
                   <select id="fonts-l" name="fonts-l">
@@ -762,9 +778,9 @@ function front_page()
                 </div>
                 <div class="col-xs-2 help-color">
                   <button class="help-block" type="button" class="btn btn-default" data-container="body" data-toggle="popover" data-placement="top" 
-                    data-content="675 fonts are avalaible" data-html="true" 
-                    data-original-title="color">
-                      Help
+                    data-content="<?php _e('675 fonts are avalaible' , 'menu_css3'); ?>" data-html="true" 
+                    data-original-title="<?php _e('color' , 'menu_css3'); ?>">
+                      <?php _e('Help' , 'menu_css3'); ?>
                   </button>
                 </div>
               </div>
@@ -774,13 +790,13 @@ function front_page()
             <div class="form-group">
               <div class="row">
                 <div class="label-block col-xs-2">
-                  <label class="control-label" for="font-size-l">Font Size</label>
+                  <label class="control-label" for="font-size-l"><?php _e('Font Size' , 'menu_css3'); ?></label>
                 </div>
                 <div class="col-xs-2 bloc-size-normal">
                   <input data-property="font-size" name="font-size-l" value="<?php echo esc_attr( get_option('font-size-l') ); ?>" id="font-size-l" type="text" class="form-control" placeholder="font-size">
                 </div>
                 <div class="col-xs-1 text-right">
-                  <label class="control-label" for="font-size-unite-l">Unite: </label>
+                  <label class="control-label" for="font-size-unite-l"><?php _e('Unite: ' , 'menu_css3'); ?></label>
                 </div>
                 <div class="col-xs-1">
                   <?php $unite_em = (esc_attr( get_option('font-size-unite-l') ) == 'em') ? ' selected' : ''?>
@@ -792,9 +808,9 @@ function front_page()
                 </div>
                 <div class="col-xs-1">
                   <button class="help-block" type="button" class="btn btn-default" data-container="body" data-toggle="popover" data-placement="top" 
-                    data-content="" data-html="true" 
-                    data-original-title="font-size for your font" title="">
-                      Help
+                    data-content="<?php _e('etc..' , 'menu_css3'); ?>" data-html="true" 
+                    data-original-title="<?php _e('font-size for your font' , 'menu_css3'); ?>" title="<?php _e('etc..' , 'menu_css3'); ?>">
+                      <?php _e('Help' , 'menu_css3'); ?>
                   </button>
                 </div>
               </div>
@@ -803,29 +819,29 @@ function front_page()
             <div class="form-group" style="margin-top: 6%;">
               <div class="row">
                 <div class="col-xs-2 label-block">
-                  <label>Style Variant</label>
+                  <label><?php _e('Style Variant' , 'menu_css3'); ?></label>
                 </div>
                 <?php $small_caps= (esc_attr( get_option('style-variant-l') ) == 'small-caps') ? ' checked' : ''?>
                 <?php $normal = (esc_attr( get_option('style-variant-l') ) == 'normal') ? ' checked' : ''?>
                 <div class="col-xs-2 bloc-size-normal">
                   <div class="radio">
                     <label for="variant-normal-l">
-                      Normal
+                      <?php _e('Normal' , 'menu_css3'); ?>
                       <input data-variant="text-align" type="radio" name="style-variant-l" id="variant-normal-l" value="normal"<?php echo $normal; ?>>
                     </label>
                   </div>
                   <div class="radio">
                     <label for="small-caps-l">
-                      Small Caps
+                      <?php _e('Small Caps' , 'menu_css3'); ?>
                       <input data-variant="text-align" type="radio" name="style-variant-l" id="small-caps-l" value="small-caps"<?php echo $small_caps; ?>>
                     </label>
                   </div>
                 </div>
                 <div class="col-xs-1">
                   <button class="help-block" type="button" class="btn btn-default" data-container="body" data-toggle="popover" data-placement="top" 
-                    data-content="font variant" data-html="true" 
-                    data-original-title="Mode Style Variant">
-                      Help
+                    data-content="<?php _e('font variant' , 'menu_css3'); ?>" data-html="true" 
+                    data-original-title="<?php _e('Mode Style Variant' , 'menu_css3'); ?>">
+                      <?php _e('Help' , 'menu_css3'); ?>
                   </button>
                 </div>
               </div>
@@ -835,29 +851,29 @@ function front_page()
             <div class="form-group" style="margin-top: 6%;">
               <div class="row">
                 <div class="col-xs-2 label-block">
-                  <label>Font Weight</label>
+                  <label><?php _e('Font Weight' , 'menu_css3'); ?></label>
                 </div>
                 <?php $bold = (esc_attr( get_option('font-weight-l') ) == 'bold') ? ' checked' : ''?>
                 <?php $normal = (esc_attr( get_option('font-weight-l') ) == 'normal') ? ' checked' : ''?>
                 <div class="col-xs-2 bloc-size-normal">
                   <div class="radio">
                     <label for="weight-normal-l">
-                      Normal
+                      <?php _e('Normal' , 'menu_css3'); ?>
                       <input data-weight="normal" type="radio" name="font-weight-l" id="weight-normal-l" value="normal"<?php echo $normal; ?>>
                     </label>
                   </div>
                   <div class="radio">
                     <label for="bold-l">
-                      Bold
+                      <?php _e('Bold' , 'menu_css3'); ?>
                       <input data-weight="bold" type="radio" name="font-weight-l" id="bold-l" value="bold"<?php echo $bold; ?>>
                     </label>
                   </div>
                 </div>
                 <div class="col-xs-1">
                   <button class="help-block" type="button" class="btn btn-default" data-container="body" data-toggle="popover" data-placement="top" 
-                    data-content="font variant" data-html="true" 
-                    data-original-title="Mode font-weight">
-                      Help
+                    data-content="<?php _e('font variant' , 'menu_css3'); ?>" data-html="true" 
+                    data-original-title="<?php _e('Mode font-weight' , 'menu_css3'); ?>">
+                      <?php _e('Help' , 'menu_css3'); ?>
                   </button>
                 </div>
               </div>
@@ -866,29 +882,29 @@ function front_page()
             <div class="form-group" style="margin-top: 6%;">
               <div class="row">
                 <div class="col-xs-2 label-block">
-                  <label>Font Style</label>
+                  <label><?php _e('Font Style' , 'menu_css3'); ?></label>
                 </div>
                 <?php $italic = (esc_attr( get_option('font-style-l') ) == 'italic') ? ' checked' : ''?>
                 <?php $normal = (esc_attr( get_option('font-style-l') ) == 'normal') ? ' checked' : ''?>
                 <div class="col-xs-2 bloc-size-normal">
                   <div class="radio">
                     <label for="style-normal-l">
-                      Normal
+                      <?php _e('Normal' , 'menu_css3'); ?>
                       <input data-style="normal" type="radio" name="font-style-l" id="style-normal-l" value="normal"<?php echo $normal; ?>>
                     </label>
                   </div>
                   <div class="radio">
                     <label for="italic-l">
-                      Italic
+                      <?php _e('Italic' , 'menu_css3'); ?>
                       <input data-style="italic" type="radio" name="font-style-l" id="italic-l" value="italic"<?php echo $italic; ?>>
                     </label>
                   </div>
                 </div>
                 <div class="col-xs-1">
                   <button class="help-block" type="button" class="btn btn-default" data-container="body" data-toggle="popover" data-placement="top" 
-                    data-content="font variant" data-html="true" 
-                    data-original-title="Mode font-style">
-                      Help
+                    data-content="<?php _e('font variant' , 'menu_css3'); ?>" data-html="true" 
+                    data-original-title="<?php _e('Mode font-style' , 'menu_css3'); ?>">
+                      <?php _e('Help' , 'menu_css3'); ?>
                   </button>
                 </div>
               </div>
@@ -897,7 +913,7 @@ function front_page()
             <div class="form-group" style="margin-top: 6%;">
               <div class="row">
                 <div class="col-xs-2 label-block">
-                  <label>Transform</label>
+                  <label><?php _e('Transform' , 'menu_css3'); ?></label>
                 </div>
                 <?php $capitalize = (esc_attr( get_option('transform-l') ) == 'capitalize') ? ' checked' : ''?>
                 <?php $uppercase = (esc_attr( get_option('transform-l') ) == 'uppercase') ? ' checked' : ''?>
@@ -906,34 +922,34 @@ function front_page()
                 <div class="col-xs-2 bloc-size-normal">
                   <div class="radio">
                     <label for="capitalize-l">
-                      Abc
+                      <?php _e('Abc' , 'menu_css3'); ?>
                       <input data-transform="capitalize" type="radio" name="transform-l" id="capitalize-l" value="capitalize"<?php echo $capitalize; ?>>
                     </label>
                   </div>
                   <div class="radio">
                     <label for="uppercase-l">
-                      ABC
+                      <?php _e('ABC' , 'menu_css3'); ?>
                       <input data-transform="uppercase" type="radio" name="transform-l" id="uppercase-l" value="uppercase"<?php echo $uppercase; ?>>
                     </label>
                   </div>
                   <div class="radio">
                     <label for="lowercase-l">
-                      abc
+                      <?php _e('abc' , 'menu_css3'); ?>
                       <input data-transform="lowercase" type="radio" name="transform-l" id="lowercase-l" value="lowercase"<?php echo $lowercase; ?>>
                     </label>
                   </div>
                   <div class="radio">
                     <label for="none-l">
-                      None
+                      <?php _e('None' , 'menu_css3'); ?>
                       <input data-transform="none" type="radio" name="transform-l" id="none-l" value="none"<?php echo $none; ?>>
                     </label>
                   </div>
                 </div>
                 <div class="col-xs-1">
                   <button class="help-block" type="button" class="btn btn-default" data-container="body" data-toggle="popover" data-placement="top" 
-                    data-content="font variant" data-html="true" 
-                    data-original-title="Mode font-style">
-                      Help
+                    data-content="<?php _e('font variant' , 'menu_css3'); ?>" data-html="true" 
+                    data-original-title="<?php _e('Mode font-style' , 'menu_css3'); ?>">
+                      <?php _e('Help' , 'menu_css3'); ?>
                   </button>
                 </div>
               </div>
@@ -943,7 +959,7 @@ function front_page()
         </div>
 
         <button type="submit" name="panel_update" data-loading-text="Loading..." class="btn btn-primary">
-          <?php _e('Save Changes') ?> &rarr;
+          <?php _e('Save Change' , 'menu_css3'); ?> &rarr;
         </button>
         <input type="hidden" name="panel_nonce_name" value="<?php echo wp_create_nonce('key-link'); ?>">
       </form>
@@ -987,13 +1003,13 @@ function front_page()
           <div class="form-group">
               <div class="row">
                 <div class="label-block col-xs-2">
-                  <label class="control-label" for="height-bgc">Height </label>
+                  <label class="control-label" for="height-bgc"><?php _e('Height ' , 'menu_css3'); ?></label>
                 </div>
                 <div class="col-xs-2 bloc-size-normal">
                   <input data-property="height" name="height-bgc" value="<?php echo esc_attr( get_option('height-bgc') ); ?>" id="height-bgc" type="text" class="form-control" placeholder="height">
                 </div>
                 <div class="col-xs-1 text-right">
-                  <label class="control-label" for="height-unite-bgc">Unite: </label>
+                  <label class="control-label" for="height-unite-bgc"><?php _e('Unite: ' , 'menu_css3'); ?></label>
                 </div>
                 <div class="col-xs-1">
                   <?php $unite_percent = (esc_attr( get_option('height-unite-bgc') ) == '%') ? ' selected' : ''?>
@@ -1005,9 +1021,9 @@ function front_page()
                 </div>
                 <div class="col-xs-1">
                   <button class="help-block" type="button" class="btn btn-default" data-container="body" data-toggle="popover" data-placement="top" 
-                    data-content="" data-html="true" 
-                    data-original-title="height" title="">
-                      Help
+                    data-content="<?php _e('etc, .' , 'menu_css3'); ?>" data-html="true" 
+                    data-original-title="<?php _e('height' , 'menu_css3'); ?>" title="<?php _e('etc, .' , 'menu_css3'); ?>">
+                      <?php _e('Help' , 'menu_css3'); ?>
                   </button>
                 </div>
               </div>
@@ -1017,13 +1033,13 @@ function front_page()
             <div class="form-group">
               <div class="row">
                 <div class="col-xs-2 label-block">
-                  <label class="control-label" for="width-bgc">Width</label>
+                  <label class="control-label" for="width-bgc"><?php _e('Width' , 'menu_css3'); ?></label>
                 </div>
                 <div class="col-xs-2 bloc-size-normal">
                   <input data-property="width" value="<?php echo esc_attr( get_option( 'width-bgc' ) ); ?>" type="text" name="width-bgc" id="width-bgc" class="form-control" placeholder="width">
                 </div>
                 <div class="col-xs-1 text-right">
-                  <label class="control-label" for="width-unite-bgc">Unite: </label>
+                  <label class="control-label" for="width-unite-bgc"><?php _e('Unite: ' , 'menu_css3'); ?></label>
                 </div>
                 <div class="col-xs-1">
                   <?php $unite_percent = (esc_attr( get_option('width-unite-bgc') ) == '%') ? ' selected' : ''?>
@@ -1035,9 +1051,9 @@ function front_page()
                 </div>
                 <div class="col-xs-1">
                   <button class="help-block" type="button" class="btn btn-default" data-container="body" data-toggle="popover" data-placement="top" 
-                    data-content="" data-html="true" 
-                    data-original-title="width for set a menu horizontal leave empty this parameter, but you can precise your value, try it."> 
-                      Help
+                    data-content="<?php _e('etc, .' , 'menu_css3'); ?>" data-html="true" 
+                    data-original-title="<?php _e('width for set a menu horizontal leave empty this parameter, but you can precise your value, try it.' , 'menu_css3'); ?>"> 
+                      <?php _e('Help' , 'menu_css3'); ?>
                   </button>
                 </div>
               </div>
@@ -1047,7 +1063,7 @@ function front_page()
             <div class="form-group">
               <div class="row">
                 <div class="label-block col-xs-2">
-                  <label class="control-label" for="margin-bgc">Margin </label>
+                  <label class="control-label" for="margin-bgc"><?php _e('Margin ' , 'menu_css3'); ?></label>
                 </div>
                 <div class="col-xs-1">
                   <label class="hidden" for="margin-top-bgc"></label>
@@ -1077,9 +1093,9 @@ function front_page()
                 </div>
                 <div class="col-xs-1">
                   <button class="help-block" type="button" class="btn btn-default" data-container="body" data-toggle="popover" data-placement="top" 
-                    data-content="top | right | bottom | left" data-html="true" 
-                    data-original-title="margin">
-                      Help
+                    data-content="<?php _e('top | right | bottom | left' , 'menu_css3'); ?>" data-html="true" 
+                    data-original-title="<?php _e('margin' , 'menu_css3'); ?>">
+                      <?php _e('Help' , 'menu_css3'); ?>
                   </button>
                 </div>
               </div>
@@ -1088,7 +1104,7 @@ function front_page()
             <div class="form-group">
               <div class="row">
                 <div class="label-block col-xs-2">
-                  <label class="control-label" for="padding-bgc">Padding</label>
+                  <label class="control-label" for="padding-bgc"><?php _e('Padding' , 'menu_css3'); ?></label>
                 </div>
                 <div class="col-xs-1">
                   <label class="hidden" for="padding-top-bgc"></label>
@@ -1118,9 +1134,9 @@ function front_page()
                 </div>
                 <div class="col-xs-1">
                   <button class="help-block" type="button" class="btn btn-default" data-container="body" data-toggle="popover" data-placement="top" 
-                    data-content="top | right | bottom | left" data-html="true" 
-                    data-original-title="Padding">
-                      Help
+                    data-content="<?php _e('top | right | bottom | left' , 'menu_css3'); ?>" data-html="true" 
+                    data-original-title="<?php _e('Padding' , 'menu_css3'); ?>">
+                      <?php _e('Help' , 'menu_css3'); ?>
                   </button>
                 </div>
               </div>
@@ -1129,7 +1145,7 @@ function front_page()
             <div class="form-group">
               <div class="row">
                 <div class="label-block col-xs-2">
-                  <label class="col-md-12 control-label" for="bgc-1-bgc">Background Color</label>
+                  <label class="col-md-12 control-label" for="bgc-1-bgc"><?php _e('Background Color' , 'menu_css3'); ?></label>
                 </div>
                 <div class="col-xs-4 color">
                   <input data-gradient="gradient-1" value="<?php echo esc_attr( get_option('bgc-1-bgc') ); ?>" id="bgc-1-bgc" placeholder="color" name="bgc-1-bgc" class="form-control color" type="text">
@@ -1140,9 +1156,9 @@ function front_page()
                 </div>
                 <div class="col-xs-2 help-color">
                   <button class="help-block" type="button" class="btn btn-default" data-container="body" data-toggle="popover" data-placement="top" 
-                    data-content="the color for the background" data-html="true" 
-                    data-original-title="color">
-                      Help
+                    data-content="<?php _e('the color for the background' , 'menu_css3'); ?>" data-html="true" 
+                    data-original-title="<?php _e('color' , 'menu_css3'); ?>">
+                      <?php _e('Help' , 'menu_css3'); ?>
                   </button>
                 </div>
               </div>
@@ -1153,7 +1169,7 @@ function front_page()
               <div class="form-group">
                 <div class="row">
                   <div class="label-block col-xs-2">
-                    <label class="col-md-2 control-label" for="border-bgc">Border</label>
+                    <label class="col-md-2 control-label" for="border-bgc"><?php _e('Border' , 'menu_css3'); ?></label>
                   </div>
                   <div class="col-xs-1">
                     <label class="hidden" for="border-style-bgc">
@@ -1190,9 +1206,9 @@ function front_page()
                   
                   <div class="col-xs-1">
                     <button class="help-block" type="button" class="btn btn-default" data-container="body" data-toggle="popover" data-placement="top" 
-                    data-content="order: border color | pixel width | line style <br> leave empty for put at 'none'" data-html="true" 
-                    title="Border">
-                      Help
+                    data-content="<?php _e('order: border color | pixel width | line style <br> leave empty for put at 'none'' , 'menu_css3'); ?>" data-html="true" 
+                    title="<?php _e('Border' , 'menu_css3'); ?>">
+                      <?php _e('Help' , 'menu_css3'); ?>
                     </button>
                   </div>
                 </div>
@@ -1207,7 +1223,7 @@ function front_page()
               <div class="form-group">
                 <div class="row">
                   <div class="label-block col-xs-2">
-                    <label class="col-md-2 control-label" for="box">Shadow </label>
+                    <label class="col-md-2 control-label" for="box"><?php _e('Shadow ' , 'menu_css3'); ?></label>
                   </div>
                   <div class="col-xs-1">
                     <label class="hidden" for="box-shadow-horizontal-bgc">
@@ -1254,9 +1270,9 @@ function front_page()
                   </div>
                   <div class="col-xs-1">
                     <button class="help-block" type="button" class="btn btn-default" data-container="body" data-toggle="popover" data-placement="top" 
-                      data-content="horizontal | vertical | gradient | color" data-html="true" 
-                      data-original-title="" title="box shadow">
-                        Help
+                      data-content="<?php _e('horizontal | vertical | gradient | color' , 'menu_css3'); ?>" data-html="true" 
+                      data-original-title="" title="<?php _e('box shadow' , 'menu_css3'); ?>">
+                        <?php _e('Help' , 'menu_css3'); ?>
                     </button>
                   </div>
                 </div>
@@ -1265,7 +1281,7 @@ function front_page()
               <div class="form-group">
                 <div class="row">
                   <div class="label-block col-xs-2">
-                    <label class="control-label" for="radius">Border Radius</label>
+                    <label class="control-label" for="radius"><?php _e('Border Radius' , 'menu_css3'); ?></label>
                   </div>
                   <div class="col-xs-1">
                     <label class="hidden" for="radius-top-left-bgc"> </label>
@@ -1295,9 +1311,9 @@ function front_page()
                   </div>
                   <div class="col-xs-1 abbr">
                     <button class="help-block" type="button" class="btn btn-default" data-container="body" data-toggle="popover" data-placement="top" 
-                      data-content="top left | top right | bottom right | bottom left" data-html="true" 
-                      data-original-title="border radius"> 
-                        Help
+                      data-content="<?php _e('top left | top right | bottom right | bottom left' , 'menu_css3'); ?>" data-html="true" 
+                      data-original-title="<?php _e('border radius' , 'menu_css3'); ?>"> 
+                        <?php _e('Help' , 'menu_css3'); ?>
                     </button>
                   </div>
                 </div>
@@ -1306,7 +1322,7 @@ function front_page()
               <div class="form-group">
                 <div class="row">
                   <div class="label-block col-xs-2">
-                    <label class="control-label" for="opacity-bgc">Opacity</label>
+                    <label class="control-label" for="opacity-bgc"><?php _e('Opacity' , 'menu_css3'); ?></label>
                   </div>
                   <div class="col-xs-1">
                     <input data-property="opacity" value="<?php echo esc_attr( get_option('opacity-bgc') ); ?>" type="text" class="form-control" name="opacity-bgc" id="opacity-bgc">
@@ -1316,9 +1332,9 @@ function front_page()
 
                   <div class="col-xs-1">
                     <button class="help-block" type="button" class="btn btn-default" data-container="body" data-toggle="popover" data-placement="top" 
-                      data-content="opacity in percent" data-html="true" 
-                      data-original-title="background opacity">
-                        Help
+                      data-content="<?php _e('opacity in percent' , 'menu_css3'); ?>" data-html="true" 
+                      data-original-title="<?php _e('background opacity' , 'menu_css3'); ?>">
+                        <?php _e('Help' , 'menu_css3'); ?>
                     </button>
                   </div>
                 </div>
@@ -1333,7 +1349,7 @@ function front_page()
               <div class="form-group" style="margin-top: 6%;">
                 <div class="row">
                   <div class="col-xs-2 label-block">
-                    <label>Position</label>
+                    <label><?php _e('Position' , 'menu_css3'); ?></label>
                   </div>
                   <?php $left_pos = (esc_attr( get_option('pos-bgc') ) == 'left') ? ' checked' : ''?>
                   <?php $center_pos = (esc_attr( get_option('pos-bgc') ) == 'center') ? ' checked' : ''?>
@@ -1341,7 +1357,7 @@ function front_page()
                   <div class="col-xs-2 bloc-size-normal">
                     <div class="radio">
                       <label for="left-pos-bgc">
-                        Left
+                        <?php _e('Left' , 'menu_css3'); ?>
                         <input data-position="left" type="radio" name="pos-bgc" id="left-pos-bgc" value="left"<?php echo $left_pos; ?>>
                       </label>
                     </div>
@@ -1349,7 +1365,7 @@ function front_page()
                   <div class="col-xs-2 bloc-size-normal">
                     <div class="radio">
                       <label for="center-pos-bgc">
-                        Center
+                        <?php _e('Center' , 'menu_css3'); ?>
                         <input data-position="center" type="radio" name="pos-bgc" id="center-pos-bgc" value="center"<?php echo $center_pos; ?>>
                       </label>
                     </div>
@@ -1357,16 +1373,16 @@ function front_page()
                   <div class="col-xs-2 bloc-size-normal">
                     <div class="radio">
                       <label for="right-pos-bgc">
-                        Right
+                        <?php _e('Right' , 'menu_css3'); ?>
                         <input data-position="right" type="radio" name="pos-bgc" id="right-pos-bgc" value="right"<?php echo $right_pos; ?>>
                       </label>
                     </div>
                   </div>
                   <div class="col-xs-1">
                     <button class="help-block" type="button" class="btn btn-default" data-container="body" data-toggle="popover" data-placement="top" 
-                      data-content="" data-html="true" 
-                      data-original-title="You can use this position if you menu is fixed">
-                        Help
+                      data-content="<?php _e('etc, .' , 'menu_css3'); ?>" data-html="true" 
+                      data-original-title="<?php _e('You can use this position if you menu is fixed' , 'menu_css3'); ?>">
+                        <?php _e('Help' , 'menu_css3'); ?>
                     </button>
                   </div>
                 </div>
@@ -1409,14 +1425,14 @@ function front_page()
               <div class="form-group" style="margin-top: 6%;">
                 <div class="row">
                   <div class="col-xs-2 label-block">
-                    <label>Display Nav</label>
+                    <label><?php _e('Display ' , 'menu_css3'); ?>Nav</label>
                   </div>
                   <?php $vertical_pos = (esc_attr( get_option('sens-pos-bgc') ) == '') ? ' checked' : ''?>
                   <?php $horisontal_pos = (esc_attr( get_option('sens-pos-bgc') ) == '') ? ' checked' : ''?>
                   <div class="col-xs-2 bloc-size-normal">
                     <div class="radio">
                       <label for="vertical-sens-bgc">
-                        Vertical
+                        <?php _e('Vertical' , 'menu_css3'); ?>
                         <input data-senspos="vertical" type="radio" name="sens-pos-bgc" id="vertical-sens-bgc" value="vertical"<?php echo $vertical_pos; ?>>
                       </label>
                     </div>
@@ -1424,16 +1440,16 @@ function front_page()
                   <div class="col-xs-2 bloc-size-normal">
                     <div class="radio">
                       <label for="horizontal-sens-bgc">
-                        Horizontal
+                        <?php _e('Horizontal' , 'menu_css3'); ?>
                         <input data-senspos="horizontal" type="radio" name="sens-pos-bgc" id="horizontal-sens-bgc" value="horizontal"<?php echo $horisontal_pos; ?>>
                       </label>
                     </div>
                   </div>
                   <div class="col-xs-1">
                     <button class="help-block" type="button" class="btn btn-default" data-container="body" data-toggle="popover" data-placement="top" 
-                      data-content="" data-html="true" 
-                      data-original-title="">
-                        Help
+                      data-content="<?php _e('etc, .' , 'menu_css3'); ?>" data-html="true" 
+                      data-original-title="<?php _e('etc, .' , 'menu_css3'); ?>">
+                        <?php _e('Help' , 'menu_css3'); ?>
                     </button>
                   </div>
                 </div>
@@ -1452,7 +1468,7 @@ function front_page()
 
     <!-- Tabs 3-->
     <div class="tab-pane tab-animate " id="tabr3">
-      <h2>Animation</h2>
+      <h2><?php _e('Animation' , 'menu_css3'); ?></h2>
       <form class="form-a form form-horizontal" role="form" action="options.php" method="post" accept-charset="utf-8">
         <?php settings_fields( 'animate-group' ); ?>
 
@@ -1463,16 +1479,16 @@ function front_page()
             <div class="form-group">
               <div class="row">
                 <div class="label-block col-xs-2">
-                  <label class="col-md-12 control-label" for="color-text-a">color</label>
+                  <label class="col-md-12 control-label" for="color-text-a"><?php _e('color' , 'menu_css3'); ?></label>
                 </div>
                 <div class="col-xs-4 color">
                   <input data-property="color" value="<?php echo esc_attr( get_option('color-text-a') ); ?>" id="color-text-a" placeholder="color" name="color-text-a" class="form-control color" type="text">
                 </div>
                 <div class="col-xs-2 help-color">
                   <button class="help-block" type="button" class="btn btn-default" data-container="body" data-toggle="popover" data-placement="top" 
-                    data-content="the text color" data-html="true" 
-                    data-original-title="color">
-                      Help
+                    data-content="<?php _e('the text color' , 'menu_css3'); ?>" data-html="true" 
+                    data-original-title="<?php _e('color' , 'menu_css3'); ?>">
+                      <?php _e('Help' , 'menu_css3'); ?>
                   </button>
                 </div>
               </div>
@@ -1481,7 +1497,7 @@ function front_page()
             <div class="form-group">
               <div class="row">
                 <div class="label-block col-xs-2">
-                  <label class="col-md-12 control-label" for="bgc-1-a">Background Color</label>
+                  <label class="col-md-12 control-label" for="bgc-1-a"><?php _e('Background Color' , 'menu_css3'); ?></label>
                 </div>
                 <div class="col-xs-4 color">
                   <input data-gradient="gradient-1" value="<?php echo esc_attr( get_option('bgc-1-a') ); ?>" id="bgc-1-a" placeholder="color" name="bgc-1-a" class="form-control color" type="text">
@@ -1492,9 +1508,9 @@ function front_page()
                 </div>
                 <div class="col-xs-2 help-color">
                   <button class="help-block" type="button" class="btn btn-default" data-container="body" data-toggle="popover" data-placement="top" 
-                    data-content="the color for the background" data-html="true" 
-                    data-original-title="color">
-                      Help
+                    data-content="<?php _e('the color for the background' , 'menu_css3'); ?>" data-html="true" 
+                    data-original-title="<?php _e('color' , 'menu_css3'); ?>">
+                      <?php _e('Help' , 'menu_css3'); ?>
                   </button>
                 </div>
               </div>
@@ -1526,86 +1542,88 @@ function front_page()
               <h2>
                 <div class="help-effect">
                   <button class="help-block" type="button" class="btn btn-default" data-container="body" data-toggle="popover" data-placement="top"  
-                    data-content="Animation wwwww" data-html="true" data-original-title="mode">
-                      Help
+                    data-content="<?php _e('etc, .' , 'menu_css3'); ?>" data-html="true" 
+                      data-original-title="<?php _e('etc, .' , 'menu_css3'); ?>">
+                      <?php _e('Help' , 'menu_css3'); ?>
                   </button>
                 </div>
-                <span>Transforms</span> 
+                <span><?php _e('Transforms' , 'menu_css3'); ?></span> 
               </h2>
-              <a data-animate="grow" rel="grow" class="button grow">Grow</a>
-              <a data-animate="shrink" rel="shrink" class="button shrink">Shrink</a>
-              <a data-animate="pulse" rel="pulse" class="button pulse">Pulse</a>
-              <a data-animate="pulse-grow" rel="pulse-grow" class="button pulse-grow">Pulse Grow</a>
-              <a data-animate="pulse-shrink" rel="pulse-shrink" class="button pulse-shrink">Pulse Shrink</a>
-              <a data-animate="pulse-shrink" rel="push" class="button push">Push</a>
-              <a data-animate="pop" rel="pop" class="button pop">Pop</a>
-              <a data-animate="rotate" rel="rotate" class="button rotate">Rotate</a>
-              <a data-animate="grow-rotate" rel="grow-rotate" class="button grow-rotate">Grow Rotate</a>
-              <a data-animate="float" rel="float" class="button float">Float</a>
-              <a data-animate="sink" rel="sink" class="button sink">Sink</a>
-              <a data-animate="hover" rel="hover" class="button hover">Hover</a>
-              <a data-animate="hang" rel="hang" class="button hang">Hang</a>
-              <a data-animate="skew" rel="skew" class="button skew">Skew</a>
-              <a data-animate="skew-forward" rel="skew-forward" class="button skew-forward">Skew Forward</a>
-              <a data-animate="skew-backward" rel="skew-backward" class="button skew-backward">Skew Backward</a>
-              <a data-animate="wobble-horizontal" rel="wobble-horizontal" class="button wobble-horizontal">Wobble Horizontal</a>
-              <a data-animate="wobble-vertical" rel="wobble-vertical" class="button wobble-vertical">Wobble Vertical</a>
-              <a data-animate="wobble-to-bottom-right" rel="wobble-to-bottom-right" class="button wobble-to-bottom-right">Wobble To Bottom Right</a>
-              <a data-animate="wobble-to-top-right" rel="wobble-to-top-right" class="button wobble-to-top-right">Wobble To Top Right</a>
-              <a data-animate="wobble-top" rel="wobble-top" class="button wobble-top">Wobble Top</a>
-              <a data-animate="wobble-bottom" rel="wobble-bottom" class="button wobble-bottom">Wobble Bottom</a>
-              <a data-animate="wobble-skew" rel="wobble-skew" class="button wobble-skew">Wobble Skew</a>
-              <a data-animate="buzz" rel="buzz" class="button buzz">Buzz</a>
-              <a data-animate="buzz-out" rel="buzz-out" class="button buzz-out">Buzz Out</a>
+              <a data-animate="grow" rel="grow" class="button grow"><?php _e('Grow' , 'menu_css3'); ?></a>
+              <a data-animate="shrink" rel="shrink" class="button shrink"><?php _e('Shrink' , 'menu_css3'); ?></a>
+              <a data-animate="pulse" rel="pulse" class="button pulse"><?php _e('Pulse' , 'menu_css3'); ?></a>
+              <a data-animate="pulse-grow" rel="pulse-grow" class="button pulse-grow"><?php _e('Pulse Grow' , 'menu_css3'); ?></a>
+              <a data-animate="pulse-shrink" rel="pulse-shrink" class="button pulse-shrink"><?php _e('Pulse Shrink' , 'menu_css3'); ?></a>
+              <a data-animate="pulse-shrink" rel="push" class="button push"><?php _e('Push' , 'menu_css3'); ?></a>
+              <a data-animate="pop" rel="pop" class="button pop"><?php _e('Pop' , 'menu_css3'); ?></a>
+              <a data-animate="rotate" rel="rotate" class="button rotate"><?php _e('Rotate' , 'menu_css3'); ?></a>
+              <a data-animate="grow-rotate" rel="grow-rotate" class="button grow-rotate"><?php _e('Grow Rotate' , 'menu_css3'); ?></a>
+              <a data-animate="float" rel="float" class="button float"><?php _e('Float' , 'menu_css3'); ?></a>
+              <a data-animate="sink" rel="sink" class="button sink"><?php _e('Sink' , 'menu_css3'); ?></a>
+              <a data-animate="hover" rel="hover" class="button hover"><?php _e('Hover' , 'menu_css3'); ?></a>
+              <a data-animate="hang" rel="hang" class="button hang"><?php _e('Hang' , 'menu_css3'); ?></a>
+              <a data-animate="skew" rel="skew" class="button skew"><?php _e('Skew' , 'menu_css3'); ?></a>
+              <a data-animate="skew-forward" rel="skew-forward" class="button skew-forward"><?php _e('Skew Forward' , 'menu_css3'); ?></a>
+              <a data-animate="skew-backward" rel="skew-backward" class="button skew-backward"><?php _e('Skew Backward' , 'menu_css3'); ?></a>
+              <a data-animate="wobble-horizontal" rel="wobble-horizontal" class="button wobble-horizontal"><?php _e('Wobble Horizontal' , 'menu_css3'); ?></a>
+              <a data-animate="wobble-vertical" rel="wobble-vertical" class="button wobble-vertical"><?php _e('Wobble Vertical' , 'menu_css3'); ?></a>
+              <a data-animate="wobble-to-bottom-right" rel="wobble-to-bottom-right" class="button wobble-to-bottom-right"><?php _e('Wobble To Bottom Right' , 'menu_css3'); ?></a>
+              <a data-animate="wobble-to-top-right" rel="wobble-to-top-right" class="button wobble-to-top-right"><?php _e('Wobble To Top Right' , 'menu_css3'); ?></a>
+              <a data-animate="wobble-top" rel="wobble-top" class="button wobble-top"><?php _e('Wobble Top' , 'menu_css3'); ?></a>
+              <a data-animate="wobble-bottom" rel="wobble-bottom" class="button wobble-bottom"><?php _e('Wobble Bottom' , 'menu_css3'); ?></a>
+              <a data-animate="wobble-skew" rel="wobble-skew" class="button wobble-skew"><?php _e('Wobble Skew' , 'menu_css3'); ?></a>
+              <a data-animate="buzz" rel="buzz" class="button buzz"><?php _e('Buzz' , 'menu_css3'); ?></a>
+              <a data-animate="buzz-out" rel="buzz-out" class="button buzz-out"><?php _e('Buzz Out' , 'menu_css3'); ?></a>
 
 
 
               <h2>
                 <div class="help-effect">
-                  <button class="help-block" type="button" class="btn btn-default" data-container="body" data-toggle="popover" data-placement="top"  
-                    data-content="Animation wwwww" data-html="true" data-original-title="mode">
-                      Help
+                  <button class="<?php _e('help-block' , 'menu_css3'); ?>" type="button" class="btn btn-default" data-container="body" data-toggle="popover" data-placement="top"  
+                    data-content="<?php _e('Animation wwwww' , 'menu_css3'); ?>" data-html="true" data-original-title="mode">
+                      <?php _e('Help' , 'menu_css3'); ?>
                   </button>
                 </div>
-                <span>Border</span> 
+                <span><?php _e('Border' , 'menu_css3'); ?></span> 
               </h2>
 
-              <a data-animate="border-fade" rel="border-fade" class="button border-fade">Border Fade</a>
-              <a data-animate="hollow" rel="hollow" class="button hollow">Hollow</a>
-              <a data-animate="trim" rel="trim" class="button trim">Trim</a>
-              <a data-animate="outline-outward" rel="outline-outward" class="button outline-outward">Outline Outward</a>
-              <a data-animate="outline-inward" rel="outline-inward" class="button outline-inward">Outline Inward</a>
-              <a data-animate="round-corners" rel="round-corners" class="button round-corners">Round Corners</a>
+              <a data-animate="border-fade" rel="border-fade" class="button border-fade"><?php _e('Border Fade' , 'menu_css3'); ?></a>
+              <a data-animate="hollow" rel="hollow" class="button hollow"><?php _e('Hollow' , 'menu_css3'); ?></a>
+              <a data-animate="trim" rel="trim" class="button trim"><?php _e('Trim' , 'menu_css3'); ?></a>
+              <a data-animate="outline-outward" rel="outline-outward" class="button outline-outward"><?php _e('Outline Outward' , 'menu_css3'); ?></a>
+              <a data-animate="outline-inward" rel="outline-inward" class="button outline-inward"><?php _e('Outline Inward' , 'menu_css3'); ?></a>
+              <a data-animate="round-corners" rel="round-corners" class="button round-corners"><?php _e('Round Corners' , 'menu_css3'); ?></a>
 
 
               <h2>
                 <div class="help-effect">
-                  <button class="help-block" type="button" class="btn btn-default" data-container="body" data-toggle="popover" data-placement="top"  
-                    data-content="Animation wwwww" data-html="true" data-original-title="mode">
-                      Help
-                  </button>
-                </div>
-                <span>Shadow and Glow Transition</span> 
-              </h2>
-              <a data-animate="glow" rel="glow" class="button glow">Glow</a>
-              <a data-animate="box-shadow-outset" rel="box-shadow-outset" class="button box-shadow-outset">Box Shadow Outset</a>
-              <a data-animate="box-shadow-inset" rel="box-shadow-inset" class="button box-shadow-inset">Box Shadow Inset</a>
-              <a data-animate="float-shadow" rel="float-shadow" class="button float-shadow">Float Shadow</a>
-              <a data-animate="hover-shadow" rel="hover-shadow" class="button hover-shadow">Hover Shadow</a>
-              <a data-animate="shadow-radial" rel="shadow-radial" class="button shadow-radial">Shadow Radial</a>
+                  <button class="help-block" type="button" class="btn btn-default" data-container="body" 
+                  data-toggle="popover" data-placement="top"  
+                  data-content="<?php _e('Animation wwwww' , 'menu_css3'); ?>" data-html="true" data-original-title="<?php _e('mode' , 'menu_css3'); ?>">
+                    <?php _e('Help' , 'menu_css3'); ?>
+                </button>
+              </div>
+              <span><?php _e('Shadow and Glow Transition' , 'menu_css3'); ?></span> 
+            </h2>
+            <a data-animate="glow" rel="glow">ow" class="button gl<?php _e('Glow' , 'menu_css3'); ?></a>
+            <a data-animate="box-shadow-outset" rel="box-shadow-outset" class="button box-shadow-outset"><?php _e('Box Shadow Outset' , 'menu_css3'); ?></a>
+            <a data-animate="box-shadow-inset" rel="box-shadow-inset" class="button box-shadow-inset"><?php _e('Box Shadow Inset' , 'menu_css3'); ?></a>
+            <a data-animate="float-shadow" rel="float-shadow" class="button float-shadow"><?php _e('Float Shadow' , 'menu_css3'); ?></a>
+            <a data-animate="hover-shadow" rel="hover-shadow" class="button hover-shadow"><?php _e('Hover Shadow' , 'menu_css3'); ?></a>
+            <a data-animate="shadow-radial" rel="shadow-radial" class="button shadow-radial"><?php _e('Shadow Radial' , 'menu_css3'); ?></a>
 
-              <h2>
-                <div class="help-effect">
-                  <button class="help-block" type="button" class="btn btn-default" data-container="body" data-toggle="popover" data-placement="top"  
-                    data-content="Animation wwwww" data-html="true" data-original-title="mode">
-                      Help
+            <h2>
+              <div class="help-effect">
+                <button class="help-block" type="button" class="btn btn-default" data-container="body" data-toggle="popover" data-placement="top"  
+                  data-content="<?php _e('Animation wwwww' , 'menu_css3'); ?>" data-html="true" data-original-title="<?php _e('mode' , 'menu_css3'); ?>">
+                    <?php _e('Help' , 'menu_css3'); ?>
                   </button>
                 </div>
-                <span>Speech Bubbles</span> 
+                <span><?php _e('Speech Bubbles' , 'menu_css3'); ?></span> 
               </h2>
-              <a data-animate="curl-top-left" rel="curl-top-left" class="button curl-top-left">Curl Top Left</a>
-              <a data-animate="curl-top-right" rel="curl-top-right" class="button curl-top-right">Curl Top Right</a>
-              <a data-animate="curl-bottom-right" rel="curl-bottom-right" class="button curl-bottom-right">Curl Bottom Right</a>
+              <a data-animate="curl-top-left" rel="curl-top-left" class="button curl-top-left<?php _e('">' , 'menu_css3'); ?><?php _e('Curl Top Left' , 'menu_css3'); ?></a>
+              <a data-animate="curl-top-right" rel="curl-top-right" class="button curl-top-right"><?php _e('Curl Top Right' , 'menu_css3'); ?></a>
+              <a data-animate="curl-bottom-right" rel="curl-bottom-right" class="button curl-bottom-right"><?php _e('Curl Bottom Right' , 'menu_css3'); ?></a>
               <a data-animate="curl-bottom-left" rel="curl-bottom-left" class="button curl-bottom-left">Curl Bottom Left</a>
 
             </div>
@@ -1621,7 +1639,7 @@ function front_page()
         </div>
 
         <button type="submit" name="panel_update" data-loading-text="Loading..." class="btn btn-primary">
-          <?php _e('Save Changes') ?> &rarr;
+          <?php _e('Save Changes' , 'menu_css3'); ?> &rarr;
         </button>
         <input type="hidden" name="panel_nonce_animate" value="<?php echo wp_create_nonce('animate-panel'); ?>">
       </form>
@@ -1631,7 +1649,7 @@ function front_page()
 
     <!-- Tabs 3-->
     <div class="tab-pane " id="-grouptabr4">
-      <h2>Documentation</h2>
+      <h2><?php _e('Documentation' , 'menu_css3'); ?></h2>
     </div>
   </div><!-- FIN Tabs -->
 
