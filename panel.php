@@ -10,16 +10,25 @@ Description: Patiente
 Author: Xavier Artot
 Version: 0.1.1
 Author URI: 
+Text Domain: menu_css3
+Domain Path: /lang
 */
 
-/// we are going to add an action for including scripts, so the action is called
-//// admin_print_scripts-options-general.php
-////and then we are going to specify a function, this hook is used to include Javascripts
-//add_action('admin_print_scripts-options-general.php', 'xav_check_script');
-//function xav_check_script() {
-//  wp_enqueue_script( 'ajax-script', plugins_url( 'test.js', __FILE__ ), array('jquery')  );
-//}
-//
+// Localization
+function myplugin_init() {
+  load_plugin_textdomain( 'my-plugin', false, dirname( plugin_basename( __FILE__ ) ). '/lang/' ); 
+}
+add_action('plugins_loaded', 'myplugin_init');
+
+//add_action('init', 'localizationsample_init');
+//function localizationsample_init() {
+//    $path = dirname(plugin_basename( __FILE__ )) . '/lang/';
+//    $loaded = load_plugin_textdomain( 'menu_css3', false, $path);
+//    if ( isset( $_GET['page'] ) == basename(__FILE__) && !$loaded) {          
+//        echo '<div class="error">Sample Localization: ' . __('Could not load the localization file: ' . $path, 'localizationsample') . '</div>';
+//        return;
+//    } 
+//} 
 //// CSS charge dans l'admin
 //function my_admin_notice(){
 //    global $pagenow;
@@ -32,20 +41,12 @@ Author URI:
 //add_action('admin_notices', 'my_admin_notice');
 
 // lang
-add_action( 'init', 'make_wpm_multilang' );
-function make_wpm_multilang() {
-  load_plugin_textdomain('menu_css3', false, dirname( plugin_basename( __FILE__ ) ).'/lang');
-}
+//add_action( 'init', 'make_wpm_multilang' );
+//function make_wpm_multilang() {
+//  load_plugin_textdomain('menu_css3', false, dirname( plugin_basename( __FILE__ ) ).'/lang');
+//}
 // Localization
-add_action('init', 'localizationsample_init');
-function localizationsample_init() {
-    $path = dirname(plugin_basename( __FILE__ )) . '/lang/';
-    $loaded = load_plugin_textdomain( 'menu_css3', false, $path);
-    if ($_GET['page'] == basename(__FILE__) && !$loaded) {          
-        echo '<div class="error">Sample Localization: ' . __('Could not load the localization file: ' . $path, 'localizationsample') . '</div>';
-        return;
-    } 
-} 
+ 
 
   function load_custom_wp_admin_style() {
     // //netdna.bootstrapcdn.com/bootstrap/3.0.3/css/bootstrap.min.css  CDN BOOTSTRAP
@@ -57,27 +58,29 @@ function localizationsample_init() {
   }
   add_action( 'admin_enqueue_scripts', 'load_custom_wp_admin_style', 1);
 
-// charge dans l'admin
+
   function xav_admin_scripts_js() {
+
     wp_register_script( 'jquery_x', '//ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js',
-    false, true, true );
+    false, true, false );
     wp_enqueue_script( 'jquery_x' );
 
     wp_register_script( 'custom_ui_x', plugins_url( 'menu_css3/assets/javascript/jquery-ui-1.10.3.custom.js'),
-    false, true, true );
+    false, true, false );
     wp_enqueue_script( 'custom_ui_x' );
 
-    wp_register_script( 'bootstrap', '//netdna.bootstrapcdn.com/bootstrap/3.0.3/js/bootstrap.min.js', false, true, true );
+    wp_register_script( 'bootstrap', '//netdna.bootstrapcdn.com/bootstrap/3.0.3/js/bootstrap.min.js', false, true, false );
     wp_enqueue_script( 'bootstrap' );
 
-    wp_register_script( 'spectrum_x', plugins_url( 'menu_css3/assets/javascript/spectrum.js' ),false, true, true  );
+    wp_register_script( 'spectrum_x', plugins_url( 'menu_css3/assets/javascript/spectrum.js' ),false, true, false  );
     wp_enqueue_script( 'spectrum_x' );
 
-    wp_register_script( 'menu_css3', plugins_url( 'menu_css3/assets/javascript/src/jquery.menu_css3.js' ),false, true, true  );
+    wp_register_script( 'menu_css3', plugins_url( 'menu_css3/assets/javascript/src/jquery.menu_css3.js' ), false, true, false  );
     wp_enqueue_script( 'menu_css3' );
 
-    wp_register_script( 'prefix', plugins_url( 'menu_css3/assets/javascript/prefixfree.min.js' ),false, true, true  );
+    wp_register_script( 'prefix', plugins_url( 'menu_css3/assets/javascript/prefixfree.min.js' ),false, true, false  );
     wp_enqueue_script( 'prefix' );
+
   }
   if(is_admin()){
       add_action( 'admin_enqueue_scripts', 'xav_admin_scripts_js' );
@@ -270,8 +273,6 @@ function front_page()
     <div class="toggle"></div>
   </span>
 </div>
-
-<h1><?php _e('Hello World' , 'menu_css3'); ?></h1>
 
   <div class="tab-content container">
     <!-- Tabs 1 -->
@@ -588,7 +589,7 @@ function front_page()
                   
                   <div class="col-xs-1">
                     <button class="help-block" type="button" class="btn btn-default" data-container="body" data-toggle="popover" data-placement="top" 
-                    data-content="<?php _e('order: border color | pixel width | line style <br> leave empty for put at 'none'' , 'menu_css3'); ?>" data-html="true" 
+                    data-content="<?php _e('order: border color | pixel width | line style <br> leave empty for put at none' , 'menu_css3'); ?>" data-html="true" 
                     title="<?php _e('Border' , 'menu_css3'); ?>">
                       <?php _e('Help' , 'menu_css3'); ?>
                     </button>
@@ -1206,7 +1207,7 @@ function front_page()
                   
                   <div class="col-xs-1">
                     <button class="help-block" type="button" class="btn btn-default" data-container="body" data-toggle="popover" data-placement="top" 
-                    data-content="<?php _e('order: border color | pixel width | line style <br> leave empty for put at 'none'' , 'menu_css3'); ?>" data-html="true" 
+                    data-content="<?php _e('order: border color | pixel width | line style <br> leave empty for put at none' , 'menu_css3'); ?>" data-html="true" 
                     title="<?php _e('Border' , 'menu_css3'); ?>">
                       <?php _e('Help' , 'menu_css3'); ?>
                     </button>

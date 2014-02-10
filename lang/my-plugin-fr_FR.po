@@ -1,0 +1,744 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: CSS3 Menus v0.1.1\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: \n"
+"PO-Revision-Date: 2014-02-09 01:23:08+0000\n"
+"Last-Translator: admin <artotal@gmail.com>\n"
+"Language-Team: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=n>1;\n"
+"X-Generator: CSL v1.x\n"
+"X-Poedit-Language: French\n"
+"X-Poedit-Country: FRANCE\n"
+"X-Poedit-SourceCharset: utf-8\n"
+"X-Poedit-KeywordsList: __;_e;__ngettext:1,2;_n:1,2;__ngettext_noop:1,2;_n_noop:1,2;_c,_nc:4c,1,2;_x:1,2c;_ex:1,2c;_nx:4c,1,2;_nx_noop:4c,1,2;\n"
+"X-Poedit-Basepath: ../\n"
+"X-Poedit-Bookmarks: \n"
+"X-Poedit-SearchPath-0: .\n"
+"X-Textdomain-Support: yes"
+
+#. translators: plugin header field 'Name'
+#: panel.php:0
+#@ my-plugin
+msgid "CSS3 Menus"
+msgstr ""
+
+#. translators: plugin header field 'Description'
+#: panel.php:0
+#@ my-plugin
+msgid "Patiente"
+msgstr ""
+
+#. translators: plugin header field 'Author'
+#: panel.php:0
+#@ my-plugin
+msgid "Xavier Artot"
+msgstr ""
+
+#. translators: plugin header field 'Version'
+#: panel.php:0
+#@ my-plugin
+msgid "0.1.1"
+msgstr ""
+
+#: panel.php:242
+#: panel.php:281
+#@ menu_css3
+msgid "Links Menu"
+msgstr ""
+
+#: panel.php:243
+#@ menu_css3
+msgid "Background Menu"
+msgstr "Le fond du menu"
+
+#: panel.php:244
+#@ menu_css3
+msgid "Animation Hover"
+msgstr "Animation Hover"
+
+#: panel.php:245
+#: panel.php:1653
+#@ menu_css3
+msgid "Documentation"
+msgstr "Documentation"
+
+#: panel.php:387
+#@ menu_css3
+msgid "Vertical Text"
+msgstr "Hauteur du texte"
+
+#: panel.php:390
+#@ menu_css3
+msgid "line-height"
+msgstr ""
+
+#: panel.php:393
+#: panel.php:422
+#: panel.php:800
+#: panel.php:1013
+#: panel.php:1043
+#@ menu_css3
+msgid "Unite: "
+msgstr ""
+
+#: panel.php:406
+#: panel.php:435
+#: panel.php:1026
+#@ menu_css3
+msgid "height"
+msgstr ""
+
+#: panel.php:416
+#@ menu_css3
+msgid "Letter Spacing"
+msgstr ""
+
+#: panel.php:419
+#@ menu_css3
+msgid "letter-spacing"
+msgstr ""
+
+#: panel.php:448
+#: panel.php:1067
+#@ menu_css3
+msgid "Margin "
+msgstr ""
+
+#: panel.php:452
+#: panel.php:477
+#: panel.php:494
+#@ menu_css3
+msgid "top"
+msgstr ""
+
+#: panel.php:456
+#: panel.php:498
+#@ menu_css3
+msgid "right"
+msgstr ""
+
+#: panel.php:460
+#: panel.php:502
+#@ menu_css3
+msgid "bottom"
+msgstr ""
+
+#: panel.php:464
+#: panel.php:506
+#@ menu_css3
+msgid "left"
+msgstr ""
+
+#: panel.php:478
+#: panel.php:520
+#: panel.php:1097
+#: panel.php:1138
+#@ menu_css3
+msgid "top | right | bottom | left"
+msgstr ""
+
+#: panel.php:479
+#: panel.php:1098
+#@ menu_css3
+msgid "margin"
+msgstr ""
+
+#: panel.php:480
+#: panel.php:522
+#: panel.php:545
+#: panel.php:594
+#: panel.php:657
+#: panel.php:698
+#: panel.php:719
+#: panel.php:738
+#: panel.php:784
+#: panel.php:814
+#: panel.php:845
+#: panel.php:877
+#: panel.php:908
+#: panel.php:953
+#: panel.php:1027
+#: panel.php:1057
+#: panel.php:1099
+#: panel.php:1140
+#: panel.php:1162
+#: panel.php:1212
+#: panel.php:1276
+#: panel.php:1317
+#: panel.php:1338
+#: panel.php:1386
+#: panel.php:1453
+#: panel.php:1492
+#: panel.php:1514
+#: panel.php:1548
+#: panel.php:1585
+#: panel.php:1604
+#: panel.php:1620
+#@ menu_css3
+msgid "Help"
+msgstr ""
+
+#: panel.php:490
+#: panel.php:521
+#: panel.php:1108
+#: panel.php:1139
+#@ menu_css3
+msgid "Padding"
+msgstr ""
+
+#: panel.php:532
+#: panel.php:1149
+#: panel.php:1501
+#@ menu_css3
+msgid "Background Color"
+msgstr ""
+
+#: panel.php:543
+#: panel.php:736
+#: panel.php:1160
+#: panel.php:1512
+#@ menu_css3
+msgid "the color for the background"
+msgstr ""
+
+#: panel.php:544
+#: panel.php:737
+#: panel.php:783
+#: panel.php:1161
+#: panel.php:1483
+#: panel.php:1491
+#: panel.php:1513
+#@ menu_css3
+msgid "color"
+msgstr ""
+
+#: panel.php:555
+#: panel.php:593
+#: panel.php:1173
+#: panel.php:1211
+#: panel.php:1588
+#@ menu_css3
+msgid "Border"
+msgstr ""
+
+#: panel.php:592
+#: panel.php:1210
+#@ menu_css3
+msgid "order: border color | pixel width | line style <br> leave empty for put at none"
+msgstr ""
+
+#: panel.php:609
+#: panel.php:1227
+#@ menu_css3
+msgid "Shadow "
+msgstr ""
+
+#: panel.php:655
+#@ menu_css3
+msgid "horizontal | vertical | gradient | size"
+msgstr ""
+
+#: panel.php:656
+#@ menu_css3
+msgid "etc,.."
+msgstr ""
+
+#: panel.php:656
+#: panel.php:1275
+#@ menu_css3
+msgid "box shadow"
+msgstr ""
+
+#: panel.php:666
+#: panel.php:1285
+#@ menu_css3
+msgid "Border Radius"
+msgstr ""
+
+#: panel.php:696
+#: panel.php:1315
+#@ menu_css3
+msgid "top left | top right | bottom right | bottom left"
+msgstr ""
+
+#: panel.php:697
+#: panel.php:1316
+#@ menu_css3
+msgid "border radius"
+msgstr ""
+
+#: panel.php:707
+#: panel.php:1326
+#@ menu_css3
+msgid "Opacity"
+msgstr ""
+
+#: panel.php:717
+#@ menu_css3
+msgid "in percent"
+msgstr ""
+
+#: panel.php:718
+#: panel.php:1337
+#@ menu_css3
+msgid "background opacity"
+msgstr ""
+
+#: panel.php:729
+#@ menu_css3
+msgid "Color"
+msgstr ""
+
+#: panel.php:751
+#@ menu_css3
+msgid "Fonts"
+msgstr ""
+
+#: panel.php:782
+#@ menu_css3
+msgid "675 fonts are avalaible"
+msgstr ""
+
+#: panel.php:794
+#@ menu_css3
+msgid "Font Size"
+msgstr ""
+
+#: panel.php:812
+#: panel.php:813
+#@ menu_css3
+msgid "etc.."
+msgstr ""
+
+#: panel.php:813
+#@ menu_css3
+msgid "font-size for your font"
+msgstr ""
+
+#: panel.php:823
+#@ menu_css3
+msgid "Style Variant"
+msgstr ""
+
+#: panel.php:830
+#: panel.php:862
+#: panel.php:893
+#@ menu_css3
+msgid "Normal"
+msgstr ""
+
+#: panel.php:836
+#@ menu_css3
+msgid "Small Caps"
+msgstr ""
+
+#: panel.php:843
+#: panel.php:875
+#: panel.php:906
+#: panel.php:951
+#@ menu_css3
+msgid "font variant"
+msgstr ""
+
+#: panel.php:844
+#@ menu_css3
+msgid "Mode Style Variant"
+msgstr ""
+
+#: panel.php:855
+#@ menu_css3
+msgid "Font Weight"
+msgstr ""
+
+#: panel.php:868
+#@ menu_css3
+msgid "Bold"
+msgstr ""
+
+#: panel.php:876
+#@ menu_css3
+msgid "Mode font-weight"
+msgstr ""
+
+#: panel.php:886
+#@ menu_css3
+msgid "Font Style"
+msgstr ""
+
+#: panel.php:899
+#@ menu_css3
+msgid "Italic"
+msgstr ""
+
+#: panel.php:907
+#: panel.php:952
+#@ menu_css3
+msgid "Mode font-style"
+msgstr ""
+
+#: panel.php:917
+#@ menu_css3
+msgid "Transform"
+msgstr ""
+
+#: panel.php:926
+#@ menu_css3
+msgid "Abc"
+msgstr ""
+
+#: panel.php:932
+#@ menu_css3
+msgid "ABC"
+msgstr ""
+
+#: panel.php:938
+#@ menu_css3
+msgid "abc"
+msgstr ""
+
+#: panel.php:944
+#@ menu_css3
+msgid "None"
+msgstr ""
+
+#: panel.php:963
+#@ menu_css3
+msgid "Save Change"
+msgstr ""
+
+#: panel.php:1007
+#@ menu_css3
+msgid "Height "
+msgstr ""
+
+#: panel.php:1025
+#: panel.php:1026
+#: panel.php:1055
+#: panel.php:1384
+#: panel.php:1451
+#: panel.php:1452
+#: panel.php:1546
+#: panel.php:1547
+#@ menu_css3
+msgid "etc, ."
+msgstr ""
+
+#: panel.php:1037
+#@ menu_css3
+msgid "Width"
+msgstr ""
+
+#: panel.php:1056
+#@ menu_css3
+msgid "width for set a menu horizontal leave empty this parameter, but you can precise your value, try it."
+msgstr ""
+
+#: panel.php:1274
+#@ menu_css3
+msgid "horizontal | vertical | gradient | color"
+msgstr ""
+
+#: panel.php:1336
+#@ menu_css3
+msgid "opacity in percent"
+msgstr ""
+
+#: panel.php:1353
+#@ menu_css3
+msgid "Position"
+msgstr ""
+
+#: panel.php:1361
+#@ menu_css3
+msgid "Left"
+msgstr ""
+
+#: panel.php:1369
+#@ menu_css3
+msgid "Center"
+msgstr ""
+
+#: panel.php:1377
+#@ menu_css3
+msgid "Right"
+msgstr ""
+
+#: panel.php:1385
+#@ menu_css3
+msgid "You can use this position if you menu is fixed"
+msgstr ""
+
+#: panel.php:1429
+#@ menu_css3
+msgid "Display "
+msgstr ""
+
+#: panel.php:1436
+#@ menu_css3
+msgid "Vertical"
+msgstr ""
+
+#: panel.php:1444
+#@ menu_css3
+msgid "Horizontal"
+msgstr ""
+
+#: panel.php:1463
+#: panel.php:1643
+#@ default
+#@ menu_css3
+msgid "Save Changes"
+msgstr ""
+
+#: panel.php:1472
+#@ menu_css3
+msgid "Animation"
+msgstr ""
+
+#: panel.php:1490
+#@ menu_css3
+msgid "the text color"
+msgstr ""
+
+#: panel.php:1551
+#@ menu_css3
+msgid "Transforms"
+msgstr ""
+
+#: panel.php:1553
+#@ menu_css3
+msgid "Grow"
+msgstr ""
+
+#: panel.php:1554
+#@ menu_css3
+msgid "Shrink"
+msgstr ""
+
+#: panel.php:1555
+#@ menu_css3
+msgid "Pulse"
+msgstr ""
+
+#: panel.php:1556
+#@ menu_css3
+msgid "Pulse Grow"
+msgstr ""
+
+#: panel.php:1557
+#@ menu_css3
+msgid "Pulse Shrink"
+msgstr ""
+
+#: panel.php:1558
+#@ menu_css3
+msgid "Push"
+msgstr ""
+
+#: panel.php:1559
+#@ menu_css3
+msgid "Pop"
+msgstr ""
+
+#: panel.php:1560
+#@ menu_css3
+msgid "Rotate"
+msgstr ""
+
+#: panel.php:1561
+#@ menu_css3
+msgid "Grow Rotate"
+msgstr ""
+
+#: panel.php:1562
+#@ menu_css3
+msgid "Float"
+msgstr ""
+
+#: panel.php:1563
+#@ menu_css3
+msgid "Sink"
+msgstr ""
+
+#: panel.php:1564
+#@ menu_css3
+msgid "Hover"
+msgstr ""
+
+#: panel.php:1565
+#@ menu_css3
+msgid "Hang"
+msgstr ""
+
+#: panel.php:1566
+#@ menu_css3
+msgid "Skew"
+msgstr ""
+
+#: panel.php:1567
+#@ menu_css3
+msgid "Skew Forward"
+msgstr ""
+
+#: panel.php:1568
+#@ menu_css3
+msgid "Skew Backward"
+msgstr ""
+
+#: panel.php:1569
+#@ menu_css3
+msgid "Wobble Horizontal"
+msgstr ""
+
+#: panel.php:1570
+#@ menu_css3
+msgid "Wobble Vertical"
+msgstr ""
+
+#: panel.php:1571
+#@ menu_css3
+msgid "Wobble To Bottom Right"
+msgstr ""
+
+#: panel.php:1572
+#@ menu_css3
+msgid "Wobble To Top Right"
+msgstr ""
+
+#: panel.php:1573
+#@ menu_css3
+msgid "Wobble Top"
+msgstr ""
+
+#: panel.php:1574
+#@ menu_css3
+msgid "Wobble Bottom"
+msgstr ""
+
+#: panel.php:1575
+#@ menu_css3
+msgid "Wobble Skew"
+msgstr ""
+
+#: panel.php:1576
+#@ menu_css3
+msgid "Buzz"
+msgstr ""
+
+#: panel.php:1577
+#@ menu_css3
+msgid "Buzz Out"
+msgstr ""
+
+#: panel.php:1583
+#@ menu_css3
+msgid "help-block"
+msgstr ""
+
+#: panel.php:1584
+#: panel.php:1603
+#: panel.php:1619
+#@ menu_css3
+msgid "Animation wwwww"
+msgstr ""
+
+#: panel.php:1591
+#@ menu_css3
+msgid "Border Fade"
+msgstr ""
+
+#: panel.php:1592
+#@ menu_css3
+msgid "Hollow"
+msgstr ""
+
+#: panel.php:1593
+#@ menu_css3
+msgid "Trim"
+msgstr ""
+
+#: panel.php:1594
+#@ menu_css3
+msgid "Outline Outward"
+msgstr ""
+
+#: panel.php:1595
+#@ menu_css3
+msgid "Outline Inward"
+msgstr ""
+
+#: panel.php:1596
+#@ menu_css3
+msgid "Round Corners"
+msgstr ""
+
+#: panel.php:1603
+#: panel.php:1619
+#@ menu_css3
+msgid "mode"
+msgstr ""
+
+#: panel.php:1607
+#@ menu_css3
+msgid "Shadow and Glow Transition"
+msgstr ""
+
+#: panel.php:1609
+#@ menu_css3
+msgid "Glow"
+msgstr ""
+
+#: panel.php:1610
+#@ menu_css3
+msgid "Box Shadow Outset"
+msgstr ""
+
+#: panel.php:1611
+#@ menu_css3
+msgid "Box Shadow Inset"
+msgstr ""
+
+#: panel.php:1612
+#@ menu_css3
+msgid "Float Shadow"
+msgstr ""
+
+#: panel.php:1613
+#@ menu_css3
+msgid "Hover Shadow"
+msgstr ""
+
+#: panel.php:1614
+#@ menu_css3
+msgid "Shadow Radial"
+msgstr ""
+
+#: panel.php:1623
+#@ menu_css3
+msgid "Speech Bubbles"
+msgstr ""
+
+#: panel.php:1625
+#@ menu_css3
+msgid "\">"
+msgstr ""
+
+#: panel.php:1625
+#@ menu_css3
+msgid "Curl Top Left"
+msgstr ""
+
+#: panel.php:1626
+#@ menu_css3
+msgid "Curl Top Right"
+msgstr ""
+
+#: panel.php:1627
+#@ menu_css3
+msgid "Curl Bottom Right"
+msgstr ""
+
