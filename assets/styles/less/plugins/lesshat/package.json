@@ -32,10 +32,10 @@
   ],
   "devDependencies": {
     "lesshat-devstack": "git://github.com/csshat/lesshat-devstack",
-    "grunt": "0.4.x",
+    "grunt": "~1.0.3",
     "grunt-cli": "*",
-    "mocha": "1.12.0",
-    "grunt-prompt": "~0.1.2"
+    "mocha": "5.2.0",
+    "grunt-prompt": "~1.3.3"
   },
   "scripts": {
     "test": "grunt test"
