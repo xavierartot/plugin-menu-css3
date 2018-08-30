@@ -1,0 +1,12 @@
+{
+  "groups": {
+    "default": {
+      "packages": [
+        "assets/styles/less/plugins/lesshat/package.json",
+        "bootstrap-tour/frontend/_resources/components/bootstrap-tour/package.json",
+        "bootstrap-tour/frontend/_resources/components/jquery/package.json",
+        "package.json"
+      ]
+    }
+  }
+}
