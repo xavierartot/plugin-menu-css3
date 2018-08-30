@@ -1,5 +1,7 @@
 # Menu Css3
 
+[![Greenkeeper badge](https://badges.greenkeeper.io/xavierartot/plugin-menu-css3.svg)](https://greenkeeper.io/)
+
 * **Minimum Shopware version:** 4.1
 * **Version:** 0.1.0
 * **Author:** xavierartot <artotal@gmail.com>
